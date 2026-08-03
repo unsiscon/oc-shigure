@@ -1,61 +1,33 @@
 
  RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
 
- ✓ src/adapter.test.ts > mapEvent: 周期类 > session.next.step.started → cycle-started 1ms
- ✓ src/adapter.test.ts > mapEvent: 周期类 > session.next.prompted → cycle-started 0ms
- ✓ src/adapter.test.ts > mapEvent: 周期类 > session.next.prompt.admitted → cycle-started 0ms
- ✓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.reasoning.started → reasoning-started 0ms
- ✓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.reasoning.ended → reasoning-ended 0ms
- ✓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.text.started → text-started 0ms
- ✓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.text.ended → text-ended 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.input.started → tool-started（callID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.called → tool-started（callID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.shell.started → tool-started（callID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.success → tool-ended（callID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.shell.ended → tool-ended（callID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.failed → tool-ended（callID, failed:true） 0ms
- ✓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.input.ended → null（输入流结束 ≠ 执行结束） 0ms
- ✓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.asked（id）→ permission-opened（requestID=id） 0ms
- ✓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.v2.asked（id）→ permission-opened（requestID=id） 0ms
- ✓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.replied（requestID）→ permission-closed（requestID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.v2.replied（requestID）→ permission-closed（requestID） 0ms
- ✓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.asked（id）→ question-opened（requestID=id） 0ms
- ✓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.v2.asked（id）→ question-opened（requestID=id） 0ms
- ✓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.replied（requestID）→ question-closed 0ms
- ✓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.rejected（requestID）→ question-closed 0ms
- ✓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.v2.replied（requestID）→ question-closed 0ms
- ✓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.v2.rejected（requestID）→ question-closed 0ms
- ✓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.status type=retry → retry-started 0ms
- ✓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.status type=busy → busy-started 0ms
- ✓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.status type=idle → session-idle 0ms
- ✓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.next.retried（含 sessionID）→ retry-started 且返回非 null 0ms
- ✓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.idle → session-idle 0ms
- ✓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.next.step.failed → cycle-failed 0ms
- ✓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error（非 MessageAbortedError）→ cycle-failed 0ms
- ✓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error 且 error.name=MessageAbortedError → cycle-aborted 0ms
- ✓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error 无 error 字段 → cycle-failed 且不抛错 0ms
- ✓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error missing sessionID 且无 error → 不抛错、按归属规则处理（cycle-failed） 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.text.delta → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.reasoning.delta → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.tool.input.delta → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.tool.progress → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 message.part.updated → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 message.part.delta → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.step.ended → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.compaction.started → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.agent.switched → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.created → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 message.updated → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 permission.replied-unknown → null 0ms
- ✓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未知事件类型（未声明）→ null 且不抛错 0ms
- ✓ src/adapter.test.ts > filterForSession > sessionID 匹配 → true 0ms
- ✓ src/adapter.test.ts > filterForSession > sessionID 不匹配 → false（丢弃） 0ms
- ✓ src/adapter.test.ts > filterForSession > retried 事件按 sessionID 正确过滤分发 0ms
- ✓ src/adapter.test.ts > filterForSession > missing sessionID 的事件不抛错（放行，交由下游 registry 路由） 0ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > internal-b FAIL (Rule 1) 1ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > outer-b PASS 0ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > floating-b FAIL (Rule 1) 0ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > isolated 3(skin) / a(boot)→FAILs (Rule 2) 1ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > token-exemption PASS for single-pixel 4(eye) and 7/8/9 clusters 0ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > --grid PASS parses a checkpoint, lists violations, and writes outline-baseline.txt 218ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > manifest mode --size regular --frame idle filters only regular idle frames 1ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > format-error PASS rejects wrong-length lines and non-legend characters 391ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > parseGrid delegates row decoding to the final-art legend contract 1ms
+ ✓ src/audit-art-noise.test.ts > audit-art-noise > CLI invocation is executable through npx tsx 198ms
 
  Test Files  1 passed (1)
-      Tests  51 passed (51)
-   Start at  08:59:33
-   Duration  86ms (transform 15ms, setup 0ms, import 21ms, tests 3ms, environment 0ms)
+      Tests  10 passed (10)
+   Start at  02:42:49
+   Duration  912ms (transform 29ms, setup 0ms, import 39ms, tests 811ms, environment 0ms)
 
-exit=0
+vitest exit=0
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  02:42:50
+   Duration  90ms (transform 22ms, setup 0ms, import 29ms, tests 7ms, environment 0ms)
+
+manifest exit=0
+AUDIT: 1 frame(s), 0 violation(s)
+probe grid exit=0
+scoped regular idle exit=1
