@@ -1,0 +1,2 @@
+regular/idle/frame 0: 39
+regular/idle/frame 1: 39
