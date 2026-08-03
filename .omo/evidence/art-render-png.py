@@ -27,6 +27,77 @@ SGR_RE = re.compile(r"\x1b\[([0-9;]*)m")
 DARK_BG = (11, 14, 20)      # #0b0e14, xterm dark theme background
 LIGHT_BG = (247, 242, 234)  # #F7F2EA, light preview outline == light theme bg
 
+# --- per-cell index text (T1 render-consistency, todo 2) ---------------------
+# charset .0123456789ab = palette indices 0..12, mirroring src/assets/final.ts
+# ROW_CHARS / decodeRow semantics. Must stay in sync with src/manifest-data.ts
+# SHIGURE_PALETTE (index 0 = transparent). Used for mechanical cross-path diff;
+# the PNG itself is never decoded (no PNG decoder dependency).
+INDEX_CHARS = ".0123456789ab"
+PALETTE_HEX = [
+    "#2a1d1a",  # 1 hairShadow
+    "#4a2b24",  # 2 hairBase
+    "#704739",  # 3 hairLight
+    "#ffd0b4",  # 4 skin
+    "#4ba9ff",  # 5 eyeBlue
+    "#153a78",  # 6 eyeDeep
+    "#242634",  # 7 uniform
+    "#f1e8df",  # 8 trimWarmWhite
+    "#c52f3c",  # 9 ribbonRed
+    "#141820",  # 10 sockBlack
+    "#4b2624",  # 11 bootRedBrown
+    "#17141b",  # 12 outline (== preview outline #17141B)
+]
+MAG = 2  # pixel magnification factor for the index text grid
+
+
+def color_index(color):
+    """SGR rgb tuple -> palette index (0 = transparent when color is None)."""
+    if color is None:
+        return 0
+    return PALETTE_HEX.index("#%02x%02x%02x" % color) + 1
+
+
+def cell_top_bottom(ch, fg, bg):
+    """Half-block cell -> (top, bottom) palette indices (renderFrame semantics).
+
+    ' ' -> transparent/transparent; '▀' -> fg over (bg or transparent);
+    '▄' -> transparent over fg; '█' -> fg over fg.
+    """
+    if ch == " ":
+        return 0, 0
+    if ch == "\u2580":  # ▀
+        return color_index(fg), color_index(bg)
+    if ch == "\u2584":  # ▄
+        return 0, color_index(fg)
+    if ch == "\u2588":  # █
+        index = color_index(fg)
+        return index, index
+    raise ValueError("unexpected glyph %r" % ch)
+
+
+def write_index_text(frames, path):
+    """Emit per-cell palette index text, each logical pixel magnified MAGxMAG."""
+    lines = [
+        "# render-consistency-png-index: per-cell palette index text derived from art-preview-regular.txt ANSI",
+        "# charset: .0123456789ab = palette indices 0..12 (0 = transparent); each logical pixel magnified %dx%d"
+        % (MAG, MAG),
+    ]
+    for state, flabel, rows in frames:
+        lines.append("## %s %s (%dx%d logical, %dx%d magnified)" % (state, flabel, len(rows[0]), len(rows), MAG, MAG))
+        for row in rows:
+            top_indices, bottom_indices = [], []
+            for ch, fg, bg in row:
+                top, bottom = cell_top_bottom(ch, fg, bg)
+                top_indices.append(top)
+                bottom_indices.append(bottom)
+            for indices in (top_indices, bottom_indices):
+                text = "".join(INDEX_CHARS[i] * MAG for i in indices)
+                # vertical magnification: each logical pixel row -> MAG text rows
+                lines.extend([text] * MAG)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    print("wrote %s (%d frames)" % (path, len(frames)))
+
 
 def parse_sgr(params: str):
     fg = bg = None
@@ -119,6 +190,31 @@ def parse_preview(path):
     return frames
 
 
+def parse_preview_raw(path):
+    """Like parse_preview but keeps blank (all-space) rows; used only for the
+    per-cell index text so the 24x24 grid is not compressed vertically."""
+    frames = []
+    pending = None
+    state = None
+    with open(path, encoding="utf-8") as f:
+        for raw in f:
+            line = raw.rstrip("\n")
+            if line.startswith("## "):
+                if pending:
+                    frames.append(pending)
+                state = line[3:].split(" (")[0]
+                pending = None
+            elif line.startswith("frame "):
+                if pending:
+                    frames.append(pending)
+                pending = [state, line, []]
+            elif pending is not None and line:
+                pending[2].append(list(parse_cells(line)))
+    if pending:
+        frames.append(pending)
+    return frames
+
+
 def render_contact(frames, bg, font):
     frame_w = max(len(r) for _, _, rows in frames for r in rows) * CELL_W
     frame_h = max(len(rows) for _, _, rows in frames) * CELL_H
@@ -164,6 +260,10 @@ def main():
         out = os.path.join(HERE, os.path.splitext(name)[0] + ".png")
         render_contact(frames, bg, load_font(30)).save(out)
         print("wrote %s (%d frames)" % (out, len(frames)))
+        # T1 (todo 2): the regular preview additionally emits the per-cell index
+        # text that participates in the three-path mechanical comparison.
+        if name == "art-preview-regular.txt":
+            write_index_text(parse_preview_raw(path), os.path.join(HERE, "render-consistency-png-index.txt"))
 
 
 if __name__ == "__main__":

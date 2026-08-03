@@ -1,15 +1,17 @@
-
- RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
-
- ✓ src/config.test.ts > config > defaults: 空 KV → 默认三项 1ms
- ✓ src/config.test.ts > config > defaults: set 后回读一致 0ms
- ↓ src/config.test.ts > config > illegal > illegal: enabled="垃圾" → 仅 enabled 回退默认，size/animations 保留
- ↓ src/config.test.ts > config > illegal > illegal: size="huge" → 仅 size 回退默认，enabled/animations 保留
- ↓ src/config.test.ts > config > illegal > illegal: animations=null → 仅 animations 回退默认，enabled/size 保留
-
- Test Files  1 passed (1)
-      Tests  2 passed | 3 skipped (5)
-   Start at  08:55:59
-   Duration  87ms (transform 12ms, setup 0ms, import 17ms, tests 2ms, environment 0ms)
-
-exit=0
+HAPPY: three-path consistent
+# --- 环境前检（4 项，逐项 PASS/降级） ---
+PASS 1. ~/.omo/omo.jsonc: multimodal-looker 配置存在且非 disabled（agents.multimodal-looker.model = qwen-vl-local/qwen2.5vl:7b；disabled_agents 仅含 hephaestus）
+PASS 2. ~/.config/opencode/tui.json: plugin 数组含绝对路径条目 "/Users/unsis/code/opcode/opcopet/dist/tui.js"
+PASS 3. design/art-v2/: shigure-v3-master-crop.png + shigure-v2-uniform-crop.png + shigure-pixel-data.json 均存在
+PASS 4. /tmp/cap2.py + /tmp/shigure2.ansi 均存在 -> 已复制到 .omo/evidence/capture/（cap2.py=888B, shigure2.ansi=132028B, sha256 与原文件一致）；todo 8 反向推导计数口径备用
+# --- 第四路径证据（用户已完成观察） ---
+NOTE 真实 TUI 重启观察（用户已实测完成）：灰点消失。本 todo 仅文档化该观察作为第四路径证据；真实终端捕获工具重建属 todo 8，不在此处。
+# --- b 像素内外分布计数（final.ts regular idle 帧 1，outline #17141B，审计门阈值基线） ---
+b total=84 internal=84 external=0（外边界 = x/y ∈ {0,23}；机械计数自 render-consistency-index.txt，非人工目测）
+# --- 三路径一致性结论 ---
+verdict: CONSISTENT (三路径同构) — render-consistency.ts 逐格机械 diff：0 差异
+paths: (a) npx tsx scripts/preview-assets.ts 半块文本（preview-assets.ts:38 复用 renderFrame）
+       (b) /usr/bin/python3 .omo/evidence/art-render-png.py 像素放大（render-consistency-png-index.txt 参与比对）
+       (c) npx tsx scripts/render-consistency.ts 索引矩阵（render-consistency-index.txt）
+evidence: render-consistency.log (rc exit=0) / render-consistency-diff.txt（仅 no-diff 注释行）
+baseline commit: 3ebb2a8 (baseline-v4d)，未改任何 src/ 文件

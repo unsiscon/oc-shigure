@@ -1,0 +1,8 @@
+render-consistency: frame=regular idle 1 outline=#17141B
+(c) index matrix -> .omo/evidence/render-consistency-index.txt (24x24)
+(a) half-block path: parsed 12 terminal rows -> 24x24 index matrix
+(b) png-magnified path: parsed 48 magnified rows -> 24x24 index matrix
+comparison: 0 diff cell(s)
+b-pixel counts (regular idle frame 1): total=84 internal=84 external=0
+verdict: CONSISTENT (三路径同构)
+rc exit=0

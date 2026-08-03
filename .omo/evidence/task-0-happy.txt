@@ -1,0 +1,9 @@
+?? .omo/evidence/task-0-happy.txt
+status exit=0
+3ebb2a8 chore: baseline v4d pre-art-fix
+git rev-parse: true
+--- tags ---
+baseline-v4d
+--- ls-remote origin ---
+3ebb2a8b313a49b49cdd180307ce23e9925869b9	HEAD
+3ebb2a8b313a49b49cdd180307ce23e9925869b9	refs/heads/main
