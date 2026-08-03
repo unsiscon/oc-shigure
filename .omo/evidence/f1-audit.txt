@@ -1,0 +1,71 @@
+F1 Plan compliance audit — opco-shigure-tui-skeleton
+====================================================
+Date: 2026-08-03 (local)
+Auditor: F1 agent (read-only; no src/ or plan state modified)
+Plan file: .omo/plans/opco-shigure-tui-skeleton.md (lines 319-323)
+
+RESULT: PASS (all items green)
+
+1. Todo checkbox state (plan file)
+----------------------------------
+  - [x] 1. 包骨架 + 领域类型 + 配置层        (line 87)   PASS
+  - [x] 2. SDK 事件适配器                    (line 109)  PASS
+  - [x] 3. 状态归约器（S01-S15）              (line 145)  PASS
+  - [x] 4. 动画控制器                        (line 171)  PASS
+  - [x] 5. CharacterManifest + 占位帧 + 校验器 (line 195) PASS
+  - [x] 6. 半块渲染器                        (line 219)  PASS
+  - [x] 7. 会话控制器注册表 + Solid 侧栏组件   (line 244)  PASS
+  - [x] 8. TUI 入口 + 命令 + 生命周期 + 冒烟  (line 274)  PASS
+  All 8 implementation todos marked [x]. No todo left unchecked.
+
+2. Acceptance commands (freshly executed, exit codes recorded)
+--------------------------------------------------------------
+  npm run typecheck        -> exit=0   PASS
+  npm test                 -> exit=0   PASS  (7 files, 135 tests green)
+  npm run validate-assets  -> exit=0   PASS  ("PASS: asset manifest validation passed")
+  npm run build            -> exit=0   PASS  (tsup ESM dist/tui.js 44.52 KB + dist/tui.d.ts 176 B)
+  npm pack --dry-run       -> exit=0   PASS  (tarball: README.md, dist/tui.d.ts, dist/tui.js,
+                                              package.json; NO node_modules; exports["./tui"].import
+                                              -> ./dist/tui.js; dist rebuilt immediately before pack,
+                                              no stale-state)
+
+3. Evidence files (.omo/evidence/) — presence + non-empty
+---------------------------------------------------------
+  task-1-happy.txt     742 B    PASS
+  task-1-failure.txt   746 B    PASS
+  task-2-happy.txt    6419 B    PASS
+  task-2-failure.txt  6235 B    PASS
+  task-3-happy.txt    3660 B    PASS
+  task-3-failure.txt  7317 B    PASS
+  task-4-happy.txt    1569 B    PASS
+  task-4-failure.txt  1569 B    PASS
+  task-5-happy.txt      46 B    PASS  (contains "PASS: asset manifest validation passed" + exit=0)
+  task-5-failure.txt   217 B    PASS
+  task-6-happy.txt    1477 B    PASS
+  task-6-failure.txt  1477 B    PASS
+  task-7-happy.txt    9039 B    PASS
+  task-7-failure.txt  6370 B    PASS
+  task-8-happy.txt    4248 B    PASS  (build chain + pack verification + 23/23 smoke steps)
+  task-8-failure.txt  1162 B    PASS
+  task-8-smoke.typescript  115303 B  PASS  (PTY capture; 142 lines w/ pet block/label markers;
+                                           authoritative render evidence)
+  task-8-fallback.txt  2251 B    PASS  (records limitations: working-state not observable on
+                                       1.18.10 event bus; bare npm spec blocks loading — covered
+                                       by S01-S15 unit tests + absolute-path fallback)
+  task-8-terminal.txt  2624 B    PASS  (terminal matrix: Apple Terminal, xterm-256color,
+                                       COLORTERM=truecolor, dark theme, opencode 1.18.10)
+  tui.json.backup       102 B    PASS  (pre-smoke backup of ~/.config/opencode/tui.json)
+
+4. Todo 8 extra acceptance cross-checks
+---------------------------------------
+  ~/.config/opencode/tui.json contains absolute-path entry
+    "/Users/unsis/code/opcode/opcopet/dist/tui.js" and is RETAINED   PASS
+  package.json exports["./tui"].import = "./dist/tui.js"             PASS
+  Smoke assertions (task-8-happy.txt): pet-render-idle (11 block rows /
+    179 block chars), 待机 label, order-600 stacking after Context/MCP/LSP,
+    real task -> 思考/完成, 23/23 steps PASS                          PASS
+  Privacy grep zero-hit per task-8-happy.txt (todo 8 §5)             PASS
+
+CONCLUSION: PASS — all 8 todos' Acceptance achieved; all 5 acceptance
+commands exit 0; all 20 evidence files present and non-empty; no missing
+items. No src/, docs/ or plan-state modification performed.

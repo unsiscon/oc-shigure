@@ -1,0 +1,70 @@
+opco-shigure todo 8 — HAPPY PATH evidence (2026-08-03)
+======================================================
+
+1. BUILD CHAIN (all exit 0)
+---------------------------
+  npm run build           -> PASS  (tsup: dist/tui.js 44.52KB ESM + dist/tui.d.ts 176B, dist/README.txt placeholder cleared)
+  npm run typecheck       -> PASS  (tsc --noEmit, 0 errors)
+  npm test                -> PASS  7 files / 135 tests green (adapter/reducer/animation/manifest/renderer/config/registry)
+  npm run validate-assets -> PASS  (asset manifest validation passed)
+
+2. PACK VERIFICATION
+--------------------
+  npm pack -> opco-shigure-0.1.0.tgz (4 files):
+    package/dist/tui.js
+    package/dist/tui.d.ts
+    package/package.json
+    package/README.md
+  package.json exports["./tui"] = { import: "./dist/tui.js", types: "./dist/tui.d.ts" }  (verified from tarball)
+  No ./server export. files=["dist"].
+
+3. REAL TUI SMOKE — 23/23 PASS (evidence: .omo/evidence/task-8-smoke.typescript)
+   Stack: python pty (TIOCSWINSZ 200x50) + opencode 1.18.10, real
+   ~/.config/opencode/tui.json with absolute-path plugin entry
+   "/Users/unsis/code/opcode/opcopet/dist/tui.js". 30s per-step timeouts.
+  - S1  tui-up              PASS  home screen rendered
+  - S2  task-complete       PASS  real task: "write .omo/evidence/hello.txt" -> Done. visible; file created
+  - S3  provider-task-states PASS  labels observed: 思考 (0.4s) -> 完成 (8.2s) -> 待机 (10.5s)
+  - S5  pet-render-idle     PASS  11 block rows / 179 block chars (authoritative render evidence)
+  - S6  idle-label          PASS  待机 label at row 30 col 177 (sidebar region)
+  - S7  order-600           PASS  builtin rows: Context=3, MCP=8, LSP=15; pet top row=19 (stacked AFTER builtins)
+  - S4  waiting-trigger     PASS  等待 observed at 4.6s after question prompt; answered "n"
+  - S8  cmd-hide            PASS  block rows after hide = 0; kv enabled=False
+  - S9  cmd-show            PASS  block rows restored = 11; kv enabled=True
+  - S10 cmd-compact         PASS  max 12 block chars/row (16x8 grid); kv size=compact
+  - S11 cmd-regular         PASS  max 20 block chars/row (24x12 grid); kv size=regular
+  - S12 cmd-anim-off        PASS  kv animations=False; pet STILL rendered (FR-4 label remains)
+  - S13 cmd-anim-on         PASS  kv animations=True
+  - S14 final-state         PASS  pet visible + 待机 label
+  - S15 resize-reflow       PASS  200x50 -> 120x40 -> 200x50; pet re-rendered
+  - S16 theme-switch        PASS  palette -> light theme, pet rendered, restored to dark
+  - S17 load-evidence       PASS  plugin-meta load_count 58 -> 59 (plugin loaded)
+  Cleanup: .omo/evidence/hello.txt removed after smoke.
+
+4. MOCK INSTALL (npm-spec resolution) — PARTIAL, limitation recorded
+   scratch: /var/folders/.../T/opcode/mock-install
+     node_modules/opco-shigure = unpacked tarball (dist/tui.js + package.json)
+     config/opencode/tui.json = {"plugin": ["opco-shigure"]}
+     isolated XDG_CONFIG_HOME/STATE/DATA/CACHE
+   Result: bare-spec resolution BLOCKS plugin loading ("Loading plugins..." spinner;
+   no home screen within 30-60s). Root cause verified: npm registry returns
+   404 for opco-shigure (0.76s, {"error":"Not found"}) — package is
+   unpublished (private:true) and publishing is out of scope for this todo.
+   Control: same scratch env with {"plugin": []} boots in 2.2s.
+   Fallback per plan: absolute-path entry — ALREADY PROVEN by the real smoke
+   above (23/23) with the same dist/tui.js the tarball ships.
+   Note: exports["./tui"] mapping itself verified structurally in the tarball;
+   the file-plugin load path (import of dist/tui.js default module) is the
+   same ESM module the exports map resolves to.
+
+5. PRIVACY / SCOPE (zero hits)
+------------------------------
+  grep -rn "fetch(\|WebSocket\|child_process\|exec(\|spawn(" dist/   -> 0 hits
+  grep -rnE "(from '(node:)?(http|https|child_process|net|ws)\b|fetch\(|WebSocket|
+              child_process|spawn\(|exec\(|sixel|kitty|\.png)" src/ dist/ -> 0 hits
+  package.json exports: ["./tui"] only (no ./server)
+
+6. CONFIG RETAINED
+------------------
+  ~/.config/opencode/tui.json still contains the opco-shigure absolute-path
+  entry (kept enabled, user-confirmed). Backup at .omo/evidence/tui.json.backup.

@@ -1,0 +1,5 @@
+FAIL: asset manifest validation failed
+- regular/idle/frame 0 pixel 0: palette index 255 is out of range
+- regular/idle/frame 0: top edge is not transparent
+- regular/idle/frame 0: left edge is not transparent
+exit=1

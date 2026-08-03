@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "active_work_id": "opco-shigure-art-terminal-fix-9f3e2a11",
+  "works": {
+    "opco-shigure-tui-skeleton-cdc70900": {
+      "work_id": "opco-shigure-tui-skeleton-cdc70900",
+      "active_plan": "/Users/unsis/code/opcode/opcopet/.omo/plans/opco-shigure-tui-skeleton.md",
+      "plan_name": "opco-shigure-tui-skeleton",
+      "status": "completed",
+      "started_at": "2026-08-03T05:41:43.665Z",
+      "updated_at": "2026-08-03T11:24:20.573Z",
+      "session_ids": [
+        "opencode:ses_03d5d3710ffeq55U4zwxanDF1Z",
+        "opencode:ses_038a9ddb6ffe2ZhvvDsMf1WkQp"
+      ],
+      "session_origins": {
+        "opencode:ses_03d5d3710ffeq55U4zwxanDF1Z": "direct",
+        "opencode:ses_038a9ddb6ffe2ZhvvDsMf1WkQp": "appended"
+      },
+      "agent": "atlas",
+      "task_sessions": {},
+      "completed_at": "2026-08-03T14:10:00Z",
+      "ended_at": "2026-08-03T06:06:33.302Z",
+      "elapsed_ms": 1489637
+    },
+    "opco-shigure-art-terminal-fix-9f3e2a11": {
+      "work_id": "opco-shigure-art-terminal-fix-9f3e2a11",
+      "active_plan": "/Users/unsis/code/opcode/opcopet/.omo/plans/opco-shigure-art-terminal-fix.md",
+      "plan_name": "opco-shigure-art-terminal-fix",
+      "session_ids": [
+        "opencode:ses_0373b32beffeiWuG0fjkISelQ5"
+      ],
+      "status": "active",
+      "started_at": "2026-08-04T00:00:00.000Z",
+      "updated_at": "2026-08-04T00:00:00.000Z",
+      "session_origins": {
+        "opencode:ses_0373b32beffeiWuG0fjkISelQ5": "direct"
+      },
+      "agent": "atlas",
+      "task_sessions": {},
+      "worktree_path": null
+    }
+  },
+  "active_plan": "/Users/unsis/code/opcode/opcopet/.omo/plans/opco-shigure-art-terminal-fix.md",
+  "started_at": "2026-08-04T00:00:00.000Z",
+  "status": "active",
+  "updated_at": "2026-08-04T00:00:00.000Z",
+  "session_ids": [
+    "opencode:ses_0373b32beffeiWuG0fjkISelQ5"
+  ],
+  "plan_name": "opco-shigure-art-terminal-fix",
+  "agent": "atlas",
+  "task_sessions": {}
+}

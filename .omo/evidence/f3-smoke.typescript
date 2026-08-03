@@ -1,0 +1,621 @@
+[14:02:40] plugin-meta load_count before: 60
+[14:02:43] RESULT S1 tui-up PASS: S1 tui-up home screen rendered
+[14:02:45] --- snapshot S1-home (200x50) ---
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                  ▄                                                                                     
+                                                                                 █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀▀ █▀▀█ █▀▀█ █▀▀█                                                                                
+                                                                                 █  █ █  █ █▀▀▀ █  █ █    █  █ █  █ █▀▀▀                                                                                
+                                                                                 ▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀                                                                                
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                               ┃                                                                                                                                        
+                                                               ┃  Ask anything... "What is the tech stack of this project?"                                                                             
+                                                               ┃                                                                                                                                        
+                                                               ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                    
+                                                               ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                                              
+                                                               tab agents  ctrl+p commands                                                                                                              
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                   ● Tip Configure "git push": "ask" to require approval before pushing                                                                 
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+  ~/code/opcode/opcopet                                                                                                                                                                        1.18.10  
+                                                                                                                                                                                                        
+
+[14:02:45] SENT b'write the file .omo/evidence/f3-hello.txt with content hello\r' (S2 task prompt)
+[14:02:45] LABEL SEEN (sidebar region): 思考 at 0.4s
+[14:02:53] LABEL SEEN (sidebar region): 完成 at 8.3s
+[14:02:56] LABEL SEEN (sidebar region): 待机 at 10.8s
+[14:03:15] --- snapshot S2-after-task (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           24,720 tokens                           
+                                                                                                                                                                2% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                                                                                                                • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                                                                                                                LSP                                     
+                                                                                                                                                                LSPs will activate as files are read    
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                           ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+                                                                                                                                                                         ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                                                                                                                         ██████▀▀████▀▀██████           
+                                                                                                                                                                         ████████████████████           
+                                                                                                                                                                         ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+                                                                                                                                                                         ██████████████████             
+                                                                                                                                                                         ▀▀████████████████             
+                                                                                                                                                                           ████████████████             
+                                                                                                                                                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+                                                                                                                                                                             ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                 待机                   
+                                                                                                                                                                                                        
+                                                                                                                                                                ┌───────────────────────────────────┐   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                │ Agents                            │   
+                                                                                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      24.7K (2%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:03:15] RESULT S2 task-complete PASS: S2 task-complete hello.txt written (Done. visible)
+[14:03:15] RESULT S3 provider-task-states PASS: S3 provider-task-states labels seen: ['思考', '完成', '待机'] (working 不可达：1.18.10 不投递 session.next.*)
+[14:03:15] task labels observed: ['思考', '完成', '待机']
+[14:03:17] --- snapshot S3-idle (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           24,720 tokens                           
+                                                                                                                                                                2% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                                                                                                                • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                                                                                                                LSP                                     
+                                                                                                                                                                LSPs will activate as files are read    
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                           ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+                                                                                                                                                                         ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                                                                                                                         ██████▀▀████▀▀██████           
+                                                                                                                                                                         ████████████████████           
+                                                                                                                                                                         ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+                                                                                                                                                                         ██████████████████             
+                                                                                                                                                                         ▀▀████████████████             
+                                                                                                                                                                           ████████████████             
+                                                                                                                                                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+                                                                                                                                                                             ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                 待机                   
+                                                                                                                                                                                                        
+                                                                                                                                                                ┌───────────────────────────────────┐   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                │ Agents                            │   
+                                                                                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      24.7K (2%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:03:17] RESULT S5 pet-render-idle PASS: S5 pet-render-idle block rows=11 count=179
+[14:03:17] RESULT S6 idle-label PASS: S6 idle-label idle hits=[(31, 177)]
+[14:03:17] RESULT S7 order-600 PASS: S7 order-600 builtin rows={'Context': 4, 'MCP': 9, 'LSP': 16} pet_top_row=20
+[14:03:17] SENT b'Before doing anything, ask me one yes/no question and wait for my answer. Do not proceed until I answer.\r' (S4 waiting trigger)
+[14:03:17] LABEL SEEN during waiting probe: 待机 at 0.0s
+[14:03:21] LABEL SEEN during waiting probe: 等待 at 3.6s
+[14:03:21] --- snapshot S4-waiting-probe (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           24,720 tokens                           
+                                                                                                                                                                2% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                                                                                                                • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                                                                                                                LSP                                     
+  ┃                                                                                                                                                             LSPs will activate as files are read    
+  ┃  Before doing anything, ask me one yes/no question and wait for my answer. Do not proceed until I answer.                                                                                           
+  ┃                                                                                                                                                                          ▄▄▄▄▄▄▄▄▄▄▄▄               
+                                                                                                                                                                         ▄▄▀██▀███████████▀▄▄           
+     + Thought: 888ms                                                                                                                                                    ███▀██▀▀████▀▀██▀███           
+                                                                                                                                                                         ████████████████████           
+     → Asked 1 question                                                                                                                                                  ▀▀▀▀████████████▀▀█▀           
+                                                                                                                                                                         ██ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄              
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New)                                                                                                                 ▀▀████████████████             
+                                                                                                                                                                           ████████████████             
+                                                                                                                                                                           ████████████████             
+                                                                                                                                                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+                                                                                                                                                                             ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                 等待                   
+                                                                                                                                                                                                        
+                                                                                                                                                                ┌───────────────────────────────────┐   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                │ Agents                            │   
+                                                                                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+  ┃                                                                                                                                                             │ sisyphus-junior busy              │   
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-hello.txt with content hello)?                                                            │ sisyphus-junior busy              │   
+  ┃                                                                                                                                                             │ sisyphus-junior busy              │   
+  ┃  1. Yes                                                                                                                                                     │                                   │   
+  ┃     Proceed with the task                                                                                                                                   └───────────────────────────────────┘   
+  ┃  2. No                                                                                                                                                                                              
+  ┃     Do not proceed                                                                                                                                                                                  
+  ┃  3. Type your own answer                                                                                                                                                                            
+  ┃                                                                                                                                                             ~/code/opcode/opcopet                   
+  ┃  ↑↓ select  enter submit  esc dismiss                                                                                                                                                               
+  ┃                                                                                                                                                             • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:03:21] RESULT S4 waiting-trigger PASS: S4 waiting-trigger labels seen: ['待机', '等待'] (env may auto-approve everything)
+[14:03:21] SENT b'n\r' (S4 answer no)
+[14:03:27] SENT b'\x1b' (S8 close stray overlay)
+[14:03:27] SENT b'\x10' (S8 open palette)
+[14:03:29] SENT b'Show/Hide Pet' (S8 type filter)
+[14:03:30] SENT b'\r' (S8 execute)
+[14:03:33] RESULT S8 cmd-hide PASS: S8 cmd-hide block rows after hide=0
+[14:03:33] RESULT S8kv enabled PASS: S8kv enabled kv=False
+[14:03:33] SENT b'\x1b' (S9 close stray overlay)
+[14:03:34] SENT b'\x10' (S9 open palette)
+[14:03:35] SENT b'Show/Hide Pet' (S9 type filter)
+[14:03:36] SENT b'\r' (S9 execute)
+[14:03:39] RESULT S9 cmd-show PASS: S9 cmd-show block rows after show=11
+[14:03:39] RESULT S9kv enabled PASS: S9kv enabled kv=True
+[14:03:39] SENT b'\x1b' (S10 close stray overlay)
+[14:03:40] SENT b'\x10' (S10 open palette)
+[14:03:41] SENT b'Regular/Compact Size' (S10 type filter)
+[14:03:42] SENT b'\r' (S10 execute)
+[14:03:45] RESULT S10 cmd-compact PASS: S10 cmd-compact max block chars per row=12 (expect <=16)
+[14:03:45] RESULT S10kv size PASS: S10kv size kv='compact'
+[14:03:45] SENT b'\x1b' (S11 close stray overlay)
+[14:03:46] SENT b'\x10' (S11 open palette)
+[14:03:47] SENT b'Regular/Compact Size' (S11 type filter)
+[14:03:49] SENT b'\r' (S11 execute)
+[14:03:52] RESULT S11 cmd-regular PASS: S11 cmd-regular max block chars per row=20 (expect ~24)
+[14:03:52] RESULT S11kv size PASS: S11kv size kv='regular'
+[14:03:52] SENT b'\x1b' (S12 close stray overlay)
+[14:03:52] SENT b'\x10' (S12 open palette)
+[14:03:53] SENT b'Enable/Disable Animations' (S12 type filter)
+[14:03:55] SENT b'\r' (S12 execute)
+[14:03:58] RESULT S12 cmd-anim-off PASS: S12 cmd-anim-off kv=False pet still rendered=True
+[14:03:58] RESULT S12kv anim PASS: S12kv anim kv=False
+[14:03:58] SENT b'\x1b' (S13 close stray overlay)
+[14:03:58] SENT b'\x10' (S13 open palette)
+[14:04:00] SENT b'Enable/Disable Animations' (S13 type filter)
+[14:04:01] SENT b'\r' (S13 execute)
+[14:04:04] RESULT S13 cmd-anim-on PASS: S13 cmd-anim-on kv=True
+[14:04:04] RESULT S13kv anim PASS: S13kv anim kv=True
+[14:04:05] --- snapshot S14-final (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           26,850 tokens                           
+                                                                                                                                                                3% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                                                                                                                • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                                                                                                                LSP                                     
+  ┃                                                                                                                                                             LSPs will activate as files are read    
+  ┃  Before doing anything, ask me one yes/no question and wait for my answer. Do not proceed until I answer.                                                                                           
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                           ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+     + Thought: 888ms                                                                                                                                                    ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                                                                                                                         ██████▀▀████▀▀██████           
+  ┃                                                                                                                                                                      ████████████████████           
+  ┃  # Questions                                                                                                                                                         ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+  ┃                                                                                                                                                                      ██████████████████             
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-hello.txt with content hello)?                                                                     ▀▀████████████████             
+  ┃  Yes                                                                                                                                                                   ████████████████             
+  ┃                                                                                                                                                                         ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+     + Thought: 1.5s                                                                                                                                                         ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                 待机                   
+     → Read .omo/evidence/f3-hello.txt                                                                                                                                                                  
+                                                                                                                                                                ┌───────────────────────────────────┐   
+     Confirmed. .omo/evidence/f3-hello.txt exists with content hello.                                                                                           │                                   │   
+                                                                                                                                                                │ Agents                            │   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 11.8s                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      26.9K (3%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:04:05] RESULT S14 final-state PASS: S14 final-state pet visible, idle label present
+[14:04:08] resize 120x40: sidebar block chars=179 (FR-1 narrow may hide sidebar)
+[14:04:11] --- snapshot S15-resize-restore (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt     █  
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                           █  
+  ┃                                                                                                                                                                                                  █  
+                                                                                                                                                                Context                              █  
+     + Thought: 501ms                                                                                                                                           26,850 tokens                        █  
+                                                                                                                                                                3% used                              █  
+  ┃                                                                                                                                                             $0.00 spent                          █  
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                              █  
+  ┃                                                                                                                                                             ▼ MCP                                █  
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                 █  
+  ┃                                                                                                                                                             • context7 Connected                 █  
+                                                                                                                                                                • grep_app Connected                 █  
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                      █  
+                                                                                                                                                                • websearch Connected                █  
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                      █  
+                                                                                                                                                                LSP                                  █  
+  ┃                                                                                                                                                             LSPs will activate as files are read █  
+  ┃  Before doing anything, ask me one yes/no question and wait for my answer. Do not proceed until I answer.                                                                                        █  
+  ┃                                                                                                                                                                                                  █  
+                                                                                                                                                                          ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄           █  
+     + Thought: 888ms                                                                                                                                                   ████▀▀▀▀▀▀▀▀▀▀▀▀████         █  
+                                                                                                                                                                        ██████▀▀████▀▀██████         █  
+  ┃                                                                                                                                                                     ████████████████████            
+  ┃  # Questions                                                                                                                                                        ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀             
+  ┃                                                                                                                                                                     ██████████████████              
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-hello.txt with content hello)?                                                                    ▀▀████████████████              
+  ┃  Yes                                                                                                                                                                  ████████████████              
+  ┃                                                                                                                                                                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀               
+                                                                                                                                                                             ████  ████                 
+     + Thought: 1.5s                                                                                                                                                        ▄▀▀▀█  █▀▀▀▄                
+                                                                                                                                                                                待机                    
+     → Read .omo/evidence/f3-hello.txt                                                                                                                                                                  
+                                                                                                                                                                ┌──────────────────────────────────┐    
+     Confirmed. .omo/evidence/f3-hello.txt exists with content hello.                                                                                           │                                  │    
+                                                                                                                                                                │ Agents                           │    
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 11.8s                                                                                                │ atlas - plan executor busy       │    
+                                                                                                                                                                │ oracle busy                      │    
+                                                                                                                                                                │ sisyphus-junior busy             │    
+                                                                                                                                                                │                                  │    
+                                                                                                                                                                └──────────────────────────────────┘    
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      26.9K (3%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:04:11] RESULT S15 resize-reflow PASS: S15 resize-reflow pet re-rendered after 200x50 restore
+[14:04:11] SENT b'\x1b' (S16 close stray overlay)
+[14:04:12] SENT b'\x10' (S16 open palette)
+[14:04:14] SENT b'theme' (S16 filter theme)
+[14:04:15] --- snapshot S16-theme-command (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           26,850 tokens                           
+                                                                                                                                                                3% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                          Commands                                         esc                                  • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                          theme                                                                                 LSP                                     
+  ┃                                                                                                                                                             LSPs will activate as files are read    
+  ┃  Before doing anything, ask me one yes/no question and wait for my    System                                                                                                                        
+  ┃                                                                       Switch theme                                ctrl+x t                                                                          
+                                                                          Lock theme mode                                                                                  ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+     + Thought: 888ms                                                                                                                                                    ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                                                                                                                         ██████▀▀████▀▀██████           
+  ┃                                                                                                                                                                      ████████████████████           
+  ┃  # Questions                                                                                                                                                         ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+  ┃                                                                                                                                                                      ██████████████████             
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-hello.txt with content hello)?                                                                     ▀▀████████████████             
+  ┃  Yes                                                                                                                                                                   ████████████████             
+  ┃                                                                                                                                                                         ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+     + Thought: 1.5s                                                                                                                                                         ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                                        
+     → Read .omo/evidence/f3-hello.txt                                                                                                                                                                  
+                                                                                                                                                                ┌───────────────────────────────────┐   
+     Confirmed. .omo/evidence/f3-hello.txt exists with content hello.                                                                                           │                                   │   
+                                                                                                                                                                │ Agents                            │   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 11.8s                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      26.9K (3%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:04:15] SENT b'\r' (S16 execute switch theme)
+[14:04:17] --- snapshot S16-theme-list (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           26,850 tokens                           
+                                                                                                                                                                3% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                          Themes                                           esc                                  • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                          Search                                                                                LSP                                     
+  ┃                                                                                                                                                             LSPs will activate as files are read    
+  ┃  Before doing anything, ask me one yes/no question and wait for my    aura                                                                                                                          
+  ┃                                                                       ayu                                                                                                                           
+                                                                          carbonfox                                                                                        ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+     + Thought: 888ms                                                     catppuccin                                                                                     ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                          catppuccin-frappe                                                                              ██████▀▀████▀▀██████           
+  ┃                                                                       catppuccin-macchiato                                                                           ████████████████████           
+  ┃  # Questions                                                          cobalt2                                                                                        ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+  ┃                                                                       cursor                                                                                         ██████████████████             
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-    dracula                                                                                        ▀▀████████████████             
+  ┃  Yes                                                                  everforest                                                                                       ████████████████             
+  ┃                                                                       flexoki                                                                                           ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                          github                                                                                              ████  ████                
+     + Thought: 1.5s                                                      gruvbox                                                                                            ▄▀▀▀█  █▀▀▀▄               
+                                                                          kanagawa                                                                                                                      
+     → Read .omo/evidence/f3-hello.txt                                    lucent-orng                                                                                                                   
+                                                                          material                                                                              ┌───────────────────────────────────┐   
+     Confirmed. .omo/evidence/f3-hello.txt exists with content hello.     matrix                                                                                │                                   │   
+                                                                          mercury                                                                               │ Agents                            │   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 11.8s          monokai                                                                               │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      26.9K (3%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:04:17] SENT b'light' (S16 filter light)
+[14:04:19] SENT b'\r' (S16 apply light theme)
+[14:04:22] --- snapshot S16-theme-light (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           26,850 tokens                           
+                                                                                                                                                                3% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                                                                                                                • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                                                                                                                LSP                                     
+  ┃                                                                                                                                                             LSPs will activate as files are read    
+  ┃  Before doing anything, ask me one yes/no question and wait for my answer. Do not proceed until I answer.                                                                                           
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                           ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+     + Thought: 888ms                                                                                                                                                    ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                                                                                                                         ██████▀▀████▀▀██████           
+  ┃                                                                                                                                                                      ████████████████████           
+  ┃  # Questions                                                                                                                                                         ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+  ┃                                                                                                                                                                      ██████████████████             
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-hello.txt with content hello)?                                                                     ▀▀████████████████             
+  ┃  Yes                                                                                                                                                                   ████████████████             
+  ┃                                                                                                                                                                         ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+     + Thought: 1.5s                                                                                                                                                         ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                 待机                   
+     → Read .omo/evidence/f3-hello.txt                                                                                                                                                                  
+                                                                                                                                                                ┌───────────────────────────────────┐   
+     Confirmed. .omo/evidence/f3-hello.txt exists with content hello.                                                                                           │                                   │   
+                                                                                                                                                                │ Agents                            │   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 11.8s                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      26.9K (3%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:04:22] light theme applied, pet rendered=True
+[14:04:22] SENT b'\x1b' (S16-restore close stray overlay)
+[14:04:22] SENT b'\x10' (S16-restore open palette)
+[14:04:24] SENT b'theme' (S16-restore filter theme)
+[14:04:26] SENT b'\r' (S16-restore switch)
+[14:04:28] SENT b'dark' (S16-restore filter dark)
+[14:04:29] SENT b'\r' (S16-restore apply)
+[14:04:32] --- snapshot S16-theme-restored (200x50) ---
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                             Write .omo/evidence/f3-hello.txt        
+  ┃  write the file .omo/evidence/f3-hello.txt with content hello                                                                                               with hello                              
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                Context                                 
+     + Thought: 501ms                                                                                                                                           26,850 tokens                           
+                                                                                                                                                                3% used                                 
+  ┃                                                                                                                                                             $0.00 spent                             
+  ┃  # Wrote .omo/evidence/f3-hello.txt                                                                                                                                                                 
+  ┃                                                                                                                                                             ▼ MCP                                   
+  ┃   1 hello                                                                                                                                                   • codegraph Disabled                    
+  ┃                                                                                                                                                             • context7 Connected                    
+                                                                                                                                                                • grep_app Connected                    
+     Done. Created .omo/evidence/f3-hello.txt with content hello.                                                                                               • lsp Connected                         
+                                                                                                                                                                • websearch Connected                   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 8.0s                                                                                                                                         
+                                                                                                                                                                LSP                                     
+  ┃                                                                                                                                                             LSPs will activate as files are read    
+  ┃  Before doing anything, ask me one yes/no question and wait for my answer. Do not proceed until I answer.                                                                                           
+  ┃                                                                                                                                                                                                     
+                                                                                                                                                                           ▄▄▀▀▀▀▀▀▀▀▀▀▀▀▄▄             
+     + Thought: 888ms                                                                                                                                                    ████▀▀▀▀▀▀▀▀▀▀▀▀████           
+                                                                                                                                                                         ██████▀▀████▀▀██████           
+  ┃                                                                                                                                                                      ████████████████████           
+  ┃  # Questions                                                                                                                                                         ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀            
+  ┃                                                                                                                                                                      ██████████████████             
+  ┃  Shall I proceed with the previous task (writing .omo/evidence/f3-hello.txt with content hello)?                                                                     ▀▀████████████████             
+  ┃  Yes                                                                                                                                                                   ████████████████             
+  ┃                                                                                                                                                                         ▀▀▀▀▀▀▀▀▀▀▀▀▀▀              
+                                                                                                                                                                              ████  ████                
+     + Thought: 1.5s                                                                                                                                                         ▄▀▀▀█  █▀▀▀▄               
+                                                                                                                                                                                 待机                   
+     → Read .omo/evidence/f3-hello.txt                                                                                                                                                                  
+                                                                                                                                                                ┌───────────────────────────────────┐   
+     Confirmed. .omo/evidence/f3-hello.txt exists with content hello.                                                                                           │                                   │   
+                                                                                                                                                                │ Agents                            │   
+     ▣  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) · 11.8s                                                                                                │ atlas - plan executor busy        │   
+                                                                                                                                                                │ oracle busy                       │   
+                                                                                                                                                                │ sisyphus-junior busy              │   
+                                                                                                                                                                │                                   │   
+                                                                                                                                                                └───────────────────────────────────┘   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃                                                                                                                                                                                                     
+  ┃  Sisyphus - Ultraworker · DeepSeek V4 Flash (New) OpenCode Go · max                                                                                         ~/code/opcode/opcopet                   
+  ╹▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                                            
+   /Users/unsis/code/opcode/opcopet                                                                                      26.9K (3%) · $0.00  ctrl+p commands    • OpenCode 1.18.10                      
+                                                                                                                                                                                                        
+
+[14:04:32] SENT b'\x1b' (S16 close any palette)
+[14:04:33] RESULT S16 theme-switch PASS: S16 theme-switch pet rendered in light theme
+[14:04:33] cleanup: removed .omo/evidence/f3-hello.txt
+[14:04:33] SENT b'\x03' (interrupt)
+[14:04:35] plugin debug lines in stream: 1
+[14:04:35] plugin-meta load_count (current): 61
+[14:04:35] RESULT S17 load-evidence PASS: S17 load-evidence load_count 60->61, debug-lines-in-stream=1
+[14:04:37] ===== SUMMARY =====
+[14:04:37] PASS S1 tui-up home screen rendered
+[14:04:37] PASS S2 task-complete hello.txt written (Done. visible)
+[14:04:37] PASS S3 provider-task-states labels seen: ['思考', '完成', '待机'] (working 不可达：1.18.10 不投递 session.next.*)
+[14:04:37] PASS S5 pet-render-idle block rows=11 count=179
+[14:04:37] PASS S6 idle-label idle hits=[(31, 177)]
+[14:04:37] PASS S7 order-600 builtin rows={'Context': 4, 'MCP': 9, 'LSP': 16} pet_top_row=20
+[14:04:37] PASS S4 waiting-trigger labels seen: ['待机', '等待'] (env may auto-approve everything)
+[14:04:37] PASS S8 cmd-hide block rows after hide=0
+[14:04:37] PASS S8kv enabled kv=False
+[14:04:37] PASS S9 cmd-show block rows after show=11
+[14:04:37] PASS S9kv enabled kv=True
+[14:04:37] PASS S10 cmd-compact max block chars per row=12 (expect <=16)
+[14:04:37] PASS S10kv size kv='compact'
+[14:04:37] PASS S11 cmd-regular max block chars per row=20 (expect ~24)
+[14:04:37] PASS S11kv size kv='regular'
+[14:04:37] PASS S12 cmd-anim-off kv=False pet still rendered=True
+[14:04:37] PASS S12kv anim kv=False
+[14:04:37] PASS S13 cmd-anim-on kv=True
+[14:04:37] PASS S13kv anim kv=True
+[14:04:37] PASS S14 final-state pet visible, idle label present
+[14:04:37] PASS S15 resize-reflow pet re-rendered after 200x50 restore
+[14:04:37] PASS S16 theme-switch pet rendered in light theme
+[14:04:37] PASS S17 load-evidence load_count 60->61, debug-lines-in-stream=1
+[14:04:37] Total: 23/23 passed

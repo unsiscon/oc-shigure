@@ -1,0 +1,27 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/renderer.test.ts [ src/renderer.test.ts ]
+Error: Cannot find module './renderer' imported from /Users/unsis/code/opcode/opcopet/src/renderer.test.ts
+ ❯ src/renderer.test.ts:5:1
+      3|
+      4| import { describe, expect, it } from "vitest";
+      5| import { RenderError, renderFrame, type RenderRow } from "./renderer";
+       | ^
+      6| import { SHIGURE_MANIFEST } from "./manifest";
+      7| import type { PixelFrame } from "./types";
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  09:54:20
+   Duration  90ms (transform 14ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+exit=1

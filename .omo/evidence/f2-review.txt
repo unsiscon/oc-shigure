@@ -1,0 +1,140 @@
+========================================================
+F2 Code quality review — opco-shigure TUI skeleton
+Reviewer: independent code reviewer (F2, plan lines 324-328)
+Date: 2026-08-03
+Verdict: PASS
+========================================================
+
+1. PRIVACY GREP (dist/)
+   Command: grep -rn "fetch(\|WebSocket\|child_process\|exec(\|spawn(" dist/
+   Result: 0 hits (exit 1 = no match). PASS
+   src/ + scripts/ + tsup.config.ts same pattern: 0 hits (only comment text
+   mentioning Date.now() in animation.ts/reducer.ts docs and the
+   performance-now-with-Date.now-fallback in registry.ts). PASS
+
+2. PER-FILE REVIEW (all 13 src files + scripts + config)
+   types.ts            OK — 7 PetStates, 7 labels, 3 config keys, PetEvent allowlist
+                        union (no retry-ended, documented). No slop.
+   config.ts           OK — per-field fallback to defaults, namespaced keys,
+                        KV minimal interface = TuiKV subset; tested (illegal
+                        values fall back per-field).
+   adapter.ts          OK — allowlist-only mapping, never reads delta/text/
+                        message body (privacy), never throws (error?.name
+                        optional-chain guarded); session filter drops foreign
+                        sessions; tool.input.ended deliberately → null.
+                        Full allowlist null-case coverage in tests.
+   reducer.ts          OK — pure functions (no timers/clock; `now` injected).
+                        generation token monotonic: transient create/clear → +1;
+                        reduceExpired rejects stale generations (S11, t3 tests).
+                        Priority waiting>retry>working>thinking>idle matches
+                        docs/03 §3. Idempotent tool/permission/question ops,
+                        ghost-callID cleanup on session-idle, retry reset on
+                        busy/idle, success only when wasCycleActive (S01/S09).
+                        S01-S15 + transient-timing tests all green.
+   animation.ts        OK — single frame timer (cancel-before-rearm on "frame"
+                        slot; never accumulates; 10-min virtual-run test asserts
+                        pendingCount==1 and scheduleCalls===frameCount). ≤6FPS:
+                        frameIntervalMs = max(frameDurationMs, ceil(1000/6)=167);
+                        fpsCap tests (167ms default, 250ms @cap4). generation
+                        token rejects stale frame & transient callbacks.
+                        dispose idempotent; pause keeps transient timer (design).
+   manifest.ts/data    OK — placeholder-only flag exported+tested; validator
+                        checks dims, pixel length, palette range, transparent
+                        edges, required tokens, FPS bounds [167,600].
+   placeholder.ts      OK — deterministic (no randomness), canvas-based.
+   renderer.ts         OK — five glyph combinations per docs/04 §3.6; run merge
+                        only when fg&bg identical (cell-for-cell visual
+                        equivalence verified against naive oracle); transparent
+                        pixels never emit fg/bg; odd-height pairs with
+                        transparent; RenderError typed, never silent bad chars.
+   registry.ts         OK — layered degradation exactly per docs/04 §5
+                        (adapt→ignore+debug / reduce→rehydrate / anim→first
+                        frame / resource→static idle / render→sidebar label).
+                        handle+dispatch+hydrate+applyVisible+transient-expiry
+                        all try/catch — no throw into host. lastActiveSessionID
+                        routes sessionID-less events. dispose idempotent,
+                        timers injected via ControllerClock. 10k-event,
+                        long-retry/waiting single-timer, dispose, static-idle,
+                        hydration-order tests all green.
+   sidebar.tsx         OK — imperative Solid tree API (no JSX, documented);
+                        render error → label only; enabled=false → empty slot;
+                        theme-aware outline; session switch disposes old ctrl.
+                        Single `as unknown as JSX.Element` narrowing documented.
+   tui.ts              OK — entry fully try/catch (init failure → continue
+                        without pet). Every event subscription + handler +
+                        dispatch wrapped. Slot registration wrapped. keymap
+                        registerLayer with legacy fallback. onDispose cleans
+                        unsubscribers+keymap+registry. Layer omits `mode`
+                        (0.4.5 types), documented. palette namespace commands.
+   validate-assets.ts  OK — exit 1 on violations, PASS log otherwise.
+   tsup.config.ts      OK — single ESM entry, externals = peer deps, dts.
+   package.json        OK — exports["./tui"].import→dist/tui.js, no server
+                        export, engines opencode ^1.18.0, peer deps aligned.
+
+3. GENERATION TOKEN / REDUCER CORRECTNESS
+   OK — generation stored in caller-held TransientState (monotonic across
+   clear→rebuild), incremented on transient create AND clear; reduceExpired
+   checks generation===transient.generation before applying; expired transients
+   re-derive visible from facts (never unconditional idle). Tests: S11,
+   t3 (error overrides success, gen 1→2), animation generation tests.
+
+4. ANIMATION CONTROLLER
+   OK — single frame timer invariant proven (pendingCount==1 throughout
+   600s virtual run; scheduleCalls===seen.length). ≤6FPS proven at default
+   and custom caps. success/error one-shot + transient expiry correct
+   (2500/4000ms via fake clock).
+
+5. RENDERER
+   OK — five combos test, 24x12 / 16x8 row widths, run-merge visual
+   equivalence, transparent inheritance, odd height, RenderError, theme
+   outline-only switch, determinism.
+
+6. ERROR ISOLATION
+   OK — handle/dispatch/entry all try/catch (required set). Additionally
+   hydrate/applyVisible/staticIdle/handleTransientEnd/sidebar rows() wrapped.
+   Layered degradation matches docs/04 §5 exactly. Tests prove malformed
+   events, broken manifests, failed reads never throw.
+
+7. PRIVACY
+   OK — no network (no fetch/WebSocket), no external process (no
+   child_process/spawn/exec), no session-body parsing (adapter reads only
+   properties; allowlist ignores delta/part/text events; registry logs only
+   type+sessionID). dist grep zero hits.
+
+8. AI SLOP
+   OK — no TODO/FIXME/HACK/XXX/@ts-ignore/@ts-expect-error/as any in
+   src/ or scripts/. console.log only in validate-assets PASS line.
+   No dead code: lastTerminalOutcome is spec-mandated (docs/03 §2) and
+   asserted in S09/S10; ASSETS_ARE_PLACEHOLDER exported+tested;
+   legacyCommands is the documented fallback path; all getters exercised
+   by tests. Duplicate 3-line propsOf helper (adapter/registry) — trivial.
+
+9. KNOWN RECORDS (confirmed handled, not defects)
+   - 1.18.10 TUI bus not delivering session.next.*: working-state
+     observation falls back to session.status busy/idle → busy-started/
+     session-idle mapping; S01-S15 unit tests cover the reducer behavior.
+   - outline = palette last entry: renderer + tests + docs/04 §3.6/05 §5.
+   - Layer without `mode`: 0.4.5 types lack the field; comment documents
+     the palette-open exclusion rationale.
+
+10. TESTS (re-run by reviewer)
+    npm test: 7 files, 135 passed, 0 failed, ~193ms.
+
+11. MINOR OBSERVATIONS (non-blocking, LOW severity, no FAIL trigger)
+    - registry.ts:38 DEFAULT_CLOCK fallback uses Date.now() when global
+      `performance` is undefined; comment policy prefers monotonic clock.
+      Practically unreachable in the Node 16+ TUI host (performance is
+      global). Recommend documenting the fallback rationale.
+    - tui.ts updateConfig → saveConfig (kv.set) inside command run() is not
+      individually try/catch-wrapped; a throwing host kv.set would reach the
+      command-palette path. In-memory TuiKV makes this theoretical.
+    - sidebar.tsx theme.mode()/theme.current accessor reads are not wrapped
+      (only renderFrame is); theoretical throw into render path.
+
+========================================================
+RESULT: PASS
+- No high-severity issues found.
+- Privacy grep on dist/ zero hits.
+- npm test 135/135 green; reviewer ran the commands directly
+  (no simulated output used).
+========================================================

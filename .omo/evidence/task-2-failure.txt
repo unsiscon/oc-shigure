@@ -1,0 +1,61 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+ ↓ src/adapter.test.ts > mapEvent: 周期类 > session.next.step.started → cycle-started
+ ↓ src/adapter.test.ts > mapEvent: 周期类 > session.next.prompted → cycle-started
+ ↓ src/adapter.test.ts > mapEvent: 周期类 > session.next.prompt.admitted → cycle-started
+ ↓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.reasoning.started → reasoning-started
+ ↓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.reasoning.ended → reasoning-ended
+ ↓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.text.started → text-started
+ ↓ src/adapter.test.ts > mapEvent: 推理/文本类 > session.next.text.ended → text-ended
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.input.started → tool-started（callID）
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.called → tool-started（callID）
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.shell.started → tool-started（callID）
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.success → tool-ended（callID）
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.shell.ended → tool-ended（callID）
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.failed → tool-ended（callID, failed:true）
+ ↓ src/adapter.test.ts > mapEvent: 工具类 > session.next.tool.input.ended → null（输入流结束 ≠ 执行结束）
+ ↓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.asked（id）→ permission-opened（requestID=id）
+ ↓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.v2.asked（id）→ permission-opened（requestID=id）
+ ↓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.replied（requestID）→ permission-closed（requestID）
+ ↓ src/adapter.test.ts > mapEvent: 权限类（v1/v2 归一） > permission.v2.replied（requestID）→ permission-closed（requestID）
+ ↓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.asked（id）→ question-opened（requestID=id）
+ ↓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.v2.asked（id）→ question-opened（requestID=id）
+ ↓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.replied（requestID）→ question-closed
+ ↓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.rejected（requestID）→ question-closed
+ ↓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.v2.replied（requestID）→ question-closed
+ ↓ src/adapter.test.ts > mapEvent: 提问类（v1/v2 归一） > question.v2.rejected（requestID）→ question-closed
+ ↓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.status type=retry → retry-started
+ ↓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.status type=busy → busy-started
+ ↓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.status type=idle → session-idle
+ ↓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.next.retried（含 sessionID）→ retry-started 且返回非 null
+ ↓ src/adapter.test.ts > mapEvent: session.status / idle / retried > session.idle → session-idle
+ ↓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.next.step.failed → cycle-failed
+ ↓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error（非 MessageAbortedError）→ cycle-failed
+ ↓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error 且 error.name=MessageAbortedError → cycle-aborted
+ ↓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error 无 error 字段 → cycle-failed 且不抛错
+ ✓ src/adapter.test.ts > mapEvent: 失败/中断类 > session.error missing sessionID 且无 error → 不抛错、按归属规则处理（cycle-failed） 1ms
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.text.delta → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.reasoning.delta → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.tool.input.delta → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.tool.progress → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 message.part.updated → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 message.part.delta → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.step.ended → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.compaction.started → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.next.agent.switched → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 session.created → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 message.updated → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未列出的 permission.replied-unknown → null
+ ↓ src/adapter.test.ts > mapEvent: 明确 allowlist（未列出的 → null） > 未知事件类型（未声明）→ null 且不抛错
+ ↓ src/adapter.test.ts > filterForSession > sessionID 匹配 → true
+ ↓ src/adapter.test.ts > filterForSession > sessionID 不匹配 → false（丢弃）
+ ↓ src/adapter.test.ts > filterForSession > retried 事件按 sessionID 正确过滤分发
+ ✓ src/adapter.test.ts > filterForSession > missing sessionID 的事件不抛错（放行，交由下游 registry 路由） 0ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 49 skipped (51)
+   Start at  08:59:33
+   Duration  86ms (transform 15ms, setup 0ms, import 22ms, tests 2ms, environment 0ms)
+
+exit=0

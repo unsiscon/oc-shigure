@@ -1,0 +1,55 @@
+opco-shigure todo 8 — terminal matrix smoke (docs/06 §6 skeleton subset)
+=======================================================================
+Date: 2026-08-03 (local)
+Platform: macOS (darwin)
+
+Environment (primary terminal — Apple Terminal, macOS built-in)
+--------------------------------------------------------------
+  TERM_PROGRAM            = Apple_Terminal
+  TERM_PROGRAM_VERSION    = 470
+  TERM                    = xterm-256color
+  COLORTERM               = truecolor
+  LANG                    = zh_CN.UTF-8
+  LC_ALL                  = (unset)
+  SHELL                   = /bin/zsh
+  macOS appearance        = Dark (system-wide)
+  Font                    = Apple Terminal default (system monospace; not introspectable via CLI)
+  opencode version        = 1.18.10 (/opt/homebrew/bin/opencode)
+
+Truecolor
+---------
+  COLORTERM=truecolor in the primary terminal. The pet is rendered with
+  truecolor spans (24-bit RGB) by the renderer; actual TUI verification of
+  color rendering was done in the real smoke (task-8-smoke.typescript):
+  block-char pet rendered with 179 block chars and correct outline color
+  in both dark and light themes (S16 theme-switch PASS; light theme applied
+  via palette, pet still rendered, then restored to dark).
+
+Block characters
+----------------
+  ▀ ▄ █ render correctly (verified in real TUI smoke S5: 11 block rows,
+  179 block chars; compact mode 12 chars wide, regular mode 20 chars wide).
+
+Window resize / reflow
+----------------------
+  Verified in real TUI smoke S15: resize 200x50 -> 120x40 -> 200x50,
+  pet re-rendered after restore (S15 resize-reflow PASS). FR-1: narrow
+  terminals hide the sidebar — at 120x40 the sidebar block chars were
+  still counted (179), noting the sidebar remains at that width.
+
+Theme switch
+------------
+  Verified in real TUI smoke S16: palette "Switch theme" -> light ->
+  pet rendered in light theme (outline color switches per docs/07 §5)
+  -> restored to dark. S16 theme-switch PASS.
+
+Known limitations (docs/06 §6 — tmux/SSH matrix is best-effort)
+---------------------------------------------------------------
+  - tmux / SSH sessions: not re-run in this matrix; they use the same
+    standard ANSI path (no image protocols). Differences in terminal
+    width/theme/font must be recorded per docs/06; cannot be worked
+    around with image protocols.
+  - No Kitty/Sixel/iTerm image protocols are used anywhere in the plugin
+    (scope grep for sixel|kitty|\.png on src/ + dist/ = zero hits).
+  - Font glyph coverage for ▀▄█ and CJK labels depends on the user's
+    terminal font; Apple Terminal default covers both.

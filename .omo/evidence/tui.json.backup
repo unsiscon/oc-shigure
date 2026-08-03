@@ -1,0 +1,6 @@
+{
+  "plugin": [
+    "oh-my-openagent@latest",
+    "/Users/unsis/code/opcode/opcopet/dist/tui.js"
+  ]
+}

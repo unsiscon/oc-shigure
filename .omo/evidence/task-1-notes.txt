@@ -1,0 +1,31 @@
+# task-1 notes (todo 1 包骨架 + 领域类型 + 配置层)
+
+## TDD 流程
+1. 先写 src/config.test.ts（5 用例：defaults 空KV→默认三项 / defaults set后回读一致 /
+   illegal enabled="垃圾" / illegal size="huge" / illegal animations=null）。
+2. 红：src/config.ts 未实现时运行 → exit=1，ERR_MODULE_NOT_FOUND（证据 task-1-red.txt）。
+3. 实现 src/config.ts → 转绿 5/5。
+
+## 验收命令实测退出码（真实运行，非日志断言）
+- npm run typecheck → exit 0
+- npx vitest run src/config.test.ts → exit 0，5 passed（含 -t "defaults" 与 -t "illegal" 两个 QA 场景）
+- npm pack --dry-run → exit 0；Tarball 含 package.json + dist/README.txt（dist/ 非空因 todo 8 才有 src/tui.ts 构建产物，用占位文件使 files=["dist"] 可被 pack 列出；todo 8 tsup 构建将清空并覆盖）；node_modules 命中 0 处
+
+## 对抗类记录
+- misleading_success_output：所有结论均核对真实 stdout 与 shell 退出码（typecheck_exit=0 / vitest exit=0 / pack_exit=0），非依赖 npm 输出文案。
+- dirty_worktree：仓库非 git；本次仅新建根级文件（package.json/tsconfig.json/tsup.config.ts/vitest.config.ts/.gitignore/dist/README.txt、src/types.ts、src/config.ts、src/config.test.ts、package-lock.json、node_modules/）与写入 .omo/evidence/task-1-*.txt；docs/、design/、.omo/ 既有文件（plans/drafts/start-work/boulder.json 等）零修改。
+- 其余对抗类不适用（一行理由）：sandbagging（无，验收全绿且退出码为证）；scope creep（无，未创建 src/tui.ts、未加任何 plan 之外的配置字段/依赖）；silent dependency（无，package-lock 完整记录安装）。
+
+## 与计划规格的偏差（均为工具链现状驱动的等价替代，语义不变）
+1. tsconfig.json `jsx` 用 "react-jsx" 而非 "automatic"：本机 npm 解析到 TypeScript 5.9.3，
+   TS 5.9 移除 "automatic" 别名（合法值仅 preserve/react-native/react-jsx/react-jsxdev/react），
+   "react-jsx" 即 automatic 变换 + jsxImportSource=@opentui/solid，行为完全一致。
+2. devDependencies 版本由 npm 解析：typescript 5.9.3 / tsup 8.5.1 / vitest 4.1.10 / tsx 4.23.5 /
+   @types/node 26.1.2；peer 版本按计划锁定：@opencode-ai/plugin 1.18.11（^1.18.0 解析）、
+   @opentui/core|keymap|solid 0.4.5、solid-js 1.9.12。
+3. dist/ 占位文件：见上；todo 8 构建产物落地后该占位自动消失（tsup 默认 clean outDir）。
+
+## 配置层行为（测试锁定）
+- KV 最小接口 {get(key,fallback?),set(key,value)} 结构兼容本机 TuiKV（tui.d.ts:282-286，多出 ready 字段不影响结构赋值）。
+- 单字段回退：enabled 非法仅 enabled→true；size 非法仅 size→"regular"；animations 非法仅 animations→true；其余有效字段保留。
+- 键命名空间：opco-shigure.enabled / opco-shigure.size / opco-shigure.animations（docs/04 §3.7）。

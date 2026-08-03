@@ -1,0 +1,54 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+stdout | src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > 读取失败 → 静态 idle 且不轮询（无任何定时器）
+[opco-shigure] hydration read failed, static idle Error: read failed
+    at Object.permission (/Users/unsis/code/opcode/opcopet/src/registry.test.ts:102:35)
+    at PetController.hydrate (/Users/unsis/code/opcode/opcopet/src/registry.ts:170:44)
+    at /Users/unsis/code/opcode/opcopet/src/registry.test.ts:484:10
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > getOrCreate 同 sessionID 返回同一实例；get 返回缓存实例
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > get 未创建会话返回 undefined
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > dispose 取消计时器、清缓存且幂等（双重 dispose）
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > disposeAll 清空全部控制器且取消全部计时器
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > dispose 后 getOrCreate 重建全新实例（挂载/卸载循环不残留）
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > 热重载语义：重复 create/dispose 循环后无残留计时器、无重复注册（docs/06 §7）
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > lastActiveSessionID 追踪：有 sessionID 的事件更新，无 sessionID 的事件路由到最近活动会话（t8 归属）
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > dispatch 未知会话事件不改变 lastActiveSessionID、不抛错
+ ↓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > 10,000 个无关/他会话事件不改当前状态（docs/06 §7）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > S12 隔离：两会话独立实例，事件互不串扰
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > handle 直接调用时过滤异会话事件（返回 false，不改状态）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 事件适配错误 → 忽略 + debug（绝不抛错）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 资源/帧缺失异常 → 静态 idle 占位（SHIGURE_MANIFEST.sizes.regular.idle.frames[0]，FR-5）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 状态未变的事件不重置动画帧（避免无关事件把动画打回首帧）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 长 retry/waiting 期间帧计时器不累积（恒单定时器，docs/06 §7）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > success 瞬态到期后回落 idle（transient 计时器 → reduceExpired）
+ ↓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > dispose 后动画与瞬态计时器全部取消（fake clock 断言）
+ ↓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > permission 非空 → waiting
+ ↓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > question 非空 → waiting（question 在 permission 之后判定）
+ ↓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > status retry → retry、busy → thinking、idle → idle、undefined → idle
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > 读取失败 → 静态 idle 且不轮询（无任何定时器） 3ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > kv.ready=false → 静态 idle 不轮询 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > state.ready=false → 静态 idle 不轮询 0ms
+ ↓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > 不恢复 success/error 瞬态：hydrate 只产出 idle/thinking/retry/waiting，不挂瞬态计时器（docs/03 §7:136）
+ ↓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > hydrate 幂等：重复 hydrate 不改变已恢复状态、不新增计时器
+ ↓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > size 切换重置当前状态首帧（避免跨尺寸索引错误）
+ ↓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > animations=false → 暂停：无帧推进
+ ↓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > animations 重新启用 → 从当前状态首帧开始（不追赶禁用期间经过的帧）
+ ↓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > enabled=false → 暂停；重新启用恢复播放
+ ↓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > visible=false → 暂停；visible=true → 恢复（组件 onMount/onCleanup 驱动）
+ ↓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > 重复 mount/dispose 监听器数量不增长（订阅/退订行为验证）
+
+ Test Files  1 passed (1)
+      Tests  3 passed | 28 skipped (31)
+   Start at  10:08:04
+   Duration  104ms (transform 33ms, setup 0ms, import 43ms, tests 3ms, environment 0ms)
+
+exit=0

@@ -1,0 +1,15 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+ ✓ src/config.test.ts > config > defaults: 空 KV → 默认三项 1ms
+ ✓ src/config.test.ts > config > defaults: set 后回读一致 0ms
+ ↓ src/config.test.ts > config > illegal > illegal: enabled="垃圾" → 仅 enabled 回退默认，size/animations 保留
+ ↓ src/config.test.ts > config > illegal > illegal: size="huge" → 仅 size 回退默认，enabled/animations 保留
+ ↓ src/config.test.ts > config > illegal > illegal: animations=null → 仅 animations 回退默认，enabled/size 保留
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 3 skipped (5)
+   Start at  08:55:59
+   Duration  87ms (transform 12ms, setup 0ms, import 17ms, tests 2ms, environment 0ms)
+
+exit=0

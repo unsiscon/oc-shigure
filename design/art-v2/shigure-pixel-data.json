@@ -1,0 +1,133 @@
+{
+  "source": "shigure-v3-master-crop.png",
+  "palette": [
+    {
+      "index": 0,
+      "char": ".",
+      "color": "transparent"
+    },
+    {
+      "index": 1,
+      "char": "0",
+      "color": "#2A1D1A"
+    },
+    {
+      "index": 2,
+      "char": "1",
+      "color": "#4A2B24"
+    },
+    {
+      "index": 3,
+      "char": "2",
+      "color": "#704739"
+    },
+    {
+      "index": 4,
+      "char": "3",
+      "color": "#FFD0B4"
+    },
+    {
+      "index": 5,
+      "char": "4",
+      "color": "#4BA9FF"
+    },
+    {
+      "index": 6,
+      "char": "5",
+      "color": "#153A78"
+    },
+    {
+      "index": 7,
+      "char": "6",
+      "color": "#242634"
+    },
+    {
+      "index": 8,
+      "char": "7",
+      "color": "#F1E8DF"
+    },
+    {
+      "index": 9,
+      "char": "8",
+      "color": "#C52F3C"
+    },
+    {
+      "index": 10,
+      "char": "9",
+      "color": "#141820"
+    },
+    {
+      "index": 11,
+      "char": "a",
+      "color": "#4B2624"
+    },
+    {
+      "index": 12,
+      "char": "b",
+      "color": "#17141B"
+    }
+  ],
+  "sizes": {
+    "regular": {
+      "width": 24,
+      "height": 24,
+      "idle_frame": [
+        "........................",
+        "........bbbbbbbb........",
+        "......ba111111111b......",
+        "....b11110a11111111bbb..",
+        "....102a101110101220bbb.",
+        "...b11112b12212201a1b...",
+        "..b188011b111b2111110...",
+        "..b0b2b08301b33001100b..",
+        "..bb01bbbb11b3bb3010bb..",
+        "...b71b75533075601bbb...",
+        "...0b1b35533335381b00...",
+        "..b1bb0b33333332bb0b1b..",
+        "..000b0bb.282.08b0b000..",
+        "bb10bbb3b2b8b0b3b00bb10b",
+        ".1b0bb33bbb8a67b302b0b1.",
+        "b0b0b60b7.08a772a60b0.0.",
+        "...b32b6b6b8b966b70b.b..",
+        "....0b0a66666b.0ab0b....",
+        ".......bbb...bbb........",
+        "........0.b.b00b........",
+        ".......3..b..b.2........",
+        "......b0a0...02ab.......",
+        ".......bbb...bbbb.......",
+        "........................"
+      ]
+    },
+    "compact": {
+      "width": 16,
+      "height": 16,
+      "idle_frame": [
+        "................",
+        "....b11a110b....",
+        "...0011101101bb.",
+        "..10221210220b..",
+        "..a21ba11300ba..",
+        ".b11bb813bbbbbb.",
+        "..002563353020..",
+        "..abb3333330b1..",
+        ".0bbb37b8a2bb00.",
+        "bb0b8b.8.930b00b",
+        "bb02b.78b7b63b..",
+        "..b3a6b6666b3...",
+        ".....8b.b8b.....",
+        ".....bb.b.b.....",
+        "....ba0..aa.....",
+        "................"
+      ]
+    }
+  },
+  "states": {
+    "idle": "base silhouette; frame 2 changes one eye/bang pixel only",
+    "thinking": "move both blue eye clusters one pixel upward and tilt the fringe one pixel",
+    "working": "move both forearms inward; keep skirt, socks, boots and hair baseline fixed",
+    "waiting": "raise face one pixel and bring hands together below the ribbon",
+    "success": "move complete boot/foot groups upward by one logical pixel; no ground line",
+    "error": "lower head and shoulders; narrow eyes but retain one blue pixel per eye group",
+    "retry": "alternate a one-pixel horizontal lean of the upper body between frames"
+  }
+}

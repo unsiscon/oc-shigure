@@ -1,0 +1,77 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+stdout | src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 事件适配错误 → 忽略 + debug（绝不抛错）
+[opco-shigure] event filter error, ignoring TypeError: Cannot read properties of undefined (reading 'sessionID')
+    at /Users/unsis/code/opcode/opcopet/src/adapter.ts:87:42
+    at PetController.handle (/Users/unsis/code/opcode/opcopet/src/registry.ts:123:44)
+    at /Users/unsis/code/opcode/opcopet/src/registry.test.ts:326:23
+    at Proxy.assertThrows (file:///Users/unsis/code/opcode/opcopet/node_modules/chai/index.js:2798:5)
+    at Proxy.methodWrapper (file:///Users/unsis/code/opcode/opcopet/node_modules/chai/index.js:1700:25)
+    at Proxy.<anonymous> (file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/expect/dist/index.js:1216:12)
+    at Proxy.overwritingMethodWrapper (file:///Users/unsis/code/opcode/opcopet/node_modules/chai/index.js:1750:33)
+    at Proxy.<anonymous> (file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/expect/dist/index.js:1552:16)
+    at Proxy.<anonymous> (file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/expect/dist/index.js:1156:15)
+    at Proxy.methodWrapper (file:///Users/unsis/code/opcode/opcopet/node_modules/chai/index.js:1700:25)
+
+stdout | src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 资源/帧缺失异常 → 静态 idle 占位（SHIGURE_MANIFEST.sizes.regular.idle.frames[0]，FR-5）
+[opco-shigure] state has no frames, static idle thinking
+
+stdout | src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > 读取失败 → 静态 idle 且不轮询（无任何定时器）
+[opco-shigure] hydration read failed, static idle Error: read failed
+    at Object.permission (/Users/unsis/code/opcode/opcopet/src/registry.test.ts:102:35)
+    at PetController.hydrate (/Users/unsis/code/opcode/opcopet/src/registry.ts:170:44)
+    at /Users/unsis/code/opcode/opcopet/src/registry.test.ts:484:10
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///Users/unsis/code/opcode/opcopet/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > getOrCreate 同 sessionID 返回同一实例；get 返回缓存实例 1ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > get 未创建会话返回 undefined 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > dispose 取消计时器、清缓存且幂等（双重 dispose） 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > disposeAll 清空全部控制器且取消全部计时器 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > dispose 后 getOrCreate 重建全新实例（挂载/卸载循环不残留） 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > 热重载语义：重复 create/dispose 循环后无残留计时器、无重复注册（docs/06 §7） 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > lastActiveSessionID 追踪：有 sessionID 的事件更新，无 sessionID 的事件路由到最近活动会话（t8 归属） 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > dispatch 未知会话事件不改变 lastActiveSessionID、不抛错 0ms
+ ✓ src/registry.test.ts > ControllerRegistry 生命周期（docs/06 §7 / FR-5） > 10,000 个无关/他会话事件不改当前状态（docs/06 §7） 1ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > S12 隔离：两会话独立实例，事件互不串扰 0ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > handle 直接调用时过滤异会话事件（返回 false，不改状态） 0ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 事件适配错误 → 忽略 + debug（绝不抛错） 2ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 资源/帧缺失异常 → 静态 idle 占位（SHIGURE_MANIFEST.sizes.regular.idle.frames[0]，FR-5） 1ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 状态未变的事件不重置动画帧（避免无关事件把动画打回首帧） 0ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > 长 retry/waiting 期间帧计时器不累积（恒单定时器，docs/06 §7） 1ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > success 瞬态到期后回落 idle（transient 计时器 → reduceExpired） 0ms
+ ✓ src/registry.test.ts > PetController.handle（docs/03 §7、docs/04 §5、FR-5） > dispose 后动画与瞬态计时器全部取消（fake clock 断言） 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > permission 非空 → waiting 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > question 非空 → waiting（question 在 permission 之后判定） 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > status retry → retry、busy → thinking、idle → idle、undefined → idle 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > 读取失败 → 静态 idle 且不轮询（无任何定时器） 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > kv.ready=false → 静态 idle 不轮询 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > state.ready=false → 静态 idle 不轮询 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > 不恢复 success/error 瞬态：hydrate 只产出 idle/thinking/retry/waiting，不挂瞬态计时器（docs/03 §7:136） 0ms
+ ✓ src/registry.test.ts > PetController.hydrate（docs/03 §8、tui.d.ts status/permission/question） > hydrate 幂等：重复 hydrate 不改变已恢复状态、不新增计时器 0ms
+ ✓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > size 切换重置当前状态首帧（避免跨尺寸索引错误） 0ms
+ ✓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > animations=false → 暂停：无帧推进 0ms
+ ✓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > animations 重新启用 → 从当前状态首帧开始（不追赶禁用期间经过的帧） 0ms
+ ✓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > enabled=false → 暂停；重新启用恢复播放 0ms
+ ✓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > visible=false → 暂停；visible=true → 恢复（组件 onMount/onCleanup 驱动） 0ms
+ ✓ src/registry.test.ts > PetController.applyConfig（docs/03 §11） > 重复 mount/dispose 监听器数量不增长（订阅/退订行为验证） 0ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  10:07:56
+   Duration  115ms (transform 35ms, setup 0ms, import 45ms, tests 11ms, environment 0ms)
+
+exit=0
+
+--- Adversarial notes (todo 7) ---
+- misleading_success_output: 退出码为准 —— 两份证据均以 `echo "exit=$?"` 落盘；happy exit=0 且含 S12 隔离用例名；failure 用例（"不轮询" 过滤器，vitest -t 无法匹配中文计划示例 "hydrate failure"）实际执行 3 个 hydrate 失败测试，全部通过。
+- flaky tests: 全部时间行为经注入 fake clock（now/schedule/cancel），无真实 setTimeout；帧间隔断言按 manifest 实际时长（thinking=200ms）取值，确定性。
+- leak: dispose/disposeAll 后 fake clock pendingCount()===0（动画帧+瞬态计时器全部取消）；重复 create/dispose 20 轮与重复订阅/退订后无残留计时器、无重复注册。
+- 状态归约异常路径（docs/04 §5 → 重水合）为防御性 try/catch：reducer 对合法输入不抛错，无法以假事件触发；由 hydrate 失败降级测试与代码审查覆盖（一行理由）。
+- filterForSession 对畸形事件（缺 properties）抛错由 handle() 捕获降级为忽略+debug（测试覆盖）。

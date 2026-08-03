@@ -1,0 +1,31 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S01: 初次进入 idle 会话 → idle，不播放 success
+ ✓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S02: step start→reasoning→tool start→tool end→text→idle：thinking→working→thinking→success→idle（fake clock 推进 2500ms） 1ms
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S03: tool start → permission asked：working → waiting（waiting 覆盖 working）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S04: permission replied，tool 仍活动：waiting → working（不提前进入 thinking）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S05: question asked/replied：waiting → 原活动态（pending 集合正确清除）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S06: status retry → message delta → busy：retry → retry → thinking（普通增量不冲掉 retry）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S06b: retry 期间新 prompt（cycle-started）不打断 retry，直到 status busy/idle
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S07: tool A/B start → A end → B end：working → working → 重新归约（并发工具计数正确）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S08: tool failed → new reasoning：error → thinking（可恢复活动打断 error）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S09: session error（cycle-failed）：error 4s → idle，不显示 success
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S10: 用户中断（cycle-aborted）→ idle，不显示 success/error
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S10b: success 播放中被中断 → 回 idle（瞬态被清除）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S11: success 后 1s 新 prompt：success → thinking；旧计时器不得覆盖新状态（generation）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S12: 会话 A 收到会话 B 事件 → A 不变（两个独立实例，无共享状态）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S13: 重水合不继承瞬态：fresh 实例无 success/error 残留
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S14: 重复 tool end / reply 幂等（含缺失 started 的结束）
+ ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S15: reducer 纯函数无副作用：不可变更新，可安全 dispose（无全局状态/计时器/监听器）
+ ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 瞬态过期后重新归约事实得出 visible，不无条件写 idle
+ ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 未到期瞬态继续显示：now < until → 保持 success/error
+ ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > success 播放中收到工具失败 → error 覆盖 success（generation 递增）
+ ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 永久 retry 无法锁死状态：session-idle/busy 清除 retryActive
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 20 skipped (21)
+   Start at  09:04:45
+   Duration  87ms (transform 18ms, setup 0ms, import 23ms, tests 1ms, environment 0ms)
+
+exit=0

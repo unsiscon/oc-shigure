@@ -1,0 +1,16 @@
+# todo 3 状态归约器 — 对抗类记录
+
+- misleading_success_output：所有证据以退出码为准（各文件末尾 `exit=0`），不依赖输出文本。
+- flaky tests：确定性来自注入的 fake `now`（毫秒整数参数），reducer 内无 setTimeout/真实时钟；
+  `reduceExpired` 为纯函数，不存在真实计时器竞争。
+- S02 证据输出以 `-t "S02"` 单用例运行（退出码 0，含 thinking→working→thinking→success→idle
+  与 fake clock 推进 2500ms 断言）。
+- failure 场景 S14/S10 均为容错用例，必须通过（退出码 0）：S14 幂等不崩溃、S10 用户中断回
+  idle 无 success/error。
+- TDD：先写测试（src/reducer.test.ts，21 例）→ 红（task-3-red.txt，import 缺失，exit=1）→
+  实现 src/reducer.ts → 全绿（21 passed，exit=0）。
+- 设计说明（对计划签名的唯一扩展）：reduceStep 第 4 参 `current: TransientState`（可选）与
+  返回值 `generation`、独立纯函数 `reduceExpired`——generation 在瞬态被清除后仍需单调递增，
+  否则「清除→重建」后旧回调代数回退会误通过校验；过期回调无事件可传，故以 `reduceExpired`
+  表达「重新归约事实得出 visible，不无条件写 idle」。reducer 内不启动计时器、不读真实时钟、
+  不解析事件正文。

@@ -1,0 +1,37 @@
+opco-shigure todo 8 — FALLBACK / LIMITATION RECORD (2026-08-03)
+===============================================================
+(provider IS available — the real task ran; this file records environment
+limitations that could not be exercised in the real TUI, plus the mock-install
+limitation. State-sequence semantics not observable at runtime are covered by
+unit tests S01-S15 in src/reducer.test.ts / src/registry.test.ts.)
+
+1. "工作" (working) label not observable on opencode 1.18.10
+------------------------------------------------------------
+  The TUI event bus of opencode 1.18.10 does not deliver session.next.*
+  events (verified by an independent event probe during todo 8 recon:
+  session.next.tool.called / session.next.shell.* counts = 0 while
+  message.part.delta = 54 and session.status = 2 were delivered).
+  Runtime-observable states: 待机 (initial) / 思考 (session.status busy) /
+  完成 (session.idle -> success transient) / 等待 (question.asked).
+  Smoke S3 asserts 思考+完成 (both PASSED); the working semantics are
+  covered by unit tests (reducer S01-S15 matrix).
+
+2. Mock install: bare npm spec "opco-shigure" blocks loading (package unpublished)
+---------------------------------------------------------------------------------
+  npm registry returns 404 for opco-shigure (private:true, not published;
+  publishing is out of scope — MUST NOT). The plugin loader stalls at
+  "Loading plugins..." for a bare spec. Control test ({"plugin": []}) boots
+  in 2.2s, proving the stall is caused by the bare-spec resolution.
+  Fallback validated: absolute-path entry (the real smoke, 23/23) loads the
+  same dist/tui.js the tarball ships. Once the name is claimed and the
+  package published, the bare-spec flow becomes installable (README updated
+  with this local-install guidance).
+
+3. Terminal matrix subset
+-------------------------
+  Primary terminal = Apple Terminal (macOS) verified (see task-8-terminal.txt).
+  tmux/SSH matrix not re-run — documented as best-effort known limitation
+  (docs/06 §6); the plugin uses only standard ANSI + truecolor + ▀▄█.
+
+4. No image protocols (sixel/kitty/iTerm) — zero hits in scope grep; the
+   placeholder frames are the runtime assets and are NOT final art.

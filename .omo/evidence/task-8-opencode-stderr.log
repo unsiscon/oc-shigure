@@ -1,0 +1,53 @@
+timestamp=2026-08-03T02:33:56.887Z level=INFO run=b7b3e2b5 message="loading tui config" path=/Users/unsis/.config/opencode/tui.json
+timestamp=2026-08-03T02:33:56.888Z level=INFO run=b7b3e2b5 message="applying tui config" path=/Users/unsis/.config/opencode/tui.json order=1
+timestamp=2026-08-03T02:33:57.965Z level=INFO run=848bf868 message="creating instance" directory=/Users/unsis/code/opcode/opcopet
+timestamp=2026-08-03T02:33:57.966Z level=INFO run=848bf868 message=fromDirectory directory=/Users/unsis/code/opcode/opcopet
+timestamp=2026-08-03T02:33:58.027Z level=INFO run=848bf868 message=bootstrapping directory=/Users/unsis/code/opcode/opcopet
+timestamp=2026-08-03T02:33:58.034Z level=INFO run=848bf868 message=loading path=/Users/unsis/.config/opencode/config.json
+timestamp=2026-08-03T02:33:58.034Z level=INFO run=848bf868 message=loading path=/Users/unsis/.config/opencode/opencode.json
+timestamp=2026-08-03T02:33:58.034Z level=INFO run=848bf868 message=loading path=/Users/unsis/.config/opencode/opencode.jsonc
+timestamp=2026-08-03T02:33:58.297Z level=INFO run=848bf868 message="enabled LSP servers" serverIds="zls, yaml-ls, vue, typescript, tinymist, texlab, terraform, svelte, sourcekit-lsp, rust, ruby-lsp, razor, pyright, prisma, php intelephense, oxlint, ocaml-lsp, nixd, lua-ls, kotlin-ls, julials, jdtls, haskell-language-server, gopls, gleam, fsharp, elixir-ls, eslint, dockerfile, deno, dart, clojure-lsp, clangd, csharp, biome, bash, astro"
+timestamp=2026-08-03T02:33:58.297Z level=INFO run=848bf868 message="all formatters are disabled"
+timestamp=2026-08-03T02:33:58.297Z level=INFO run=848bf868 message=init
+timestamp=2026-08-03T02:33:58.441Z level=INFO run=848bf868 message="fetching index" url=http://127.0.0.1:49663/index.json
+timestamp=2026-08-03T02:33:58.632Z level=INFO run=848bf868 message=init count=3
+timestamp=2026-08-03T02:33:59.066Z level=INFO run=848bf868 message="watcher backend" directory=/Users/unsis/code/opcode/opcopet platform=darwin backend=fs-events
+timestamp=2026-08-03T02:33:59.075Z level=INFO run=848bf868 message="project copy refresh started" projectID=global
+timestamp=2026-08-03T02:33:59.076Z level=INFO run=848bf868 message="project copy refresh done" projectID=global updated=[] removed=[]
+timestamp=2026-08-03T02:33:59.082Z level=INFO run=848bf868 message="booting location services" directory=/Users/unsis/code/opcode/opcopet workspaceID=undefined
+timestamp=2026-08-03T02:34:28.226Z level=INFO run=848bf868 message=created id=ses_03a8703fdffeeXytTpvGFeWDTn slug=silent-comet version=1.18.10 projectID=global directory=/Users/unsis/code/opcode/opcopet path=Users/unsis/code/opcode/opcopet workspaceID=undefined parentID=undefined title="New session - 2026-08-03T02:34:28.226Z" agent="Sisyphus - ultraworker" model.id=deepseek-v4-flash model.providerID=opencode-go metadata=undefined permission=undefined cost=0 tokens.input=0 tokens.output=0 tokens.reasoning=0 tokens.cache.read=0 tokens.cache.write=0 time.created=1785724468226 time.updated=1785724468226
+timestamp=2026-08-03T02:34:28.289Z level=INFO run=848bf868 message=loop session.id=ses_03a8703fdffeeXytTpvGFeWDTn step=0
+timestamp=2026-08-03T02:34:28.297Z level=INFO run=848bf868 message="shell tool using shell" shell=/bin/zsh
+timestamp=2026-08-03T02:34:28.314Z level=INFO run=848bf868 message=stream providerID=opencode-go modelID=deepseek-v4-flash session.id=ses_03a8703fdffeeXytTpvGFeWDTn small=true agent=title mode=primary
+timestamp=2026-08-03T02:34:28.318Z level=INFO run=848bf868 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode-go llm.model=deepseek-v4-flash
+timestamp=2026-08-03T02:34:28.335Z level=INFO run=848bf868 message="watcher backend" directory=/Users/unsis/code/opcode/opcopet platform=darwin backend=fs-events
+timestamp=2026-08-03T02:34:28.338Z level=INFO run=848bf868 message="project copy refresh started" projectID=global
+timestamp=2026-08-03T02:34:28.339Z level=INFO run=848bf868 message="project copy refresh done" projectID=global updated=[] removed=[]
+timestamp=2026-08-03T02:34:28.339Z level=INFO run=848bf868 message="booting location services" directory=/Users/unsis/code/opcode/opcopet workspaceID=undefined
+timestamp=2026-08-03T02:34:28.539Z level=INFO run=848bf868 message=process session.id=ses_03a8703fdffeeXytTpvGFeWDTn messageID=msg_fc578fc420014wgm6RmayM4rfO
+timestamp=2026-08-03T02:34:28.544Z level=INFO run=848bf868 message=stream providerID=opencode-go modelID=deepseek-v4-flash session.id=ses_03a8703fdffeeXytTpvGFeWDTn small=false agent="Sisyphus - ultraworker" mode=primary
+timestamp=2026-08-03T02:34:28.545Z level=INFO run=848bf868 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode-go llm.model=deepseek-v4-flash
+timestamp=2026-08-03T02:34:31.733Z level=INFO run=848bf868 message=evaluated permission=edit pattern=Users/unsis/code/opcode/opcopet/.omo/evidence/hello.txt action.permission=* action.action=allow action.pattern=*
+timestamp=2026-08-03T02:34:31.734Z level=INFO run=848bf868 message=formatting file=/Users/unsis/code/opcode/opcopet/.omo/evidence/hello.txt
+timestamp=2026-08-03T02:34:31.734Z level=INFO run=848bf868 message="touching file" file=/Users/unsis/code/opcode/opcopet/.omo/evidence/hello.txt
+timestamp=2026-08-03T02:34:32.263Z level=INFO run=848bf868 message=loop session.id=ses_03a8703fdffeeXytTpvGFeWDTn step=1
+timestamp=2026-08-03T02:34:32.275Z level=INFO run=848bf868 message=process session.id=ses_03a8703fdffeeXytTpvGFeWDTn messageID=msg_fc5790bc7001FKMopeSUJBq6ng
+timestamp=2026-08-03T02:34:32.276Z level=INFO run=848bf868 message=stream providerID=opencode-go modelID=deepseek-v4-flash session.id=ses_03a8703fdffeeXytTpvGFeWDTn small=false agent="Sisyphus - ultraworker" mode=primary
+timestamp=2026-08-03T02:34:32.277Z level=INFO run=848bf868 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode-go llm.model=deepseek-v4-flash
+timestamp=2026-08-03T02:34:34.861Z level=INFO run=848bf868 message=loop session.id=ses_03a8703fdffeeXytTpvGFeWDTn step=2
+timestamp=2026-08-03T02:34:34.862Z level=INFO run=848bf868 message="exiting loop" session.id=ses_03a8703fdffeeXytTpvGFeWDTn
+timestamp=2026-08-03T02:34:58.240Z level=INFO run=848bf868 message=loop session.id=ses_03a8703fdffeeXytTpvGFeWDTn step=0
+timestamp=2026-08-03T02:34:58.245Z level=INFO run=848bf868 message=process session.id=ses_03a8703fdffeeXytTpvGFeWDTn messageID=msg_fc5797140001enBvo4n0e85ipV
+timestamp=2026-08-03T02:34:58.246Z level=INFO run=848bf868 message=stream providerID=opencode-go modelID=deepseek-v4-flash session.id=ses_03a8703fdffeeXytTpvGFeWDTn small=false agent="Sisyphus - ultraworker" mode=primary
+timestamp=2026-08-03T02:34:58.247Z level=INFO run=848bf868 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode-go llm.model=deepseek-v4-flash
+timestamp=2026-08-03T02:35:00.707Z level=INFO run=848bf868 message="resolved path" arg=/tmp/opco-wait-test resolved=/tmp/opco-wait-test
+timestamp=2026-08-03T02:35:00.708Z level=INFO run=848bf868 message=evaluated permission=external_directory pattern=/tmp/* action.permission=external_directory action.action=allow action.pattern=*
+timestamp=2026-08-03T02:35:00.708Z level=INFO run=848bf868 message=evaluated permission=bash pattern="touch /tmp/opco-wait-test" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-08-03T02:35:01.523Z level=INFO run=848bf868 message=loop session.id=ses_03a8703fdffeeXytTpvGFeWDTn step=1
+timestamp=2026-08-03T02:35:01.533Z level=INFO run=848bf868 message=process session.id=ses_03a8703fdffeeXytTpvGFeWDTn messageID=msg_fc5797e13001oZtDFOXJ3oYLSS
+timestamp=2026-08-03T02:35:01.534Z level=INFO run=848bf868 message=stream providerID=opencode-go modelID=deepseek-v4-flash session.id=ses_03a8703fdffeeXytTpvGFeWDTn small=false agent="Sisyphus - ultraworker" mode=primary
+timestamp=2026-08-03T02:35:01.535Z level=INFO run=848bf868 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode-go llm.model=deepseek-v4-flash
+timestamp=2026-08-03T02:35:04.099Z level=INFO run=848bf868 message=loop session.id=ses_03a8703fdffeeXytTpvGFeWDTn step=2
+timestamp=2026-08-03T02:35:04.099Z level=INFO run=848bf868 message="exiting loop" session.id=ses_03a8703fdffeeXytTpvGFeWDTn
+timestamp=2026-08-03T02:36:11.062Z level=INFO run=848bf868 message="disposing all instances"
+timestamp=2026-08-03T02:36:11.063Z level=INFO run=848bf868 message="disposing instance" directory=/Users/unsis/code/opcode/opcopet

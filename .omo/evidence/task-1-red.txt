@@ -1,0 +1,25 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/config.test.ts [ src/config.test.ts ]
+Error: Cannot find module './config' imported from /Users/unsis/code/opcode/opcopet/src/config.test.ts
+ ❯ src/config.test.ts:2:1
+      1| import { describe, expect, it } from "vitest";
+      2| import { DEFAULT_CONFIG, loadConfig, saveConfig, type KV } from "./con…
+       | ^
+      3|
+      4| function makeKV(initial: Record<string, unknown> = {}): KV & { store: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  08:55:47
+   Duration  85ms (transform 10ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

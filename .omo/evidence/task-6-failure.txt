@@ -1,0 +1,20 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+ ↓ src/renderer.test.ts > renderFrame > five combos: 4x2-style small frame renders 2 output rows with correct half-block glyphs and colors
+ ↓ src/renderer.test.ts > renderFrame > maps a 24x24 frame to 12 rows x 24 cells and a 16x16 frame to 8 rows x 16 cells
+ ↓ src/renderer.test.ts > renderFrame > outputs only space and half-blocks with no ESC bytes, emoji or fullwidth characters
+ ↓ src/renderer.test.ts > renderFrame > keeps fully transparent rows free of fg and bg (transparent pixels never write a background)
+ ↓ src/renderer.test.ts > renderFrame > merges adjacent same-style runs into one span without changing cell-by-cell output
+ ↓ src/renderer.test.ts > renderFrame > merged output is cell-by-cell identical to the unmerged merge table on real manifest frames
+ ↓ src/renderer.test.ts > renderFrame > theme switch changes only outline-token pixels, never body colors
+ ✓ src/renderer.test.ts > renderFrame > throws a typed RenderError for out of range palette indices instead of emitting bad characters 1ms
+ ↓ src/renderer.test.ts > renderFrame > handles an odd height by pairing the last pixel row with transparent
+ ↓ src/renderer.test.ts > renderFrame > is deterministic: identical input produces identical output
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 9 skipped (10)
+   Start at  09:54:53
+   Duration  88ms (transform 22ms, setup 0ms, import 29ms, tests 1ms, environment 0ms)
+
+exit=0

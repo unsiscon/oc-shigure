@@ -1,0 +1,37 @@
+opco-shigure art-final — PLAN A FALLBACK RECORD (2026-08-03)
+============================================================
+Goal: xterm.js screenshot of the real opencode TUI with the final pet.
+
+Attempted (Plan A, preferred):
+  node .../oh-my-openagent/script/qa/web-terminal-visual-qa.mjs \
+    --title "..." --command "opencode" --input "{Enter}" \
+    --dwell-ms 15000 --cols 200 --rows 50 --evidence-dir .omo/evidence/art-visual
+  Exit: 1 — "Cannot find package 'puppeteer-core' imported from
+  .../xterm-live-terminal.mjs"
+
+Root cause (environment, not the tool):
+  The browser path needs puppeteer-core, and BOTH browser and --no-browser paths
+  need node-pty (@xterm/xterm is also required for rendering). None of the three
+  is installed anywhere reachable:
+    - oh-my-openagent@latest node_modules: absent (ls grep: no matches)
+    - global npm root (/opt/homebrew/lib/node_modules): absent
+    - opencode 1.18.10 install (opencode-ai node_modules): absent
+    - ~/Library/Caches: no puppeteer/playwright browser caches
+  So no xterm.js/Chrome PNG can be produced in this environment; recorded and
+  fell back to Plan B rather than installing packages or faking a capture.
+
+Fallback used (Plan B, PNG delivered):
+  /usr/bin/python3 .omo/evidence/art-render-png.py  (PIL present on /usr/bin/python3)
+  -> .omo/evidence/art-preview-regular.png  (12 frames, 24x12 cells)
+  -> .omo/evidence/art-preview-compact.png  (12 frames, 16x8 cells)
+  -> .omo/evidence/art-preview-light.png    (24 frames, light outline #F7F2EA)
+  Renders each terminal cell per renderer.ts semantics (▀ top=fg / ▄ bottom=fg /
+  █ both=fg / space=bg) at 14x28 px per cell. Verified programmatically: all 12
+  final-palette colors present (hair #141820, skin #FFD0B4, eyes #4BA9FF, uniform
+  #242634, bow #C52F3F, socks #F1E8DF, boots #4B2624, outline #17141B), and the
+  first panel's color-map matches the final idle frame exactly.
+
+Real-TUI evidence (primary, not a substitute for the PNG):
+  .omo/evidence/art-final-smoke.typescript — S3-idle snapshot rows 19-29 show the
+  final idle frame pixels; 待机 label at row 30 col 176 directly below the pet;
+  raw ANSI tail with all 7 final-palette SGR codes (A1 color-* PASS).

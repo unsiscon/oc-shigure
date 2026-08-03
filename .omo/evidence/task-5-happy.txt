@@ -1,0 +1,2 @@
+PASS: asset manifest validation passed
+exit=0

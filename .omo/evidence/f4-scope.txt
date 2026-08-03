@@ -1,0 +1,92 @@
+F4 Scope fidelity — 对照计划 .omo/plans/opco-shigure-tui-skeleton.md Must NOT have（行 43-53）逐项核验
+================================================================================================
+验证时间: 2026-08-03（独立执行，全部命令以真实输出为准）
+工作目录: /Users/unsis/code/opcode/opcopet
+结论: 10/10 PASS — 零违规
+
+------------------------------------------------------------------------------------------------
+[1] 无 server 入口                                       -> PASS
+  - package.json exports 仅含 "./tui"（import→dist/tui.js, types→dist/tui.d.ts）;
+    无 "./server"、无 "." 导出、无 "main" 字段
+    命令: grep -n '"\./server"\|"\.\./server"\|"\./src/server"\|"server"' package.json
+    输出: (零命中) + 全文 cat package.json 人工核对（见 task 上下文, line 6-11 exports 仅 ./tui）
+  - src/ 文件清单: adapter/animation/config/manifest-data/manifest/placeholder/reducer/
+    registry/renderer/sidebar/tui/types + *.test.ts — 无任何 server 文件
+    命令: ls src/*server* dist/*server*  输出: zsh: no matches found → 无 server 文件
+  - dist/ 仅 tui.js + tui.d.ts（无 server.js / server.d.ts）
+
+[2] bundle 无网络/外部进程                                 -> PASS
+  - 计划 F4 指定 grep（只匹配禁用模块/API）:
+    grep -rnE "(from ['\"](?:node:)?(?:http|https|child_process|net|ws)\b|fetch\(|WebSocket|
+    child_process|spawn\(|exec\(|sixel|kitty|\.png)" src/ dist/ --include="*.ts" --include="*.tsx" --include="*.js"
+    输出: (零命中)  grep 退出码 EXIT=1（无匹配）
+  - src/ 全量 import 审计（grep -oE "from ['\"][^'\"]+['\"]" src/ | sort | uniq -c）:
+    仅本地 ./types|./manifest|./registry|./config|./renderer|./reducer|./manifest-data|
+    ./animation|./adapter|./sidebar|./placeholder + 测试框架 vitest + @opencode-ai/sdk/v2 +
+    @opencode-ai/plugin/tui + solid-js + @opentui/solid|keymap|core|jsx-runtime
+  - node: 内建模块零命中: grep -rnE "from ['\"](node:fs|fs|node:os|os|node:path|path|node:url|
+    url|node:http|node:https|node:net|node:child_process|node:worker|node:process)" src/ dist/
+    输出: (零命中) EXIT=1
+  - 注释误报: 无（源码注释仅引用 docs 文档编号，无网络/进程相关引用）
+
+[3] 无 emoji/图片协议路径（sixel/kitty/emoji 方块）        -> PASS
+  - sixel|kitty 已在 [2] 的主 grep 中零命中（src/ + dist/）
+  - emoji 字符扫描（python3, src/ 全部 *.ts/*.tsx, 范围 U+1F000-1FAFF/U+2600-27BF/U+FE0F/
+    U+2B00-2BFF）: EMOJI_HITS=0
+  - 渲染器字符集契约: renderer.test.ts 断言输出仅 {▀,▄,█,空格}（renderer.ts 合并表 45-48 行）
+  - 未启用 Kitty/Sixel/iTerm 图片协议（README 亦声明）
+
+[4] 无养成/多角色/统计代码                                -> PASS
+  - 中文关键词扫描（src/ + dist/）: grep -rnE "养成|等级|成就|统计|投喂|提醒|小游戏|多角色"
+    输出: (零命中) EXIT=1
+  - 多角色注册表: grep -rniE "multi.?char|third.?party.?role|角色导入|roleRegistry|characters\[|
+    roles\[|multiple character" src/ → (零命中) EXIT=1
+  - manifest 仅单角色: manifest.ts:29-31 SHIGURE_MANIFEST { id:"shigure", displayName:"时雨" };
+    types.ts:45-46 同; 无 CharacterManifest[] / manifestList / characters 数组
+  - ASCII 子串误报人工排除: "stat"→states/status/static/transientState（状态机标识符）,
+    "level" 零命中, 均非统计/等级代码
+
+[5] 无 <1.18 兼容分支                                    -> PASS
+  - grep -rnE "1\.17|<1\.18|0\.4\.0|compareVersions|semver|process\.version|api\.version|
+    versionMajor|isOldVersion|legacy.*version|version.*branch" src/ → (零命中) EXIT=1
+  - 无 version 分支/版本门控代码; 唯一回退是 api.command?.register（1.18 内已废弃 API 的
+    可选守卫，属计划允许项，非版本兼容分支）
+
+[6] KV 仅三项键                                        -> PASS
+  - src/config.ts CONFIG_KEYS（5-7 行）: opco-shigure.enabled / opco-shigure.size /
+    opco-shigure.animations — 恰好三项
+  - 全部 "opco-shigure." 引用点核查（src/）: config.ts 3 键 + config.test.ts 断言 + tui.ts
+    三项命令名（opco-shigure.toggle/size/animations，命令非 KV）
+  - dist/tui.js bundle: grep -oE "opco-shigure\.[a-z]+" | sort | uniq -c →
+    animations×3, enabled×1, size×3, toggle×2 — 仅 3 个 KV 键 + 1 命令名（toggle），无第 4 键
+
+[7] 无 git 初始化                                       -> PASS
+  - 命令: ls -la .git 2>/dev/null  输出: (目录不存在) → NO .git
+  - 仓库根无 .git 目录，无任何提交痕迹（与计划 Commit strategy N/A 一致）
+
+[8] 无 npm 发布动作                                      -> PASS
+  - package.json 第 4 行: "private": true — 阻止 npm publish
+  - 无 prepublish/publish scripts（scripts 仅 build/typecheck/test/validate-assets）;
+    本地 opco-shigure-0.1.0.tgz 为计划许可的 npm pack 冒烟产物，非发布
+
+[9] 无最终美术资产混入                                   -> PASS
+  - src/ 无 PNG 解码引用: [2] 主 grep 的 \.png 零命中; 无 fs/readFile/decode/ImageBitmap/
+    createImageData; placeholder.ts 的 "Canvas" 为程序化像素内存类型（makeCanvas/fill/pixel,
+    12-19 行），非浏览器/解码 API
+  - ASSETS_ARE_PLACEHOLDER = true as const（manifest.ts:6）; manifest.test.ts:19 断言
+    expect(ASSETS_ARE_PLACEHOLDER).toBe(true)
+  - dist/tui.js 不含 .png 引用（[2] 主 grep 覆盖 dist/）
+  - 概念 PNG 仅存于 design/samples/（仓库文档资产，非运行时，README 已声明）
+
+[10] 未修改 opencode.json / 未新增 KV 字段               -> PASS
+  - 仓库根: 无 opencode.json / opencode.jsonc
+  - ~/.config/opencode/opencode.jsonc: grep -n "opco-shigure" → (零命中)，未被修改
+  - tui.json 仅按计划许可追加绝对路径条目 "/Users/unsis/code/opcode/opcopet/dist/tui.js"
+    （行 4，用户确认保留；非 opencode.json）
+  - 未新增 KV 字段: 见 [6]，KV 命名空间仅三键
+
+------------------------------------------------------------------------------------------------
+汇总: PASS = 10, FAIL = 0
+违规项: 无
+证据说明: 全部结论基于命令真实输出（grep 退出码 1 = 零命中; ls/文件清单; python3 emoji 扫描;
+package.json/README/src 全文核对），无误导性成功输出。

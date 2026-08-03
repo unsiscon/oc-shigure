@@ -1,0 +1,21 @@
+opco-shigure todo 8 smoke results
+=================================
+PASS  S1 tui-up  home screen rendered
+PASS  S2 home-screen  
+FAIL  S3 provider-task-states  states observed: []
+FAIL  S4 waiting-trigger  等待 not observed; seen []
+FAIL  S6 pet-render-idle  待机 not found
+FAIL  S7 order-600  pet not rendered
+FAIL  S8 cmd-hide  待机 still present
+PASS  S8kv enabled=false  kv=False
+PASS  S9 cmd-show  pet block restored
+PASS  S9kv enabled=true  kv=True
+PASS  S10 cmd-compact  label row 31->31, kv=compact
+PASS  S10kv size=compact  kv=compact
+PASS  S11 cmd-regular  kv=regular
+PASS  S12 cmd-anim-off  animations=false, label still rendered (FR-4)
+PASS  S12kv anim=false  kv=False
+PASS  S13 cmd-anim-on  kv=True
+PASS  S14 final-state  pet visible, idle label present
+
+Total: 12/17 passed

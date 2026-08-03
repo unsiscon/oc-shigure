@@ -1,0 +1,21 @@
+
+ RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+
+ ✓ src/animation.test.ts > AnimationController > idle loop: 两帧按 400ms 交替推进、帧序列正确（fake clock 快进） 1ms
+ ↓ src/animation.test.ts > AnimationController > fps cap: 帧间隔至少 167ms（全局 ≤6FPS）
+ ↓ src/animation.test.ts > AnimationController > fps cap: 自定义 fpsCap=4 → 间隔 250ms
+ ↓ src/animation.test.ts > AnimationController > pause: 暂停后 10 个 tick 无帧回调，start 后恢复推进
+ ↓ src/animation.test.ts > AnimationController > dispose: 取消全部调度、幂等，之后无任何回调
+ ↓ src/animation.test.ts > AnimationController > 状态切换回首帧；尺寸切换回首帧（不跨尺寸索引）
+ ↓ src/animation.test.ts > AnimationController > animations 重新启用：重置当前状态首帧，不追赶禁用期间经过的帧
+ ↓ src/animation.test.ts > AnimationController > long retry: 虚拟 10 分钟运行，定时器数量恒为 1（单定时器不累积）；dispose 两次幂等
+ ↓ src/animation.test.ts > AnimationController > loop=false: success/error 一次性播放一遍后停在末帧（不循环）；瞬态期限回调
+ ↓ src/animation.test.ts > AnimationController > generation token: 过期回调不覆盖新状态
+ ↓ src/animation.test.ts > AnimationController > onFrame/onTransientEnd 退订后不再收到回调
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 10 skipped (11)
+   Start at  09:02:50
+   Duration  94ms (transform 16ms, setup 0ms, import 22ms, tests 2ms, environment 0ms)
+
+exit=0

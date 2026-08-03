@@ -1,0 +1,23 @@
+opco-shigure todo 8 — FAILURE scenario evidence (2026-08-03)
+============================================================
+Scenario (per plan QA): mv dist dist.bak -> start TUI -> assert opencode
+does NOT crash, plugin degrades gracefully, sessions work; restore dist
+-> re-run -> back to normal.
+
+Run 1 (dist missing):
+  mv dist dist.bak; ls dist -> No such file or directory
+  opencode 1.18.10 spawned in 200x50 pty with the retained tui.json
+  absolute-path entry pointing at the now-missing dist/tui.js:
+  -> TUI RENDERED at 2.4s — no crash, no hang, home screen normal.
+  Plugin load simply fails (file import error), host continues;
+  degradation is silent from the user's perspective and the TUI is fully
+  usable (error isolation, docs/04 §5).
+  Evidence stream: .omo/evidence/task-8-failure.bin
+
+Run 2 (dist restored):
+  mv dist.bak dist -> dist/tui.js + dist/tui.d.ts present
+  Same spawn: TUI RENDERED at 2.2s — normal boot restored.
+  (Full render/command evidence of the restored path is the 23/23 smoke in
+  task-8-smoke.typescript, run with this exact dist build.)
+
+Result: PASS — graceful degradation confirmed, no host crash either way.
