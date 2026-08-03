@@ -60,24 +60,17 @@ interface Cell {
 /** 解析 SGR 参数串，返回 (fg, bg) 十六进制色。 */
 function parseSgr(params: string): { fg?: string; bg?: string } {
   const parts = params.split(";");
-  let fg: string | undefined;
-  let bg: string | undefined;
+  const out: { fg?: string; bg?: string } = {};
   for (let i = 0; i < parts.length; i += 1) {
-    if (parts[i] === "38" && parts[i + 1] === "2" && i + 4 < parts.length) {
+    if ((parts[i] === "38" || parts[i] === "48") && parts[i + 1] === "2" && i + 4 < parts.length) {
       const hex = [parts[i + 2], parts[i + 3], parts[i + 4]]
         .map((n) => Number(n).toString(16).padStart(2, "0"))
         .join("");
-      fg = `#${hex}`;
-      i += 4;
-    } else if (parts[i] === "48" && parts[i + 1] === "2" && i + 4 < parts.length) {
-      const hex = [parts[i + 2], parts[i + 3], parts[i + 4]]
-        .map((n) => Number(n).toString(16).padStart(2, "0"))
-        .join("");
-      bg = `#${hex}`;
+      out[parts[i] === "38" ? "fg" : "bg"] = `#${hex}`;
       i += 4;
     }
   }
-  return { fg, bg };
+  return out;
 }
 
 /** 解析一行 ANSI 半块文本为逐格 (ch, fg, bg) 序列。 */
