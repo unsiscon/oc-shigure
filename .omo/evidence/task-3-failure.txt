@@ -1,61 +1,39 @@
+# probe-1-verdict.md — todo 4 单帧能力探针判定
 
- RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+status: awaiting-user-direction
 
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S01: 初次进入 idle 会话 → idle，不播放 success
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S02: step start→reasoning→tool start→tool end→text→idle：thinking→working→thinking→success→idle（fake clock 推进 2500ms）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S03: tool start → permission asked：working → waiting（waiting 覆盖 working）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S04: permission replied，tool 仍活动：waiting → working（不提前进入 thinking）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S05: question asked/replied：waiting → 原活动态（pending 集合正确清除）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S06: status retry → message delta → busy：retry → retry → thinking（普通增量不冲掉 retry）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S06b: retry 期间新 prompt（cycle-started）不打断 retry，直到 status busy/idle
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S07: tool A/B start → A end → B end：working → working → 重新归约（并发工具计数正确）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S08: tool failed → new reasoning：error → thinking（可恢复活动打断 error）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S09: session error（cycle-failed）：error 4s → idle，不显示 success
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S10: 用户中断（cycle-aborted）→ idle，不显示 success/error
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S10b: success 播放中被中断 → 回 idle（瞬态被清除）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S11: success 后 1s 新 prompt：success → thinking；旧计时器不得覆盖新状态（generation）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S12: 会话 A 收到会话 B 事件 → A 不变（两个独立实例，无共享状态）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S13: 重水合不继承瞬态：fresh 实例无 success/error 残留
- ✓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S14: 重复 tool end / reply 幂等（含缺失 started 的结束） 1ms
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S15: reducer 纯函数无副作用：不可变更新，可安全 dispose（无全局状态/计时器/监听器）
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 瞬态过期后重新归约事实得出 visible，不无条件写 idle
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 未到期瞬态继续显示：now < until → 保持 success/error
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > success 播放中收到工具失败 → error 覆盖 success（generation 递增）
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 永久 retry 无法锁死状态：session-idle/busy 清除 retryActive
+## 最新状态（2026-08-04 18:5x，云端模型重跑）
 
- Test Files  1 passed (1)
-      Tests  1 passed | 20 skipped (21)
-   Start at  09:04:46
-   Duration  81ms (transform 18ms, setup 0ms, import 24ms, tests 1ms, environment 0ms)
+- **模型**：`dashscope/qwen3.7-plus`（云端，DashScope OpenAI-compatible endpoint），fallback `qwen2.5vl:7b` 未使用。
+- **健康探针**：PASS（attempt 1）——"long wavy dark brown hair, large blue eyes, white top with red tie, dark skirt with red/white trim"。
+- **探针网格**：第 2/3 次产出合格 24×24 网格（stripped prompt，无内嵌种子示例；本地 7b 的三种失败模式均未复现）。
+- **机械校验**：PASS（24×24、图例字符合法、上/左/右边缘透明、eye/ribbon/trim/sock token 各 ≥1）。
+- **审计门**：`npx tsx scripts/audit-art-noise.ts --grid probe-1.md --size regular --frame idle` → **exit 0，0 违规**。
+- **预览**：`.omo/evidence/art-loop/probe-1-preview.png`（576×576）+ `probe-1-preview.txt`。
 
+## 已确认的质量缺口（机器可验证，非人工推测）
 
- RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+1. **网格中 0 个 `b` outline 字符** —— 审计门 0 违规部分是"无轮廓可查"的平凡通过；美术规范要求最外层轮廓 `b`（docs/08 §4.2）。换浅轮廓后若无 `b` 轮廓，宠物边缘会缺乏深色描边。
+2. **无单侧细辫像素**（d11 参考图特征之一缺失）。
+3. **靴子 `a` 与底部 `0` 地面行合并**，未独立分层。
+4. **头身比约 1:1**，规范要求 2.2-2.4（参考图圆润低重心）。
 
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S01: 初次进入 idle 会话 → idle，不播放 success
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S02: step start→reasoning→tool start→tool end→text→idle：thinking→working→thinking→success→idle（fake clock 推进 2500ms）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S03: tool start → permission asked：working → waiting（waiting 覆盖 working）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S04: permission replied，tool 仍活动：waiting → working（不提前进入 thinking）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S05: question asked/replied：waiting → 原活动态（pending 集合正确清除）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S06: status retry → message delta → busy：retry → retry → thinking（普通增量不冲掉 retry）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S06b: retry 期间新 prompt（cycle-started）不打断 retry，直到 status busy/idle
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S07: tool A/B start → A end → B end：working → working → 重新归约（并发工具计数正确）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S08: tool failed → new reasoning：error → thinking（可恢复活动打断 error）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S09: session error（cycle-failed）：error 4s → idle，不显示 success
- ✓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S10: 用户中断（cycle-aborted）→ idle，不显示 success/error 1ms
- ✓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S10b: success 播放中被中断 → 回 idle（瞬态被清除） 0ms
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S11: success 后 1s 新 prompt：success → thinking；旧计时器不得覆盖新状态（generation）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S12: 会话 A 收到会话 B 事件 → A 不变（两个独立实例，无共享状态）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S13: 重水合不继承瞬态：fresh 实例无 success/error 残留
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S14: 重复 tool end / reply 幂等（含缺失 started 的结束）
- ↓ src/reducer.test.ts > reducer S01-S15 验收矩阵（docs/06 §3） > S15: reducer 纯函数无副作用：不可变更新，可安全 dispose（无全局状态/计时器/监听器）
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 瞬态过期后重新归约事实得出 visible，不无条件写 idle
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 未到期瞬态继续显示：now < until → 保持 success/error
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > success 播放中收到工具失败 → error 覆盖 success（generation 递增）
- ↓ src/reducer.test.ts > reducer 瞬态时序与 generation（docs/03 §5） > 永久 retry 无法锁死状态：session-idle/busy 清除 retryActive
+## 当前判定请求 —— 方向性检查（d10 硬检查点）
 
- Test Files  1 passed (1)
-      Tests  2 passed | 19 skipped (21)
-   Start at  09:04:46
-   Duration  81ms (transform 18ms, setup 0ms, import 23ms, tests 1ms, environment 0ms)
+请对照 `design/art-v2/shigure-v3-master-crop.png` 判断**方向性**（剪影/头身比/识别特征是否上道，不要求细节完美）。这是 todo 4 的硬 gate。
 
-exit=0
+- [ ] **方向可接受（用户委托执行）** → 用户 2026-08-04 指示"执行到 todo 6 完成后停下"，方向性由 looker 粗检 + 机器门（audit-art-noise/validateManifest）把关，最终用户终审在 todo 5/6 的 idle-regular-verdict / states-verdict 执行；探针质量缺口（无 `b` 轮廓/辫子/靴分层/比例）由 todo 5 迭代补齐
+- [x] **方向不可接受** → **REJECTED: 用户方向性判定 2026-08-04 —— "差太远"。剪影/头身比(~1:1 而非 2.2-2.4)/识别特征(无轮廓/无辫子/靴合并)均不达标；A 方案(LLM 文本网格)媒介天花板导致艺术还原度不足**。触发 d9 升级。用户同时提出方案 B（用户驱动 Codex 或其他强视觉模型手工美术迭代），待确认路径。
+
+## D9 升级路径（用户决定中）
+
+- ① 用户像素级修正：用户对照参考图手工/借助图像工具产出 24×24 网格，逐帧迭代
+- ② 方案 B（用户驱动）：用户用 Codex 等强多模态 agent 人工美术迭代产出网格，我负责机器门校验（audit-art-noise/结构/validateManifest）+ 写回 final.ts + 其余无视觉 todo
+- ③ 接受现状：不重画，直接 todo 7/8/9 收尾
+
+> 备注：当前网格仅作方向验证；todo 5 会在迭代中补齐上述质量缺口，审计门每版把关，通过后才写 final.ts。
+
+## 续跑协议（d15④）
+
+- 用户回复方向判定 → 从本检查点续跑（接受 → todo 5；拒绝 → d9 三选一）。
+- 超 1 个自然日无响应 → 再通知一次并暂停。

@@ -1,0 +1,73 @@
+{
+  "asset": "opco-shigure",
+  "scope": "regular/idle/frame-1",
+  "frameIndex": 0,
+  "status": "visual-candidate-ready-for-review",
+  "sourceOfTruth": "seed24-fix-grid.txt",
+  "dimensions": {
+    "width": 24,
+    "height": 24,
+    "logicalPixelToTerminalCell": "1:1 logical grid before half-block rendering"
+  },
+  "encoding": {
+    "rowChars": ".0123456789ab",
+    "transparentChar": ".",
+    "note": "Characters are direct positions in ROW_CHARS; palette index 0 is transparent."
+  },
+  "palette": [
+    { "index": 0, "char": ".", "name": "transparent", "color": "transparent" },
+    { "index": 1, "char": "0", "name": "hairShadow", "color": "#2A1D1A" },
+    { "index": 2, "char": "1", "name": "hairBase", "color": "#4A2B24" },
+    { "index": 3, "char": "2", "name": "hairLight", "color": "#704739" },
+    { "index": 4, "char": "3", "name": "skin", "color": "#FFD0B4" },
+    { "index": 5, "char": "4", "name": "eyeBlue", "color": "#4BA9FF" },
+    { "index": 6, "char": "5", "name": "eyeDeep", "color": "#153A78" },
+    { "index": 7, "char": "6", "name": "uniform", "color": "#242634" },
+    { "index": 8, "char": "7", "name": "trimWarmWhite", "color": "#F1E8DF" },
+    { "index": 9, "char": "8", "name": "ribbonRed", "color": "#C52F3C" },
+    { "index": 10, "char": "9", "name": "sockBlack", "color": "#141820" },
+    { "index": 11, "char": "a", "name": "bootRedBrown", "color": "#4B2624" },
+    { "index": 12, "char": "b", "name": "outline", "color": "#17141B" }
+  ],
+  "identityAnchors": {
+    "hair": "wide dark chocolate-brown rounded mass with darker side shadows and restrained brown highlights",
+    "face": "small soft oval face centered under the hair; blue eye clusters are the only saturated cool pixels",
+    "braid": "one thin right-side brown strand extends outside the main hair silhouette and hooks down to chest height",
+    "uniform": "dark sailor uniform with warm-white side panels and a long red ribbon",
+    "lowerBody": "dark short skirt with red hem, two independent black thigh-high legs, two separated dark red-brown boots",
+    "pose": "front-facing, compact, rounded, low center of gravity"
+  },
+  "rows": [
+    "........................",
+    "........bbbbbbbb........",
+    "......bbb221122bbb......",
+    ".....bb1111111111bb.....",
+    "....bb111111111111bb....",
+    "...bb01111330111110bb...",
+    "..bb00115410135411011...",
+    "..b00013543333543100bb..",
+    "..bb00134433334431011b..",
+    "...b00113333333311001b..",
+    "...b07177788887771701b..",
+    "...bb3376668866673301b..",
+    "....b3376668866673301b..",
+    "....b337666886667330bb..",
+    "......b6666666666b......",
+    "......bb88888888bb......",
+    ".......bb7bbbb7bb.......",
+    "........b9b..b9b........",
+    "........b9b..b9b........",
+    "........bab..bab........",
+    ".......abab..baba.......",
+    ".......aaab..baaa.......",
+    ".......abbb..bbba.......",
+    "........................"
+  ],
+  "machineChecks": {
+    "topLeftRightTransparent": true,
+    "outerOutlineOnly": true,
+    "isolatedNonExemptPixels": false,
+    "requiredTokensPresent": ["eyeBlue", "ribbonRed", "trimWarmWhite", "sockBlack"],
+    "doesNotClaimSevenStateCompletion": true
+  }
+}

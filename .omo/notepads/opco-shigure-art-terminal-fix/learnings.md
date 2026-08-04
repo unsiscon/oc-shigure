@@ -38,3 +38,34 @@ _Append-only. Never overwrite._
   - attempt 3: model emitted a verbatim echo of the format-example seed embedded in the prompt (byte-identical to design/art-v2/shigure-pixel-data.json regular idle_frame) — fails structure (b at column 0 rows 13/15) AND is a copy of the forbidden old generator output. This is the "misleading success output" adversarial class: a well-formed 24×24 grid that is not a redraw of the reference.
 - Key lesson: the local qwen2.5vl:7b model is very prompt-sensitive. Embedding a full seed example as "format reference" causes verbatim echo. It also cannot reliably emit a clean 24×24 silhouette (all-0 collapse). For todo 5, either (a) use a stripped-down prompt with NO full-grid example, or (b) feed it only a compact format spec and rely on user pixel-level correction per d9; escalation path to user is the intended d9 trigger.
 - probe-1.md was NOT overwritten: no valid looker grid exists, and writing a fake grid would violate the checkpoint contract. Existing placeholder probe-1.md (todo 3 test fixture) remains as-is.
+
+## 2026-08-04 — todo 4 re-run (Option A: cloud looker)
+- **Model that actually responded: `dashscope/qwen3.7-plus` (cloud)** via DashScope OpenAI-compatible endpoint `https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions`. Fallback local qwen2.5vl:7b NOT used. Gotcha: when calling the endpoint directly, the provider prefix must be stripped — model id is `qwen3.7-plus`, NOT `dashscope/qwen3.7-plus` (the prefixed id returns HTTP 404).
+- **Health probe: PASS on attempt 1** — one-sentence description of shigure-v3-master-crop.png. `enable_thinking:false` needed to avoid 180s+ timeouts; with it, responses are fast.
+- **Probe grid: PASS on attempt 2 of 3** (attempt 1 and 3: format-fail with variable row widths ~20-22 chars instead of 24; the model kept emitting short rows). Attempt 2 emitted a full clean 24×24 grid.
+- **Validator bug I hit**: my first validator wrongly required the BOTTOM edge transparent — the todo-4 spec only requires top/left/right edges transparent. Attempt 2 failed ONLY on my over-strict bottom-edge rule; per spec it PASSES. Lesson: re-read the spec's exact mechanical criteria before counting a retry as failed — I nearly wrote D9-UPGRADE on a valid grid.
+- **Stripped prompt works**: legend table + character requirements + strict "24 rows × 24 chars, no extra text" with NO embedded full-grid seed example produced a well-formed grid on attempt 2. No verbatim echo, no `#` chars, no all-0 collapse (all 3 local-7b failure modes avoided).
+- **Audit gate on probe-1.md: 0 violations, exit 0** — but misleadingly so: the grid contains ZERO `b` outline chars, so outline rules trivially pass. The aesthetic gap (no outline, boots merged on a `0` ground row, no separate side braid) is a QUALITY issue, not a mechanical one — user decides in next gate. Audit result is diagnostic only.
+- probe-1.md now holds the validated cloud-looker grid (24 lines exactly, overwrote the todo-3 fixture). probe-1-looker-notes.md updated with cloud description.
+
+## 2026-08-04 — todo 4 step 4 (probe-1 PNG render)
+- Rendered probe-1.md -> `probe-1-preview.png` (576×576 = 24×24 logical × 24× scale, 3097 bytes, RGB, verified opens with correct dims) + `probe-1-preview.txt` (side-by-side grid + legend header; reference file, checkpoint untouched at exactly 24 lines).
+- Char->palette confirmed against `src/manifest-data.ts` SHIGURE_PALETTE: `.`=0/transparent, `0`=1/#2A1D1A … `b`=12/#17141B; `INDEX_CHARS=".0123456789ab"` in art-render-png.py matches.
+- Gotchas:
+  - SHIGURE_PALETTE colors are opaque RGB 3-tuples; only `.` is transparent. Renderer must branch on the grid char (`.`) — testing `color[3]==0` on an RGB tuple raises IndexError. If a future renderer ever uses RGBA for all entries, keep the transparent check char-based.
+  - Checkerboard trick: pixel block index `(block_x + block_y) % 2` keyed off scaled coordinates/SCALE gives clean 24px squares (light-gray/white), so transparent margins stay visibly distinct from any true color.
+  - Visual read confirms looker verdict: grid has zero `b` outline chars, no side braid, boots (`a`) merged onto the `0` ground row — matches the known quality gap, user decides next gate.
+
+## 2026-08-04 — todo 4 re-run with cloud model (PASS)
+- dashscope/qwen3.7-plus produced a valid 24x24 grid on attempt 2/3 (stripped prompt, no seed example). None of the local-7b failure modes recurred.
+- Gotcha: direct endpoint calls need provider prefix stripped — `qwen3.7-plus` works, `dashscope/qwen3.7-plus` 404. Also `enable_thinking:false` avoids 180s+ timeouts.
+- Grid quality gaps (for todo 5): 0 `b` outline chars, no side braid, boots merged into ground row, head-body ~1:1 (spec 2.2-2.4). Audit 0-violation is partly trivial (no outline to check).
+- Render gotcha: SHIGURE_PALETTE colors are RGB 3-tuples; branch on grid char (`.`) not `color[3]` for transparency.
+
+## 2026-08-04 — todo 4/5 (Plan B Codex round 1 delivered: approved-v0)
+- User selected Plan B (d9 option ②): user drives Codex art iteration; orchestrator owns machine gates / write-back / previews / incremental instructions.
+- Codex round 1 = `design/art-v2/shigure-v3-terminal-seed-24-approved-v0-grid.txt` (frozen 20:10, user "效果还可以", never overwrite; future = approved-v1+).
+- **CRITICAL attribution gotcha**: seed24-fix-verdict.md's "machine PASS" + seed24-fix-audit.txt exit 0 are for `seed24-fix-grid.txt` (sha 6a587b38, Q-clean, 8x eyeBlue). The approved-v0 file (sha bf02fd63) is a DIFFERENT file = raw v3 seed = byte-identical to seed24-visual-master-grid.txt and shigure-pixel-data.json idle_frame. Do not conflate the two.
+- approved-v0 machine gates (all FAIL): audit 104 violations (internal-b 56 / floating-b 4 / isolated non-exempt 44), eyeBlue '4' count = 0 (validateManifest gate 11), left edge b@(13,0)(15,0), right edge b@(13,23), frame-2 blink patchFirst("4","5") would THROW (no '4' to patch) → write-back would crash module load and all 135/145 tests.
+- Evidence: .omo/evidence/task-4-failure.txt. Incremental instruction generated: .omo/evidence/art-loop/approved-v1-fix-instruction.md (only remaining issues: restore 2x blue eyes, clean 56 internal + 4 floating b, fix L/R edges, merge/delete 44 isolated non-exempt). Seed16 prep instruction: .omo/evidence/art-loop/seed16-v1-instruction.md (todo 6, independent 16x16 redraw, no scaling).
+- Loop protocol (user-defined): I produce instruction file -> user pastes to Codex -> Codex outputs grid -> user pastes back -> I run 3 gates -> pass = write final.ts, fail = new incremental instruction.

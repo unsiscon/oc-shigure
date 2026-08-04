@@ -1,21 +1,40 @@
+todo 5 machine-gate evidence (approved-v0 re-verification)
+date: 2026-08-04
+scope: design/art-v2/shigure-v3-terminal-seed-24-approved-v0-grid.txt (regular/idle/frame 1)
 
- RUN  v4.1.10 /Users/unsis/code/opcode/opcopet
+== VERDICT: FAIL — approved-v0 cannot be written into final.ts ==
 
- ↓ src/animation.test.ts > AnimationController > idle loop: 两帧按 400ms 交替推进、帧序列正确（fake clock 快进）
- ↓ src/animation.test.ts > AnimationController > fps cap: 帧间隔至少 167ms（全局 ≤6FPS）
- ↓ src/animation.test.ts > AnimationController > fps cap: 自定义 fpsCap=4 → 间隔 250ms
- ↓ src/animation.test.ts > AnimationController > pause: 暂停后 10 个 tick 无帧回调，start 后恢复推进
- ↓ src/animation.test.ts > AnimationController > dispose: 取消全部调度、幂等，之后无任何回调
- ↓ src/animation.test.ts > AnimationController > 状态切换回首帧；尺寸切换回首帧（不跨尺寸索引）
- ↓ src/animation.test.ts > AnimationController > animations 重新启用：重置当前状态首帧，不追赶禁用期间经过的帧
- ✓ src/animation.test.ts > AnimationController > long retry: 虚拟 10 分钟运行，定时器数量恒为 1（单定时器不累积）；dispose 两次幂等 6ms
- ↓ src/animation.test.ts > AnimationController > loop=false: success/error 一次性播放一遍后停在末帧（不循环）；瞬态期限回调
- ↓ src/animation.test.ts > AnimationController > generation token: 过期回调不覆盖新状态
- ↓ src/animation.test.ts > AnimationController > onFrame/onTransientEnd 退订后不再收到回调
+The seed24-fix-verdict.md "machine PASS" applies to design/art-v2/seed24-fix-grid.txt
+(sha 6a587b386d9c2a6be6c20ba79f94b2757153adcafeb95616cdc470596d1f96f1, Q-revision with 8x eyeBlue '4').
+The frozen approved-v0 grid (sha bf02fd6334afd153a18b91190dfe14b9caed2c354abacaca9d572daa44a56d1e)
+is byte-identical to the RAW v3 seed (shigure-pixel-data.json idle_frame) and FAILS every machine gate:
 
- Test Files  1 passed (1)
-      Tests  1 passed | 10 skipped (11)
-   Start at  09:02:50
-   Duration  91ms (transform 16ms, setup 0ms, import 22ms, tests 6ms, environment 0ms)
+== Gate 1: audit-art-noise ==
+command: npx tsx scripts/audit-art-noise.ts --grid design/art-v2/shigure-v3-terminal-seed-24-approved-v0-grid.txt --size regular --frame idle
+exit_code: 1
+violations: 104 total
+  - rule 1 floating-b: 4   (21,3) (21,4) (22,4) (10,19)
+  - rule 1 internal-b: 56  (hair strands, uniform inner, leg gaps, skirt inner)
+  - rule 2 isolated non-exempt: 44 (index 1 hairShadow x17, index 11 bootRedBrown x9,
+    index 3 hairLight x8, index 4 skin x4, index 7 uniform x4, index 2 hairBase x2)
 
-exit=0
+== Gate 2: validateManifest (structure/token simulation) ==
+top edge transparent:  TRUE
+left edge transparent: FALSE  -- b at (13,0) (15,0)
+right edge transparent: FALSE -- b at (13,23)
+token '4' eyeBlue:      0  ==> FAIL (gate 11: required token eye_blue missing for regular/idle)
+token '8' ribbonRed:    10
+token '7' trimWarmWhite: 8
+token '9' sockBlack:     1
+
+== Gate 3: frame-2 idle blink derivation ==
+REGULAR_IDLE_BLINK_ROWS = patchFirst(REGULAR_IDLE_ROWS, "4", "5") -- patchFirst THROWS
+"token 4 occurrence 0 not found" when the grid contains zero '4' chars.
+Any final.ts write-back of this grid would crash module load -> ALL npm tests / build break.
+
+== Conclusion ==
+approved-v0 is the user-approved VISUAL baseline (frozen, "效果还可以", never overwrite per
+opencode-art-delivery-approved-v0.md) but is NOT machine-clean. It must NOT be written to
+src/assets/final.ts. Action per Plan B iteration loop: generate incremental instruction
+.omo/evidence/art-loop/approved-v1-fix-instruction.md -> user pastes to Codex -> Codex emits
+approved-v1 grid -> re-run all three gates -> only then write back.

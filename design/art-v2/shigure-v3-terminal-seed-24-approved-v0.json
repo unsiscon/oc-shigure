@@ -1,0 +1,20 @@
+{
+  "id": "shigure-v3-terminal-seed-24-approved-v0",
+  "status": "user-approved-visual-baseline",
+  "dimensions": { "width": 24, "height": 24 },
+  "scope": "regular/idle/frame-1",
+  "sourceGrid": "shigure-v3-terminal-seed-24-approved-v0-grid.txt",
+  "previews": {
+    "light": "shigure-v3-terminal-seed-24-approved-v0-preview-light.png",
+    "dark": "shigure-v3-terminal-seed-24-approved-v0-preview-dark.png"
+  },
+  "renderer": {
+    "mode": "ANSI half-block",
+    "glyphs": ["▀", "▄", "█"],
+    "terminalCells": "24x12",
+    "logicalPixelsPerCell": "2 vertical pixels"
+  },
+  "paletteEncoding": ".0123456789ab",
+  "runtimeRule": "Compile sourceGrid into palette-index matrices; do not decode PNG at runtime.",
+  "approvalRule": "Never overwrite this v0. Future art revisions must use a new versioned filename."
+}

@@ -29,3 +29,12 @@
    Duration  87ms (transform 18ms, setup 0ms, import 23ms, tests 1ms, environment 0ms)
 
 exit=0
+
+=== todo 4 re-run: probe-1 single-frame capability probe (cloud looker) ===
+- Responding model: dashscope/qwen3.7-plus (cloud), NOT fallback qwen-vl-local/qwen2.5vl:7b
+- Health probe: PASS (attempt 1, one-sentence description)
+- Probe grid: produced attempt 2 of 3 (attempts 1+3 format-fail: variable row widths), stripped prompt, no seed example
+- Mechanical validation: PASS (24x24, legend charset, top/left/right edges transparent, eye/ribbon/trim/sock tokens present)
+- Audit gate: npx tsx scripts/audit-art-noise.ts --grid .omo/evidence/art-loop/probe-1.md --size regular --frame idle
+- AUDIT: 1 frame(s), 0 violation(s) | exit code 0
+- Diagnostic note: 0 violations because grid contains NO 'b' outline chars (rule 1/2 trivially pass); aesthetic gap (no outline, boots on ground row) to be decided by user in next gate

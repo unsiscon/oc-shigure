@@ -1,0 +1,34 @@
+seed24-fix audit evidence
+date: 2026-08-04
+scope: design/art-v2/seed24-fix-grid.txt (regular/idle/frame 1)
+
+revision: Q-style revision 2 (shorter socks, chunkier boots, restored hair top, larger blue eye clusters)
+
+command: npx tsx scripts/audit-art-noise.ts --grid design/art-v2/seed24-fix-grid.txt --size regular --frame idle
+exit_code: 0
+stdout: AUDIT: 1 frame(s), 0 violation(s)
+
+standalone format checks: exit_code 0
+rows=24: PASS
+widths=24: PASS
+legend=.0123456789ab: PASS
+top-transparent: PASS
+left-transparent: PASS
+right-transparent: PASS
+json-equals-grid: PASS
+token-4 eye_blue: PASS
+token-8 ribbon_red: PASS
+token-7 trim_warm_white: PASS
+token-9 sock_black: PASS
+transparent-preview-exists: PASS
+
+grid_sha256: 6a587b386d9c2a6be6c20ba79f94b2757153adcafeb95616cdc470596d1f96f1
+pngs:
+- design/art-v2/seed24-fix-preview.png (480x480 RGBA, nearest-neighbor logical pixels)
+- .omo/evidence/art-loop/seed24-fix-preview-light.png (480x480 RGBA, light QA background)
+- .omo/evidence/art-loop/seed24-fix-preview-dark.png (480x480 RGBA, dark QA background)
+
+visual_review:
+- compared against shigure-v3-master-crop.png: broad hair, rounded low center, oval face, blue eyes, red tie, side panels, separated socks/boots retained
+- secondary shigure-v2-uniform-crop.png: dark sailor uniform, white trim, red accent, dark boots retained
+- result: candidate ready for user visual gate; not claimed as full seven-state completion

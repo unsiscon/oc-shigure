@@ -86,7 +86,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
 > Implementation + Test = ONE todo. Never separate.
 <!-- APPEND TASK BATCHES BELOW THIS LINE WITH edit/apply_patch - never rewrite the headers above. -->
 
-- [ ] 1. git 初始化 + 基线提交 + 远端推送（用户 2026-08-04 新增，执行前第一步）
+- [x] 1. git 初始化 + 基线提交 + 远端推送（用户 2026-08-04 新增，执行前第一步）
   What to do / Must NOT do:
   1) **前置确认**：本地当前非 git 仓库（实测 `git rev-parse` fatal）、远端 `git@github.com:unsiscon/oc-shigure.git` 可达且为空（实测 `git ls-remote` exit 0 无 refs）、git 身份已配置（unsis/unsiscon@gmail.com）、`.gitignore` 已有 node_modules/+dist/。
   2) **初始化**：`git init -b main`；把 `.gitignore` 追加 `*.tgz`（opco-shigure-0.1.0.tgz 构建产物不入库）。
@@ -107,7 +107,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: `git push -u origin main > .omo/evidence/task-0-failure.txt 2>&1; echo "push exit=$?" >> .omo/evidence/task-0-failure.txt`（断言 "push exit=0"；若 SSH 认证失败→记录网络/密钥问题，修复后重跑；若远端非空冲突→`git pull --rebase origin main` 后重推）
   Commit: `git add -A && git commit -m "chore: baseline v4d pre-art-fix" && git push -u origin main`
 
-- [ ] 2. T1 渲染一致性复验 + 环境前检（防回归门）
+- [x] 2. T1 渲染一致性复验 + 环境前检（防回归门）
   What to do / Must NOT do:
   1) **环境前检（Metis F11 + Oracle F1 修正）**：确认 `~/.omo/omo.jsonc` 含 `multimodal-looker` 配置且非 disabled（qwen-vl-local/qwen2.5vl:7b）；确认 `~/.config/opencode/tui.json` plugin 数组含 `/Users/unsis/code/opcode/opcopet/dist/tui.js` 绝对路径条目；确认 `design/art-v2/shigure-v3-master-crop.png`、`shigure-v2-uniform-crop.png`、`shigure-pixel-data.json` 存在（Metis F7：以 art-v2 crop 为权威，samples 路径仅记录差异，不切换基准）；**检查 `/tmp/cap2.py` 与 `/tmp/shigure2.ansi`——实测存在（Oracle F1）：cap2.py 是原始 ANSI 抓取器（非计数器）、shigure2.ansi 是 314 基线原始捕获；若存在则复制到 `.omo/evidence/capture/` 备用（供 todo 8 反向推导计数口径）；若已被系统清理则记录缺失并降级（todo 8 按自身规范重抓）**。任一项不符 → 记录到 `.omo/evidence/task-1-happy.txt` 并继续（不阻塞，注明降级）。
   2) **三机器路径一致性对照（Metis F3 顺序修正 + Oracle F4/B）**：取当前 `src/assets/final.ts` regular idle 帧 1，同一轮廓色 #17141B，跑 (a) `npx tsx scripts/preview-assets.ts` 半块文本路径（preview-assets.ts:38 复用 renderFrame）；(b) `/usr/bin/python3 .omo/evidence/art-render-png.py` 像素放大路径——**扩展 art-render-png.py 额外输出逐格索引文本 `.omo/evidence/render-consistency-png-index.txt`（Oracle B：TS 无 PNG 解码器且禁新依赖，PNG 路径以"像素放大后逐格索引文本"形式参与机械比对，而非直接解码 PNG）**；(c) **新建 `scripts/render-consistency.ts`**（read-only，`npx tsx scripts/render-consistency.ts` 调用，输出 `.omo/evidence/render-consistency-index.txt`——逐格输出 final.ts regular idle 帧 1 的索引矩阵）。**三路输出机械逐格比对**：render-consistency.ts 对 (c) 索引矩阵 vs (a) 半块文本路径的展开像素格 vs (b) 像素放大索引文本做颜色归一化后的逐格结构 diff（脚本断言，非人工目测），一致 → 结论"三路径同构"，不一致 → 记录差异坐标到 `.omo/evidence/render-consistency-diff.txt`。
@@ -130,7 +130,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: 三路径结构不一致（diff.txt 非空）或前检缺失 → `npx tsx scripts/render-consistency.ts > .omo/evidence/render-consistency.log 2>&1; echo "rc exit=$?" >> .omo/evidence/render-consistency.log`（断言 "rc exit"≠0 或 diff.txt 有差异行）→ `cp .omo/evidence/render-consistency-diff.txt .omo/evidence/task-1-failure.txt 2>/dev/null; printf "FAIL: see diff\n" >> .omo/evidence/task-1-failure.txt`；断言 task-1-failure.txt 非空，注明是否触发 B 评估（Metis F5：B 触发阈值=同帧在 TUI 与 preview 渲染不同构且非轮廓色差异所致）
   Commit: `git add scripts/ .omo/evidence/ && git commit -m "feat(scripts): T1 render-consistency + 环境前检" && git push origin main`
 
-- [ ] 3. 确定性审计门 scripts/audit-art-noise.ts（TDD，Metis F1/F16 + Oracle F5/F6/F7 精确化规则）
+- [x] 3. 确定性审计门 scripts/audit-art-noise.ts（TDD，Metis F1/F16 + Oracle F5/F6/F7 精确化规则）
   What to do / Must NOT do:
   新建 `scripts/audit-art-noise.ts`（脚本本体）+ **`src/audit-art-noise.test.ts`（测试文件——vitest.config.ts include 仅 `src/**/*.test.ts`，放 scripts/ 会被 `npm test` 静默跳过，Oracle F5；删除原计划的条件性豁免）**。**CLI 输入契约（Oracle A/C：候选帧审计 + 基线输出统一入口）**：脚本默认读 `SHIGURE_MANIFEST`；**支持过滤参数（Oracle P1 round5：`--size`/`--frame` 在 manifest 模式同样生效，不限于 `--grid`）** `npx tsx scripts/audit-art-noise.ts [--grid <checkpoint-file>] [--size <regular|compact>] [--frame <idle|thinking|...>]`——**`--size`/`--frame` 未指定 = 全量审计；指定任一 = 仅审计匹配的 (size,frame) 子集**（供 todo 4 对"已提交的 regular idle"做 scoped 审计）；`--grid` 时从检查点 .md 网格解析单帧并审计（供 todo 4/5 对候选帧先审计再提交）；**检查点 .md 格式契约（Oracle N1，与 todo 4/5/6 的 writer 一致）**：`.omo/evidence/art-loop/probe-1.md` 与 `idle-*-vN.md` **仅含恰好 N 行、每行恰好 N 个图例字符（`.0123456789ab`），无标题/图例/代码围栏/其他内容**——任何非 N 长度行或非图例字符 → 视为格式错误并报错退出（不得静默跳过行）；`--grid` 解析用 final.ts makeFrame/decodeRow 语义（src/assets/final.ts:11-26）；**无论何种输入，都输出 `.omo/evidence/art-loop/outline-baseline.txt`**——定义为**"该 (size,state) 帧的字符格中，含 ≥1 个边界 b 像素的字符格数（上/下半任一半皆计）"**（Oracle N2：基线按"含 b 的字符格"计，与捕获侧 fg/bg 双色规则对齐，单位可比），供 todo 7 作阈值基线。逐 (size,state,frame) 检查并输出违规清单，退出码 0=零违规。**两条规则（Metis F1/F16 + Oracle F6/F7 精确化）**：
   1) **b(outline) 仅最外层轮廓**：b 像素必须同时满足 (a) 8 邻域含透明 且 (b) 位于非透明区域外边界（从外部透明像素经 8 邻域可达）且 **(c) 8 邻域含 ≥1 个不透明像素（Oracle F6：b 必须贴靠不透明区边界，而非悬浮在透明空间——杜绝腿隙/发隙间孤立 b 像素漏过导致换浅轮廓后白点复现）**；**越界按透明处理**；**字符↔调色板索引映射（Oracle E）**：审计在 SHIGURE_MANIFEST 的调色板索引空间运行，行字符→索引按 docs/08 §4.2 图例（docs/08:85-98）：`0`=1 hairShadow、`1`=2 hairBase、`2`=3 hairLight、`3`=4 skin、`4`=5 eyeBlue、`5`=6 eyeDeep、`6`=7 uniform、`7`=8 trimWarmWhite、`8`=9 ribbonRed、`9`=10 sockBlack、`a`=11 bootRedBrown、`b`=12 outline——规则中的字符写法一律映射为索引后判断；
@@ -157,7 +157,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: `npx tsx scripts/audit-art-noise.ts > .omo/evidence/task-2-failure.txt 2>&1; echo "exit=$?" >> .omo/evidence/task-2-failure.txt`；断言当前资产报出内部 b/悬浮 b 违规清单（证明脚本能检出问题），exit 非 0 属预期
   Commit: `git add scripts/ src/audit-art-noise.test.ts .omo/evidence/ && git commit -m "feat(scripts): audit-art-noise 审计门 (TDD)" && git push origin main`
 
-- [ ] 4. 单帧能力探针（24×24 idle 第 1 帧，d10 硬检查点）
+- [x] 4. 单帧能力探针（24×24 idle 第 1 帧，d10 硬检查点）
   What to do / Must NOT do:
   1) **looker 健康探针（d13①）**：调用 multimodal-looker 让其一句话描述 `design/art-v2/shigure-v3-master-crop.png`，确认本地模型可响应；失败重试 3 次 × 30s，仍失败 → `BLOCKED: looker 本地模型不可用` 写入执行日志并**通知用户**（唤醒/检查网络后继续），不烧 token（d13③）。
   2) **looker 产出探针网格**：让 looker 参照 v3 母稿输出 24×24 idle 第 1 帧的调色板索引行字符串（24 行，每行 24 字符，图例 `.0123456789ab`，docs/08 §4.2）；**先落盘检查点 `.omo/evidence/art-loop/probe-1.md`（d13④ 断点续跑，Oracle N1 格式契约：仅含恰好 24 行、每行恰好 24 个图例字符，无标题/图例/代码围栏/其他内容）**，不直接写 final.ts。
@@ -180,7 +180,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: 方向性拒绝或 looker 断连 → `printf "REJECTED: <reason 值规则：用户在方向性检查中给出的拒绝理由原文，如 silhouette-off|proportion-wrong|detail-lost|other-text>\n" >> .omo/evidence/art-loop/probe-1-verdict.md && cp .omo/evidence/art-loop/probe-1-verdict.md .omo/evidence/task-3-failure.txt`（断言 task-3-failure.txt 含 "REJECTED"）或 BLOCKED 日志（`printf "BLOCKED: looker 本地模型不可用\n" > .omo/evidence/task-3-failure.txt`）；断连恢复后从 probe-1.md 检查点续跑（d13④）；格式校验连续 3 次失败 → `printf "D9-UPGRADE: 3x format-fail\n" >> .omo/evidence/task-3-failure.txt`（断言 task-3-failure.txt 含 "D9-UPGRADE"）
   Commit: `git add .omo/evidence/art-loop/ && git commit -m "chore(art): 单帧能力探针检查点" && git push origin main`
 
-- [ ] 5. 24×24 idle 母版重设计定稿（looker 迭代 + 审计门 + 用户终审）
+- [~] 5. 24×24 idle 母版重设计定稿（looker 迭代 + 审计门 + 用户终审）
   What to do / Must NOT do:
   1) 在探针通过基础上，让 looker 参照 v3 母稿 + v2 制服迭代产出 24×24 idle 两帧（帧 2 仅眨眼/刘海 1px 微动，docs/05 §6 + docs/07 §7 idle 契约），每版**先落盘 `.omo/evidence/art-loop/idle-regular-vN.md` 检查点（d13④）**。
   2) **确定性校验（Oracle A：先审计再提交）**：每版候选帧先用 `npx tsx scripts/audit-art-noise.ts --grid .omo/evidence/art-loop/idle-regular-vN.md --size regular --frame idle`（todo 3 产出的 CLI 接口；`vN` = 该版迭代号，首个为 `idle-regular-v1.md`，每版递增）审计，再 makeFrame 结构校验 + validateManifest——机器门不过即退回 looker 重产出（不手工改，Metis F13：审计门=确定性噪点门）；**最终 idle 帧提交后重跑 `npx tsx scripts/audit-art-noise.ts --size regular --frame idle` 并确认 outline-baseline.txt 已产出（todo 8 阈值基线的生产者，Oracle C；scoped 到 regular idle——Oracle P1 round5）**。
@@ -202,7 +202,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: 3 轮未过终审 → `printf "D9-UPGRADE: user-pixel-fix|model-swap|accept-current\n" >> .omo/evidence/art-loop/idle-regular-verdict.md && printf "d9 upgrade recorded\n" > .omo/evidence/task-4-failure.txt`（断言 task-4-failure.txt 存在且含 "d9 upgrade recorded"；三选一选项见 d9：①用户像素级修正 ②换更强视觉模型/人工美术 ③接受当前稿）；审计门违规 → `npx tsx scripts/audit-art-noise.ts --grid .omo/evidence/art-loop/idle-regular-v3.md --size regular --frame idle > .omo/evidence/task-4-failure.txt 2>&1; echo "exit=$?" >> .omo/evidence/task-4-failure.txt`（断言 exit≠0 且违规清单列出），退回 looker 重产出（检查点续跑）
   Commit: `git add src/assets/final.ts .omo/evidence/ && git commit -m "feat(art): 24×24 idle 母版重设计" && git push origin main`
 
-- [ ] 6. 16×16 idle 独立重设计 + 七状态派生重建（全部 2×7 帧）
+- [~] 6. 16×16 idle 独立重设计 + 七状态派生重建（全部 2×7 帧）
   What to do / Must NOT do:
   1) **16×16 idle 母版独立重设计**（独立重绘禁止缩放，docs/08 §2 + 新文档 §10 建议清单第 5 条）：同 todo 5 流程（检查点 idle-compact-vN.md → **`npx tsx scripts/audit-art-noise.ts --grid .omo/evidence/art-loop/idle-compact-vN.md --size compact --frame idle` 先审计再提交**（vN 迭代号同 t5 规则）→ looker 粗检 → 用户终审），16×16 至少看得到蓝眼/白边/红色块/深棕发/两只深色脚块（docs/07 §9 + docs/08 §8.5:235）。
   2) **七状态派生/微调重建（Metis F4）**：以两尺寸 idle 母版为基准，按种子 states 契约（design/art-v2/shigure-pixel-data.json:124-132）+ docs/07 §7 微动差派生：thinking（眼上移+刘海）、working（双手内收）、waiting（眼上移+手合拢）、success（脚上移 ≤1px）、error（眼窄，保留 ≥1px 蓝眼）、retry（上半身平移）；**每个派生状态渲染预览后由 looker 粗检 + 用户终审对照 §9.3 状态可读性清单**（idle 两帧呼吸/眨眼可见、thinking 与 idle 差异足够、working/waiting 可区分、success 像跳跃、error 低落、retry 左右倾斜——新文档 §9.3，Metis F4）；**用户终审按 d15 用户 gate 协议**（states-verdict.md 写 awaiting-user + 清单 → 通知 → 等待 → 超 1 日暂停 → 用户逐项结果 → 断点续跑）。
@@ -221,7 +221,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: 任一状态可读性被否 → `printf "REJECTED-STATE: thinking|working|waiting|success|error|retry\n" >> .omo/evidence/art-loop/states-verdict.md && cp .omo/evidence/art-loop/states-verdict.md .omo/evidence/task-5-failure.txt`（断言 task-5-failure.txt 含 "REJECTED-STATE" 与被否状态名）；审计门违规 → `npx tsx scripts/audit-art-noise.ts > .omo/evidence/task-5-failure.txt 2>&1; echo "audit exit=$?" >> .omo/evidence/task-5-failure.txt`（断言 "audit exit"≠0 且违规清单列出），退回 looker 重产出该状态（检查点续跑）
   Commit: `git add src/assets/final.ts .omo/evidence/ && git commit -m "feat(art): 16×16 idle + 七状态派生" && git push origin main`
 
-- [ ] 7. sidebar.tsx 轮廓恢复 + preview 色值统一 + 生成器退役（Metis F2/F6/F17）
+- [~] 7. sidebar.tsx 轮廓恢复 + preview 色值统一 + 生成器退役（Metis F2/F6/F17）
   What to do / Must NOT do:
   1) **sidebar.tsx（Metis F17 最小改动）**：把 `LIGHT_OUTLINE` 从临时 `#17141B` 改为 **`#F7F2EA`**（与 preview-assets.ts:56 浅色预览值统一，Metis F2），删除临时缓解注释块（sidebar.tsx:28-32，引用 docs/09 §4 的说明）；**不动 outlineColor() 结构**（sidebar.tsx:119-121 已是 dark→浅轮廓、light→palette 末项的正确结构）。
   2) **preview-assets.ts 确认**：浅色版已用 #F7F2EA（preview-assets.ts:56），无需改；深色版 #17141B 对应 light 主题（palette 末项）语义正确，保留。
@@ -243,7 +243,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: `md5 -q src/assets/final.ts > .omo/evidence/task-6-before.md5`（若 `md5` 不存在则用 `md5sum`；本机 darwin 已验证 /sbin/md5 可用——Oracle O1 round5）；`npx tsx scripts/legacy/build-final-assets.ts > .omo/evidence/task-6-failure.txt 2>&1; echo "legacy exit=$?" >> .omo/evidence/task-6-failure.txt`（断言 "legacy exit"≠0 且输出含退役提示）；`md5 -q src/assets/final.ts > .omo/evidence/task-6-after.md5`；`cmp -s .omo/evidence/task-6-before.md5 .omo/evidence/task-6-after.md5`（断言退出码 0 = final.ts 未被覆盖）
   Commit: `git add scripts/ src/sidebar.tsx .gitignore .omo/evidence/ && git commit -m "fix(sidebar): 轮廓恢复 #F7F2EA + 生成器退役" && git push origin main`（`git add scripts/` 同时登记 scripts/build-final-assets.ts 的删除，防 `git status` 残留 dirty——Oracle round8 FIND-6）
 
-- [ ] 8. 重建真实终端捕获工具 + 硬指标验证（docs/09:89 硬指标，Momus M3 + Oracle F1/F2/F3）
+- [~] 8. 重建真实终端捕获工具 + 硬指标验证（docs/09:89 硬指标，Momus M3 + Oracle F1/F2/F3）
   What to do / Must NOT do:
   1) 新建 `.omo/evidence/capture/capture.py`（python pty，基于 .omo/evidence/task-8-smoke.py:383-444 模式裁剪）：spawn opencode（200×50 pty，docs/09:30），`hi\r` 开会话后等待，抓取侧栏区域 ANSI 流。**复用 `/tmp/cap2.py` 与 `/tmp/shigure2.ansi`（Oracle F1：实测存在；cap2.py 为原始抓取器、shigure2.ansi 为 314 基线原始捕获）——复制入 `.omo/evidence/capture/` 并以其反向推导 docs/09:32 计数的口径**；仓库内重建 capture.py 为保证可复现（/tmp 易失）。
   2) **完整计数算法（Oracle F2 规范 + N2 单位对齐，task-8-smoke.py 的 Screen 类丢弃全部颜色/SGR——task-8-smoke.py:248 `pass # m/h/l/q/etc: ignored`，须新写 ANSI 解析）**：
@@ -271,7 +271,7 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
   - failure: 轮廓单元格超基线×1.2 或 ≥314，或孤立散点>0 → `grep -E "FAIL" .omo/evidence/capture/counts.txt > .omo/evidence/task-7-failure.txt; echo "FAIL captured" >> .omo/evidence/task-7-failure.txt`（断言 task-7-failure.txt 非空），回溯：审计门违规→回 todo 5/6（`npx tsx scripts/audit-art-noise.ts` 复核违规）；渲染层异常→记录并评估 B（Metis F5）
   Commit: `git add .omo/evidence/capture/ && git commit -m "test(capture): 真实终端捕获 + 硬指标" && git push origin main`
 
-- [ ] 9. 全门禁 + 预览证据 + docs/09 附录更新（收尾）
+- [~] 9. 全门禁 + 预览证据 + docs/09 附录更新（收尾）
   What to do / Must NOT do:
   1) **全量门禁**：`npm run typecheck`、`npm test`（vitest，全绿；135+可增，Metis F9 措辞）、`npm run validate-assets`、`npm run build`、`npx tsx scripts/audit-art-noise.ts`（零违规）——逐条退出码 0 记录到 `.omo/evidence/task-8-happy.txt`。
   2) **预览证据重生成**：`npx tsx scripts/preview-assets.ts`（深 #17141B + 浅 #F7F2EA）+ `/usr/bin/python3 .omo/evidence/art-render-png.py`，覆盖 .omo/evidence/art-preview-*.{png,txt}（Metis F15：随 #F7F2EA 重生成）；预览与真实终端结构一致（Metis F2）。
@@ -296,22 +296,22 @@ Your next move: 批准后以 `$start-work opco-shigure-art-terminal-fix` 执行�
 > Runs in parallel after ALL todos. ALL must APPROVE. Surface results and wait for the user's explicit okay before declaring complete. （Momus M2：F1-F4 每项给出工具/步骤/证据/通过标准，非仅名称。）
 > **References/Commit 适用范围（Momus-2 round 3）**：本波次为验证任务（非实现任务），模板的 "每个 todo 需 References + Acceptance + QA + Commit" 要求**仅适用于实现 todo 1-9**；F1-F4 为只读验证，无 Commit 行，其"验证依据"即下方各 F 项的 How（指向本计划对应 todo 编号），不另设 References 字段。
 
-- [ ] F1. Plan compliance audit
+- [~] F1. Plan compliance audit
   What: 对照本计划逐 todo 核验：全部 9 个 todo 的 Acceptance 均达成、证据文件存在且非空、无遗漏 todo、依赖矩阵已执行。
   How (agent-executable): 逐条重跑验收命令：`npm run typecheck`、`npm test`、`npm run validate-assets`、`npm run build`、`npx tsx scripts/audit-art-noise.ts` 全绿；核对 .omo/evidence/task-0..8 证据 + art-loop/ 检查点 + capture/counts.txt 齐全非空。
   Happy (PASS): 命令全绿且证据齐全 → PASS，清单写入 .omo/evidence/f1-audit.txt。
   Failure (FAIL): 任一命令非零或任一证据缺失 → FAIL，列缺失项到 f1-audit.txt（修复后重跑本项）。
-- [ ] F2. Code quality review
+- [~] F2. Code quality review
   What: 独立代码审查（可派 oracle）：audit-art-noise.ts 规则实现正确性（b 三条件/孤立判定/token 豁免）、render-consistency.ts 逐格 diff、capture.py SGR 解析状态机、sidebar.tsx 最小改动（只改 LIGHT_OUTLINE 值与注释）、无 AI slop（死代码/重复/过度工程）、隐私零网络/外部进程。
   How (agent-executable): 审查 scripts/ + src/ 改动文件 + `grep -rn "fetch(\|WebSocket\|child_process\|exec(\|spawn(" dist/` 复验零命中。
   Happy (PASS): 无 high 级问题 + 隐私 grep 零命中 → PASS，清单到 .omo/evidence/f2-review.txt。
   Failure (FAIL): 任一 high 级问题或 grep 命中 → FAIL，附清单到 f2-review.txt（修复后重跑）。
-- [ ] F3. Real manual QA
+- [~] F3. Real manual QA
   What: 独立于实现者重跑真实终端验证：复制 todo 8 capture.py 流程重跑一遍，断言 counts.txt 结论一致（轮廓≤基线×1.2 且<314、孤立=0）；用户重启复验记录在 user-confirm.txt 有效。
   How (agent-executable): `/usr/bin/python3 .omo/evidence/capture/capture.py` 重跑 + 比对两次 counts.txt；用户终审 verdict 文件（probe-1-verdict/idle-regular-verdict/states-verdict）均为 PASS 且含逐项记录。
   Happy (PASS): 两次捕获结论一致 + 用户终审全 PASS → PASS，记录到 .omo/evidence/f3-notes.txt。
   Failure (FAIL): 不一致或任一 verdict 非 PASS → FAIL，记录到 f3-notes.txt（修复后重跑）。
-- [ ] F4. Scope fidelity
+- [~] F4. Scope fidelity
   What: 对照 Must NOT have 逐项核验：manifest-data.ts 未改、runtime 模块未动、renderer.ts 零改动（无 B）、无新增调色板/状态/尺寸、无 PNG 解码/图片协议/emoji、无 v1-v4 路线残留、package.json 无新增 script（audit 直调）、未发布 npm、**git 已按 todo 1 初始化且 main 已推送、无历史重写（rebase -i/force push）、baseline-v4d tag 未删除（git 流程合规，Oracle round9 FIND-8）**、无位置/大小/ANSI 精细显示改动。
   How (agent-executable): 文件改动清单核对（git 无则用时间戳 + grep）+ `grep -rnE "(sixel|kitty|\.png|fetch\(|WebSocket|child_process)" src/ dist/ --include="*.ts" --include="*.tsx" --include="*.js"` 零命中（注释允许但须人工确认）+ manifest-data.ts md5 前后比对 + package.json diff 核对。
   Happy (PASS): 逐项零违规 → PASS，清单到 .omo/evidence/f4-scope.txt。

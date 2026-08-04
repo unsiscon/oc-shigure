@@ -28,27 +28,115 @@
       "active_plan": "/Users/unsis/code/opcode/opcopet/.omo/plans/opco-shigure-art-terminal-fix.md",
       "plan_name": "opco-shigure-art-terminal-fix",
       "session_ids": [
-        "opencode:ses_0373b32beffeiWuG0fjkISelQ5"
+        "opencode:ses_0373b32beffeiWuG0fjkISelQ5",
+        "opencode:ses_032c91d36ffem0HwLm01V4NLhi"
       ],
       "status": "active",
       "started_at": "2026-08-04T00:00:00.000Z",
-      "updated_at": "2026-08-04T00:00:00.000Z",
+      "updated_at": "2026-08-04T14:50:14.531Z",
       "session_origins": {
-        "opencode:ses_0373b32beffeiWuG0fjkISelQ5": "direct"
+        "opencode:ses_0373b32beffeiWuG0fjkISelQ5": "direct",
+        "opencode:ses_032c91d36ffem0HwLm01V4NLhi": "appended"
       },
       "agent": "atlas",
-      "task_sessions": {},
-      "worktree_path": null
+      "task_sessions": {
+        "todo:1": {
+          "task_key": "todo:1",
+          "task_label": "1",
+          "task_title": "git 初始化 + 基线提交 + 远端推送（用户 2026-08-04 新增，执行前第一步）",
+          "session_id": "opencode:ses_03739c440ffeKzZDaEabF6frYk",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-08-03T17:59:46.324Z",
+          "started_at": "2026-08-03T17:59:30.902Z",
+          "status": "completed",
+          "ended_at": "2026-08-03T17:59:46.324Z",
+          "elapsed_ms": 15422
+        },
+        "todo:2": {
+          "task_key": "todo:2",
+          "task_label": "2",
+          "task_title": "T1 渲染一致性复验 + 环境前检（防回归门）",
+          "session_id": "opencode:ses_037371573ffestBZQiLtoJczr2",
+          "agent": "Sisyphus-Junior",
+          "category": "unspecified-high",
+          "updated_at": "2026-08-03T18:47:23.018Z",
+          "started_at": "2026-08-03T18:08:00.210Z",
+          "status": "completed",
+          "ended_at": "2026-08-03T18:47:23.018Z",
+          "elapsed_ms": 2362808
+        },
+        "todo:4": {
+          "task_key": "todo:4",
+          "task_label": "4",
+          "task_title": "单帧能力探针（24×24 idle 第 1 帧，d10 硬检查点）",
+          "session_id": "opencode:ses_037054df8ffeX2U72a2PQbA4YB",
+          "agent": "multimodal-looker",
+          "started_at": "2026-08-03T18:54:25.389Z",
+          "status": "completed",
+          "updated_at": "2026-08-04T14:50:14.531Z",
+          "ended_at": "2026-08-04T14:50:14.531Z",
+          "elapsed_ms": 71749142
+        }
+      },
+      "worktree_path": null,
+      "elapsed_ms": -17796013
     }
   },
   "active_plan": "/Users/unsis/code/opcode/opcopet/.omo/plans/opco-shigure-art-terminal-fix.md",
   "started_at": "2026-08-04T00:00:00.000Z",
   "status": "active",
-  "updated_at": "2026-08-04T00:00:00.000Z",
+  "updated_at": "2026-08-04T14:50:14.531Z",
   "session_ids": [
-    "opencode:ses_0373b32beffeiWuG0fjkISelQ5"
+    "opencode:ses_0373b32beffeiWuG0fjkISelQ5",
+    "opencode:ses_032c91d36ffem0HwLm01V4NLhi"
   ],
   "plan_name": "opco-shigure-art-terminal-fix",
   "agent": "atlas",
-  "task_sessions": {}
+  "task_sessions": {
+    "todo:1": {
+      "task_key": "todo:1",
+      "task_label": "1",
+      "task_title": "git 初始化 + 基线提交 + 远端推送（用户 2026-08-04 新增，执行前第一步）",
+      "session_id": "opencode:ses_03739c440ffeKzZDaEabF6frYk",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-08-03T17:59:46.324Z",
+      "started_at": "2026-08-03T17:59:30.902Z",
+      "status": "completed",
+      "ended_at": "2026-08-03T17:59:46.324Z",
+      "elapsed_ms": 15422
+    },
+    "todo:2": {
+      "task_key": "todo:2",
+      "task_label": "2",
+      "task_title": "T1 渲染一致性复验 + 环境前检（防回归门）",
+      "session_id": "opencode:ses_037371573ffestBZQiLtoJczr2",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-08-03T18:47:23.018Z",
+      "started_at": "2026-08-03T18:08:00.210Z",
+      "status": "completed",
+      "ended_at": "2026-08-03T18:47:23.018Z",
+      "elapsed_ms": 2362808
+    },
+    "todo:4": {
+      "task_key": "todo:4",
+      "task_label": "4",
+      "task_title": "单帧能力探针（24×24 idle 第 1 帧，d10 硬检查点）",
+      "session_id": "opencode:ses_037054df8ffeX2U72a2PQbA4YB",
+      "agent": "multimodal-looker",
+      "started_at": "2026-08-03T18:54:25.389Z",
+      "status": "completed",
+      "updated_at": "2026-08-04T14:50:14.531Z",
+      "ended_at": "2026-08-04T14:50:14.531Z",
+      "elapsed_ms": 71749142
+    }
+  },
+  "session_origins": {
+    "opencode:ses_0373b32beffeiWuG0fjkISelQ5": "direct",
+    "opencode:ses_032c91d36ffem0HwLm01V4NLhi": "appended"
+  },
+  "worktree_path": null,
+  "elapsed_ms": -17796013
 }
