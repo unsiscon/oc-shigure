@@ -1,0 +1,26 @@
+{
+  "id": "shigure-v3-terminal-seed-24-approved-v1",
+  "status": "visual-candidate-machine-audited",
+  "basedOn": "shigure-v3-terminal-seed-24-approved-v0",
+  "dimensions": { "width": 24, "height": 24 },
+  "scope": "regular/idle/frame-1",
+  "sourceGrid": "shigure-v3-terminal-seed-24-approved-v1-grid.txt",
+  "previews": {
+    "light": "shigure-v3-terminal-seed-24-approved-v1-preview-light.png",
+    "dark": "shigure-v3-terminal-seed-24-approved-v1-preview-dark.png"
+  },
+  "renderer": {
+    "mode": "ANSI half-block",
+    "glyphs": ["▀", "▄", "█"],
+    "terminalCells": "24x12",
+    "logicalPixelsPerCell": "2 vertical pixels"
+  },
+  "changesFromV0": [
+    "Removed the detached full-width top outline bar by using hair colors in the top row.",
+    "Replaced only non-boundary internal outline tokens with nearby layer colors.",
+    "Preserved the v0 hair texture, blue eyes, red hair accent, side braid, sailor uniform, socks and boots."
+  ],
+  "machineAudit": "npx tsx scripts/audit-art-noise.ts --grid <sourceGrid> --size regular --frame idle => 0 violations",
+  "runtimeRule": "Compile sourceGrid into palette-index matrices; do not decode PNG at runtime.",
+  "versionRule": "approved-v0 remains immutable; future edits must create approved-v2 or higher."
+}
