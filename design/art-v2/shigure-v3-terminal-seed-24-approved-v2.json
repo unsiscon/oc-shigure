@@ -1,0 +1,26 @@
+{
+  "id": "shigure-v3-terminal-seed-24-approved-v2",
+  "status": "visual-candidate-machine-audited",
+  "basedOn": "shigure-v3-terminal-seed-24-approved-v1",
+  "dimensions": { "width": 24, "height": 24 },
+  "scope": "regular/idle/frame-1",
+  "sourceGrid": "shigure-v3-terminal-seed-24-approved-v2-grid.txt",
+  "previews": {
+    "light": "shigure-v3-terminal-seed-24-approved-v2-preview-light.png",
+    "dark": "shigure-v3-terminal-seed-24-approved-v2-preview-dark.png"
+  },
+  "renderer": {
+    "mode": "ANSI half-block",
+    "glyphs": ["▀", "▄", "█"],
+    "terminalCells": "24x12",
+    "logicalPixelsPerCell": "2 vertical pixels"
+  },
+  "changesFromV1": [
+    "Broke long hair-shadow and hair-base runs into staggered 0/1/2 texture clusters.",
+    "Reduced long dark runs around the torso and skirt without changing the character silhouette.",
+    "Kept the v1 top-bar fix and all identity anchors."
+  ],
+  "machineAudit": "npx tsx scripts/audit-art-noise.ts --grid <sourceGrid> --size regular --frame idle => 0 violations",
+  "runtimeRule": "Compile sourceGrid into palette-index matrices; do not decode PNG at runtime.",
+  "versionRule": "approved-v0 and approved-v1 remain immutable; future edits must create approved-v3 or higher."
+}

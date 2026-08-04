@@ -1,0 +1,7 @@
+# approved-v2 actual terminal-cell preview
+# source: design/art-v2/shigure-v3-terminal-seed-24-approved-v2-grid.txt
+# 24 logical pixels -> 24 columns x 12 half-block terminal cells
+
+The v2 PNG previews are generated from the same grid with ANSI half-block pairing. They are not square-pixel enlargements.
+
+Expected audit: AUDIT: 1 frame(s), 0 violation(s)
