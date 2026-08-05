@@ -13,10 +13,11 @@ import type { PixelFrame } from "./types";
 
 type Cell = { text: string; fg?: string; bg?: string };
 
-type RenderOpts = { transparentIndex: number; outlineColor: string };
+type RenderOpts = { transparentIndex: number; outlineColor: string; backgroundColor: string };
 
 const PALETTE = ["transparent", "#FF0000", "#00FF00"] as const; // 最后一项 = outline token
-const BASE_OPTS: RenderOpts = { transparentIndex: 0, outlineColor: "#00FF00" }; // 与 palette 末项同值 → 轮廓替换为 no-op
+const PANEL = "#17141B"; // 测试侧 panel 背景 oracle
+const BASE_OPTS: RenderOpts = { transparentIndex: 0, outlineColor: "#00FF00", backgroundColor: PANEL }; // outline 与 palette 末项同值 → 轮廓替换为 no-op
 
 function makeFrame(width: number, height: number, pixels: Uint8Array | number[]): PixelFrame {
   const buffer = pixels instanceof Uint8Array ? pixels : Uint8Array.from(pixels);
@@ -41,9 +42,9 @@ function cellFor(
   };
   const t = color(top);
   const b = color(bottom);
-  if (t === undefined && b === undefined) return { text: " " };
-  if (t !== undefined && b === undefined) return { text: "▀", fg: t };
-  if (t === undefined && b !== undefined) return { text: "▄", fg: b };
+  if (t === undefined && b === undefined) return { text: " ", bg: PANEL };
+  if (t !== undefined && b === undefined) return { text: "▀", fg: t, bg: PANEL };
+  if (t === undefined && b !== undefined) return { text: "▄", fg: b, bg: PANEL };
   if (t === b) return { text: "█", fg: t };
   return { text: "▀", fg: t, bg: b };
 }
@@ -92,9 +93,9 @@ describe("renderFrame", () => {
     expect(rows).toHaveLength(2);
 
     const expected: Cell[] = [
-      { text: " " },
-      { text: "▀", fg: "#FF0000" },
-      { text: "▄", fg: "#00FF00" },
+      { text: " ", bg: PANEL },
+      { text: "▀", fg: "#FF0000", bg: PANEL },
+      { text: "▄", fg: "#00FF00", bg: PANEL },
       { text: "█", fg: "#FF0000" },
       { text: "▀", fg: "#FF0000", bg: "#00FF00" },
     ];
@@ -105,7 +106,7 @@ describe("renderFrame", () => {
   });
 
   it("maps a 24x24 frame to 12 rows x 24 cells and a 16x16 frame to 8 rows x 16 cells", () => {
-    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF" };
+    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF", backgroundColor: PANEL };
     const regular = SHIGURE_MANIFEST.sizes.regular.idle.frames[0];
     const compact = SHIGURE_MANIFEST.sizes.compact.idle.frames[0];
 
@@ -119,7 +120,7 @@ describe("renderFrame", () => {
   });
 
   it("outputs only space and half-blocks with no ESC bytes, emoji or fullwidth characters", () => {
-    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF" };
+    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF", backgroundColor: PANEL };
     for (const size of ["regular", "compact"] as const) {
       const frame = SHIGURE_MANIFEST.sizes[size].idle.frames[0];
       const { rows } = renderFrame(frame, SHIGURE_MANIFEST.palette, opts);
@@ -132,22 +133,29 @@ describe("renderFrame", () => {
     }
   });
 
-  it("keeps fully transparent rows free of fg and bg (transparent pixels never write a background)", () => {
-    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF" };
-    const frame = SHIGURE_MANIFEST.sizes.regular.idle.frames[0];
-    const { rows } = renderFrame(frame, SHIGURE_MANIFEST.palette, opts);
-    // validator 保证顶部边缘全透明 → 输出行 0 全部为透明/透明
-    const topRow = rows[0];
-    for (const run of topRow) {
-      expect(run.fg).toBeUndefined();
-      expect(run.bg).toBeUndefined();
-      expect(run.text).toMatch(/^ *$/);
-    }
-
+  it("writes explicit panel background into transparent/transparent cells (blank frame)", () => {
+    // docs/11 §9.1：不再依赖 real manifest 的第一输出行（该行现在显式携带 panel bg），
+    // 资产 validator 另行验证顶部逻辑行透明。
     const blank = makeFrame(4, 2, new Uint8Array(8));
     const blankRows = renderFrame(blank, PALETTE, BASE_OPTS).rows;
     expect(blankRows).toHaveLength(1);
-    expect(expandRow(blankRows[0])).toEqual([{ text: " " }, { text: " " }, { text: " " }, { text: " " }]);
+    expect(expandRow(blankRows[0])).toEqual([
+      { text: " ", bg: PANEL },
+      { text: " ", bg: PANEL },
+      { text: " ", bg: PANEL },
+      { text: " ", bg: PANEL },
+    ]);
+  });
+
+  it("writes explicit panel background for single top-half and single bottom-half frames", () => {
+    // 色/透明 → ▀ 带 panel bg；透明/色 → ▄ 带 panel bg（docs/11 §9.1 拆分项）
+    const topOnly = makeFrame(2, 2, Uint8Array.from([1, 1, 0, 0]));
+    const topRows = renderFrame(topOnly, PALETTE, BASE_OPTS).rows;
+    expect(topRows[0]).toEqual([{ text: "▀▀", fg: "#FF0000", bg: PANEL }]);
+
+    const bottomOnly = makeFrame(2, 2, Uint8Array.from([0, 0, 2, 2]));
+    const bottomRows = renderFrame(bottomOnly, PALETTE, BASE_OPTS).rows;
+    expect(bottomRows[0]).toEqual([{ text: "▄▄", fg: "#00FF00", bg: PANEL }]);
   });
 
   it("merges adjacent same-style runs into one span without changing cell-by-cell output", () => {
@@ -170,13 +178,15 @@ describe("renderFrame", () => {
       expect(row).toHaveLength(3);
       expect(row.map((run) => run.text)).toEqual(["▀▀▀", "  ", "█"]);
       expect(row[0]).toEqual({ text: "▀▀▀", fg: "#FF0000", bg: "#00FF00" });
+      // 透明/透明合并后的空格 run 显式携带 panel bg
+      expect(row[1]).toEqual({ text: "  ", bg: PANEL });
       // 合并前后逐格展开视觉等价
       expect(expandRow(row)).toEqual(naiveCells(frame, PALETTE, BASE_OPTS)[0]);
     }
   });
 
   it("merged output is cell-by-cell identical to the unmerged merge table on real manifest frames", () => {
-    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF" };
+    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF", backgroundColor: PANEL };
     for (const size of ["regular", "compact"] as const) {
       const frame = SHIGURE_MANIFEST.sizes[size].idle.frames[0];
       const expected = naiveCells(frame, SHIGURE_MANIFEST.palette, opts);
@@ -200,14 +210,14 @@ describe("renderFrame", () => {
         1, 2, 2, 0,
       ]),
     );
-    const light = renderFrame(frame, PALETTE, { transparentIndex: 0, outlineColor: "#111111" });
-    const dark = renderFrame(frame, PALETTE, { transparentIndex: 0, outlineColor: "#EEEEEE" });
+    const light = renderFrame(frame, PALETTE, { transparentIndex: 0, outlineColor: "#111111", backgroundColor: PANEL });
+    const dark = renderFrame(frame, PALETTE, { transparentIndex: 0, outlineColor: "#EEEEEE", backgroundColor: PANEL });
     const lightCells = expandRow(light.rows[0]);
     const darkCells = expandRow(dark.rows[0]);
 
-    // 主体色、字形与透明格完全不变
+    // 主体色、字形与透明格完全不变（透明格现在显式携带 panel bg）
     expect(lightCells[0]).toEqual({ text: "█", fg: "#FF0000" });
-    expect(lightCells[3]).toEqual({ text: " " });
+    expect(lightCells[3]).toEqual({ text: " ", bg: PANEL });
     expect(lightCells[0]).toEqual(darkCells[0]);
     expect(lightCells[3]).toEqual(darkCells[3]);
 
@@ -239,14 +249,20 @@ describe("renderFrame", () => {
     const frame = makeFrame(2, 3, new Uint8Array([1, 1, 0, 0, 2, 2]));
     const { rows } = renderFrame(frame, PALETTE, BASE_OPTS);
     expect(rows).toHaveLength(2);
-    expect(expandRow(rows[0])).toEqual([{ text: "▀", fg: "#FF0000" }, { text: "▀", fg: "#FF0000" }]);
-    // 最后一行独立处理：色/透明 → 上半个块 ▀（fg=色）
-    expect(expandRow(rows[1])).toEqual([{ text: "▀", fg: "#00FF00" }, { text: "▀", fg: "#00FF00" }]);
+    expect(expandRow(rows[0])).toEqual([
+      { text: "▀", fg: "#FF0000", bg: PANEL },
+      { text: "▀", fg: "#FF0000", bg: PANEL },
+    ]);
+    // 最后一行独立处理：色/透明 → 上半个块 ▀（fg=色，bg=panel）
+    expect(expandRow(rows[1])).toEqual([
+      { text: "▀", fg: "#00FF00", bg: PANEL },
+      { text: "▀", fg: "#00FF00", bg: PANEL },
+    ]);
   });
 
   it("is deterministic: identical input produces identical output", () => {
     const frame = SHIGURE_MANIFEST.sizes.compact.waiting.frames[0];
-    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF" };
+    const opts: RenderOpts = { transparentIndex: 0, outlineColor: "#FFFFFF", backgroundColor: PANEL };
     expect(renderFrame(frame, SHIGURE_MANIFEST.palette, opts)).toEqual(
       renderFrame(frame, SHIGURE_MANIFEST.palette, opts),
     );

@@ -26,6 +26,9 @@ export interface RenderOptions {
   transparentIndex: number;
   /** 主题感知轮廓色：替换 palette 末项（outline token）像素的前景/背景色。 */
   outlineColor: string;
+  /** OpenTUI sidebar panel 的实际背景色：显式写入透明组合（docs/11 §5.2），
+   *  避免半块字形边缘/行间漏出宿主默认背景。 */
+  backgroundColor: string;
 }
 
 export interface RenderResult {
@@ -80,13 +83,13 @@ export function renderFrame(frame: PixelFrame, palette: readonly string[], opts:
 
       let cell: Run;
       if (fg === undefined && bg === undefined) {
-        cell = { text: SPACE_GLYPH }; // 透明/透明 → 空格，继承 panel 背景
+        cell = { text: SPACE_GLYPH, bg: opts.backgroundColor }; // 透明/透明 → 空格，显式 panel 背景
       } else if (fg !== undefined && bg === undefined) {
-        cell = { text: TOP_GLYPH, fg }; // 色/透明
+        cell = { text: TOP_GLYPH, fg, bg: opts.backgroundColor }; // 色/透明
       } else if (fg === undefined && bg !== undefined) {
-        cell = { text: BOTTOM_GLYPH, fg: bg }; // 透明/色
+        cell = { text: BOTTOM_GLYPH, fg: bg, bg: opts.backgroundColor }; // 透明/色
       } else if (fg === bg) {
-        cell = { text: FULL_GLYPH, fg }; // 同色 → 实心块
+        cell = { text: FULL_GLYPH, fg }; // 同色 → 实心块（探针前不改，docs/11 §17.3）
       } else {
         cell = { text: TOP_GLYPH, fg, bg }; // 异色 → 上色前景、下色背景
       }

@@ -9,14 +9,14 @@
  *    与标签行（PET_STATE_LABELS[state]，waiting/error/retry 用主题色，docs/03 §10）；
  *  - 响应 cfg()（反应式读取器）：enabled=false → 空内容（docs/03 §11）；size/animations
  *    变化经控制器 applyConfig 生效（FR-3 即时生效）；
- *  - 轮廓色：dark 主题用浅色轮廓，light 用 palette 末项（docs/07 §5 轮廓切换）；
+ *  - 轮廓色：dark 主题将 outline token 融入实际侧栏背景，light 用 palette 末项；
  *  - 帧来源：controller onFrame → Solid signal；无帧 → 当前状态首帧（docs/03 §11）；
  *  - visible 标志：onMount 置 true、onCleanup 置 false（!visible 时控制器 pause）；
  *  - 渲染异常 → 仅标签（docs/04 §5）。
  *  组件不订阅全局事件（事件只经 registry 分发）；不显示工具名/文件名/错误摘要/倒计时。
  */
 import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
-import type { BaseRenderable, RGBA } from "@opentui/core";
+import { rgbToHex, type BaseRenderable, type RGBA } from "@opentui/core";
 import { createElement, insert, setProp } from "@opentui/solid";
 import type { JSX } from "@opentui/solid/jsx-runtime";
 import type { TuiPluginApi } from "@opencode-ai/plugin/tui";
@@ -24,13 +24,6 @@ import { SHIGURE_MANIFEST, SHIGURE_PALETTE } from "./manifest";
 import { renderFrame, type RenderRow } from "./renderer";
 import type { ControllerRegistry, PetController } from "./registry";
 import { PET_STATE_LABELS, type PetConfig, type PetState, type PixelFrame } from "./types";
-
-/**
- * 临时缓解（docs/09 §4）：深色主题轮廓临时用深色 #17141B，与已批准的深色预览图一致——
- * 消除真实终端上的"点状噪点"（白点/灰点均由散落 outline 像素渲染为亮色造成）。
- * 待 docs/09 §5 的 A/B/C 方案落地后按方案换回主题感知轮廓。
- */
-const LIGHT_OUTLINE = "#17141B";
 
 export type SidebarPetProps = {
   api: TuiPluginApi;
@@ -116,9 +109,17 @@ export function SidebarPet(props: SidebarPetProps): JSX.Element {
 
   const cfg = (): PetConfig => props.cfg();
 
-  // 轮廓色：dark → 浅色轮廓；light → palette 末项（outline token）（docs/07 §5）
+  const panelBackground = (): string => rgbToHex(props.api.theme.current.backgroundPanel);
+
+  // 深色主题中把 outline token 融入侧栏面板背景。
+  // v2 的 b 像素经过半块字符后会形成连续的深色横带；固定 #17141B
+  // 在 OpenCode 的深灰蓝 panel 上对比过强。使用实际 panel 色后，外轮廓
+  // 仍由发色/制服色块保留，但不会把角色切割成一层层黑线。
+  // 浅色主题继续使用 palette 的 outline token，保留原有浅色预览的边界感。
   const outlineColor = (): string =>
-    props.api.theme.mode() === "dark" ? LIGHT_OUTLINE : SHIGURE_PALETTE[SHIGURE_PALETTE.length - 1];
+    props.api.theme.mode() === "dark"
+      ? panelBackground()
+      : SHIGURE_PALETTE[SHIGURE_PALETTE.length - 1];
 
   // 帧来源：controller onFrame → signal；无帧（未开始/动画关闭）→ 当前状态首帧
   const frame = (): PixelFrame => {
@@ -134,6 +135,7 @@ export function SidebarPet(props: SidebarPetProps): JSX.Element {
       return renderFrame(frame(), SHIGURE_PALETTE, {
         transparentIndex: 0,
         outlineColor: outlineColor(),
+        backgroundColor: panelBackground(),
       }).rows;
     } catch (err) {
       console.debug("[opco-shigure] render error, label only", err);

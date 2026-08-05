@@ -35,7 +35,13 @@ function render(size: PetSize, outlineColor: string): string {
     lines.push(`\n## ${state} (${spec.frames.length} frame${spec.frames.length === 1 ? "" : "s"})`);
     for (const [index, frame] of spec.frames.entries()) {
       lines.push(`frame ${index + 1}/${spec.frames.length}`);
-      const result = renderFrame(frame, SHIGURE_MANIFEST.palette, { transparentIndex: 0, outlineColor });
+      const result = renderFrame(frame, SHIGURE_MANIFEST.palette, {
+        transparentIndex: 0,
+        outlineColor,
+        // 透明组合现在显式携带 bg；预览沿用本模式的主题基调（深/浅各一），
+        // 保持"透明 = 面板底色"的预览语义。
+        backgroundColor: outlineColor,
+      });
       lines.push(...result.rows.map((row) => row.map(ansiRun).join("")));
     }
   }
