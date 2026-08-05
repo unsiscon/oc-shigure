@@ -1,0 +1,123 @@
+{
+  "format": "opcopet-terminal-art-candidate",
+  "formatVersion": 1,
+  "candidateId": "shigure-regular-32-idle-art-v3-v1",
+  "displayName": "时雨 Regular 32 B",
+  "size": "regular",
+  "dimension": 32,
+  "terminalColumns": 32,
+  "terminalRows": 16,
+  "legend": ".0123456789ab",
+  "palette": [
+    "transparent",
+    "#2A1D1A",
+    "#4A2B24",
+    "#704739",
+    "#FFD0B4",
+    "#4BA9FF",
+    "#153A78",
+    "#242634",
+    "#F1E8DF",
+    "#C52F3C",
+    "#141820",
+    "#4B2624",
+    "#17141B"
+  ],
+  "visualSources": [
+    "design/samples/shigure-concept-a-rounded-v3.png",
+    "design/samples/shigure-concept-a-uniform-v2.png",
+    "design/references/shigure-reference-photo-1.jpg"
+  ],
+  "previewBackgrounds": {
+    "dark": "#22252C",
+    "light": "#F2EEE6"
+  },
+  "states": {
+    "idle": {
+      "frameDurationMs": 400,
+      "loop": true,
+      "frames": [
+        {
+          "id": "neutral",
+          "rows": [
+            "................................",
+            "................................",
+            ".............bbbbbb.............",
+            "..........bbb111111bbb..........",
+            "........bb111111111111bb........",
+            "......bb1112222211111111bb......",
+            ".....bb112222111112222111bb.....",
+            "....bb11221111111111112211bb....",
+            "...bb0888111122222111111111bb...",
+            "...b002820001112221111122200b...",
+            "..bb02828003311133000331220111..",
+            "..b0000111745311333745131100000.",
+            "..b000013344533333344533110222..",
+            "..b0000133555333333555331100111.",
+            "..b000013333333333333333110000..",
+            "..b0000013333338833333311000222.",
+            "...b00221133333333333311220111..",
+            "...b000221777667766777122000000.",
+            "....b0066677666886667766600222..",
+            "....b00866766688886667668001111.",
+            ".....b07777666688666677770b000..",
+            ".....b03307766688666770330b.222.",
+            "......b000066668866660000b..88..",
+            ".......bbb666686686666bbb....8..",
+            ".........66686668666866.........",
+            "..........888868886888..........",
+            "...........333....333...........",
+            "...........999....999...........",
+            "...........999....999...........",
+            "..........7777....7777..........",
+            ".........aaaaa....aaaaa.........",
+            "................................"
+          ]
+        },
+        {
+          "id": "soft-blink",
+          "rows": [
+            "................................",
+            "................................",
+            ".............bbbbbb.............",
+            "..........bbb111111bbb..........",
+            "........bb111111111111bb........",
+            "......bb1112222211111111bb......",
+            ".....bb112222111112222111bb.....",
+            "....bb11221111111111112211bb....",
+            "...bb0888111122222111111111bb...",
+            "...b002820001112221111122200b...",
+            "..bb02828003311133000331220111..",
+            "..b0000111333311333333131100000.",
+            "..b000013355533333355533110222..",
+            "..b0000133333333333333331100111.",
+            "..b000013333333333333333110000..",
+            "..b0000013333338833333311000222.",
+            "...b00221133333333333311220111..",
+            "...b000221777667766777122000000.",
+            "....b0066677666886667766600222..",
+            "....b00866766688886667668001111.",
+            ".....b07777666688666677770b000..",
+            ".....b03307766688666770330b.222.",
+            "......b000066668866660000b..88..",
+            ".......bbb666686686666bbb....8..",
+            ".........66686668666866.........",
+            "..........888868886888..........",
+            "...........333....333...........",
+            "...........999....999...........",
+            "...........999....999...........",
+            "..........7777....7777..........",
+            ".........aaaaa....aaaaa.........",
+            "................................"
+          ]
+        }
+      ]
+    }
+  },
+  "notes": {
+    "construction": "Detail-first terminal-native 32x32 redraw directly interpreting rounded-v3; not scaled from the 24x24 candidate or traced from an existing sprite.",
+    "identity": "Rounded low center of gravity, broad tapered long hair, layered bangs and highlights, three-level blue eyes, crossed red hair clip, attached segmented side braid, sailor collar and side panels, long red tie, pleated red-trim skirt, warm sock cuffs and short boots.",
+    "outlinePolicy": "b is reserved for exterior silhouette edges; all internal facial, hair and uniform structure uses stable material colors.",
+    "animation": "Frame 2 changes only the eye area for a soft blink; baseline, body registration, hair, braid and clothing remain fixed."
+  }
+}

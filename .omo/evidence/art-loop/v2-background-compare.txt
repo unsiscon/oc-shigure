@@ -1,0 +1,1 @@
+# same approved-v2 half-block frame; left background #0B0E14, right sampled TUI panel #22252C; cell approx 14x22px

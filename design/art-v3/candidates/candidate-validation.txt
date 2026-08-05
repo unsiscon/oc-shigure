@@ -1,0 +1,21 @@
+shigure art-v3 candidate deterministic validation
+preview semantics: 1 terminal cell = 12x24 px, upper/lower logical pixels = 12x12 px
+dark background=#22252C; light background=#F2EEE6
+
+[regular-24-idle.json]
+candidate=shigure-regular-24-idle-art-v3-v1
+dimension=24 terminal_cells=24x12 frames=2
+bbox=(1, 2, 22, 22) frame_difference_pixels=9
+required_tokens=eyeBlue:4, ribbonRed:64, trimWarmWhite:46, sockBlack:12
+outline_b_count=70
+errors=0 warnings=0
+sha256=ea6b0b5685de05fb5053cc81fca1b088bbacb3ea34e4ecfc66b43fd28628f7c2
+
+[regular-32-idle.json]
+candidate=shigure-regular-32-idle-art-v3-v1
+dimension=32 terminal_cells=32x16 frames=2
+bbox=(2, 2, 30, 30) frame_difference_pixels=16
+required_tokens=eyeBlue:6, ribbonRed:80, trimWarmWhite:70, sockBlack:24
+outline_b_count=114
+errors=0 warnings=0
+sha256=448eb44290e6596b33c8d63aaf75b0ef65aba868d4da47d6be581b503d872889

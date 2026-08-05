@@ -1,0 +1,1 @@
+# v2 source; half-block cell preview calibrated to screenshot approx 14x22 px per terminal cell; panel #22252C

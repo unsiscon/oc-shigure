@@ -1,0 +1,107 @@
+{
+  "format": "opcopet-terminal-art-candidate",
+  "formatVersion": 1,
+  "candidateId": "shigure-regular-24-idle-art-v3-v1",
+  "displayName": "时雨 Regular 24 A",
+  "size": "regular",
+  "dimension": 24,
+  "terminalColumns": 24,
+  "terminalRows": 12,
+  "legend": ".0123456789ab",
+  "palette": [
+    "transparent",
+    "#2A1D1A",
+    "#4A2B24",
+    "#704739",
+    "#FFD0B4",
+    "#4BA9FF",
+    "#153A78",
+    "#242634",
+    "#F1E8DF",
+    "#C52F3C",
+    "#141820",
+    "#4B2624",
+    "#17141B"
+  ],
+  "visualSources": [
+    "design/samples/shigure-concept-a-rounded-v3.png",
+    "design/samples/shigure-concept-a-uniform-v2.png",
+    "design/references/shigure-reference-photo-1.jpg"
+  ],
+  "previewBackgrounds": {
+    "dark": "#22252C",
+    "light": "#F2EEE6"
+  },
+  "states": {
+    "idle": {
+      "frameDurationMs": 400,
+      "loop": true,
+      "frames": [
+        {
+          "id": "neutral",
+          "rows": [
+            "........................",
+            "........................",
+            ".........bbbbbb.........",
+            ".......bb111111bb.......",
+            ".....bb1122221111bb.....",
+            "....bb122211112221bb....",
+            "...b888211111111221bb...",
+            "..bb0821111322311111bb..",
+            "..b08080003113300100111.",
+            ".b000011753113751100000.",
+            ".b000034453333445310222.",
+            ".b000033333333333300011.",
+            "..b00003333883333100000.",
+            "..b00220333333331022022.",
+            "...b0027776776777000111.",
+            "...b8667766886677668100.",
+            "....7777768888677777222.",
+            "....33b6666886666b33.88.",
+            "......666866866866....8.",
+            ".......8886886888.......",
+            "........333..333........",
+            "........999..999........",
+            ".......aaaa..aaaa.......",
+            "........................"
+          ]
+        },
+        {
+          "id": "soft-blink",
+          "rows": [
+            "........................",
+            "........................",
+            ".........bbbbbb.........",
+            ".......bb111111bb.......",
+            ".....bb1122221111bb.....",
+            "....bb122211112221bb....",
+            "...b888211111111221bb...",
+            "..bb0821111322311111bb..",
+            "..b08080003113300100111.",
+            ".b000011333113331100000.",
+            ".b000033553333553310222.",
+            ".b000033333333333300011.",
+            "..b00003333883333100000.",
+            "..b00220333333331022022.",
+            "...b0027776776777000111.",
+            "...b8667766886677668100.",
+            "....7777768888677777222.",
+            "....33b6666886666b33.88.",
+            "......666866866866....8.",
+            ".......8886886888.......",
+            "........333..333........",
+            "........999..999........",
+            ".......aaaa..aaaa.......",
+            "........................"
+          ]
+        }
+      ]
+    }
+  },
+  "notes": {
+    "construction": "Detail-first terminal-native 24x24 redraw using approved-v0 as the density benchmark; not a scaled or traced copy.",
+    "identity": "Rounded low center of gravity, layered chocolate-brown bangs, highlighted blue eyes, crossed red hair clip, attached segmented side braid, sailor collar and panels, long red tie, pleated red-trim skirt, separated socks and red-brown boots.",
+    "outlinePolicy": "b is reserved for exterior silhouette edges; all internal facial, hair and uniform structure uses stable material colors.",
+    "animation": "Frame 2 changes only the eye area for a soft blink; baseline, body registration, hair, braid and clothing remain fixed."
+  }
+}

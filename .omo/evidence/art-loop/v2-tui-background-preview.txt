@@ -1,0 +1,6 @@
+# v2 TUI-background preview
+# source: .omo/evidence/art-preview-regular.txt -> src/assets/final.ts / approved-v2 grid
+# rendering: same ANSI half-block pairing (▀ / ▄ / █)
+# panel background approximation: #22252C (sampled from user terminal screenshot)
+# outline token: #17141B (unchanged)
+# frames: regular idle 1/2 and 2/2
